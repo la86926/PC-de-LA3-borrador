@@ -1,204 +1,186 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-modo="oscuro">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0F1411">
 <title>PC de L3</title>
 <link rel="icon" type="image/png" href="torre.png">
+<script>
+/* Fija la apariencia antes del primer pintado: sin destello al abrir. */
+(function(){try{
+  var m=localStorage.getItem('pc_modo')||'sistema';
+  var osc = m==='oscuro' || (m==='sistema' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-modo', osc?'oscuro':'claro');
+}catch(e){document.documentElement.setAttribute('data-modo','oscuro');}})();
+</script>
 <style>
-  /* ============================================================
-     PC de L3 — piel visual "boj, ébano y latón"
-     El cajón es una planilla de anotación: número de jugada,
-     renglón con filete, y el método activo con la bandera arriba.
-     Solo estilos: marcado, IDs, clases y JavaScript sin tocar.
-     Sin fuentes externas, para que funcione sin conexión en el APK.
-     ============================================================ */
-  :root{
-    --ebano:#121714;
-    --nogal:#222B24;
-    --nogal-hondo:#151C18;
-    --boj:#EFE6D2;
-    --boj-medio:#B4BCB2;
-    --boj-tenue:#89928A;
-    --laton:#D9A441;
-    --laton-claro:#F0D59A;
-    --cresta:#CF4D2E;
-    --filete:rgba(239,230,210,.10);
-    --filete-vivo:rgba(239,230,210,.18);
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono",monospace;
-    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    --curva:cubic-bezier(.2,.8,.2,1);
-  }
+/* ==================================================================
+   PC de L3 · selector de método
+   Mismo sistema de diseño que index1 e index2: mismos tokens,
+   mismas formas, mismo interruptor de apariencia.
+   ================================================================== */
+:root{
+  --r-cap:999px; --r-ico:14px; --r-card:20px; --r-box:26px;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Iowan Old Style",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono",monospace;
+}
+html,html[data-modo="oscuro"]{
+  color-scheme:dark;
+  --bg:#0F1411; --hondo:#0A0E0C; --panel:#171E1A; --panel2:#212B25;
+  --line:rgba(233,238,231,.13); --line-viva:rgba(233,238,231,.26);
+  --ink:#E9EEE7; --muted:#A4AFA6; --muted2:#7E887F;
+  --crest:#E96A45; --gold:#E2B65F;
+  --tinte-oro:rgba(226,182,95,.14); --tinte-neutro:rgba(233,238,231,.05);
+  --velo:rgba(6,9,7,.66);
+  --s1:0 1px 2px rgba(0,0,0,.3);
+  --s2:0 6px 18px -8px rgba(0,0,0,.6);
+  --s4:0 34px 80px -30px rgba(0,0,0,.9);
+  --luz-interna:inset 0 1px 0 rgba(233,238,231,.06);
+}
+html[data-modo="claro"]{
+  color-scheme:light;
+  --bg:#ECEFE9; --hondo:#E3E7E0; --panel:#F8FAF6; --panel2:#FFFFFF;
+  --line:rgba(21,28,24,.12); --line-viva:rgba(21,28,24,.26);
+  --ink:#151C18; --muted:#586258; --muted2:#768076;
+  --crest:#B24019; --gold:#8A6416;
+  --tinte-oro:rgba(138,100,22,.10); --tinte-neutro:rgba(21,28,24,.04);
+  --velo:rgba(28,34,30,.42);
+  --s1:0 1px 2px rgba(24,31,26,.06);
+  --s2:0 8px 20px -10px rgba(24,31,26,.16);
+  --s4:0 34px 80px -32px rgba(24,31,26,.34);
+  --luz-interna:inset 0 1px 0 rgba(255,255,255,.9);
+}
 
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+.app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:var(--bg);display:none}
+.app-frame.active{display:block}
 
-  /* Pantalla de espera: un tablero de 8 columnas, apenas insinuado. */
-  html,body{
-    margin:0;width:100%;height:100%;overflow:hidden;
-    background-color:var(--ebano);
-    background-image:
-      radial-gradient(130% 85% at 50% 0%, rgba(217,164,65,.06), rgba(217,164,65,0) 62%),
-      conic-gradient(rgba(239,230,210,.032) .25turn, transparent .25turn .5turn, rgba(239,230,210,.032) .5turn .75turn, transparent .75turn);
-    background-size:auto, 25vw 25vw;
-    font-family:var(--sans);
-    color:var(--boj);
-  }
+/* botón de menú: cuadrado redondeado, igual que los botones de icono de la app */
+.menu-button{
+  position:fixed;left:calc(11px + env(safe-area-inset-left));top:calc(11px + env(safe-area-inset-top));
+  z-index:10020;width:44px;height:44px;padding:0;cursor:pointer;
+  border:1px solid var(--line);border-radius:var(--r-ico);
+  background:var(--panel);color:var(--ink);
+  box-shadow:var(--s2),var(--luz-interna);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .14s,border-color .2s,color .2s,background .2s
+}
+.menu-button:active{transform:scale(.94)}
+.menu-button span,.menu-button:before,.menu-button:after{
+  content:"";display:block;position:absolute;width:18px;height:1.7px;border-radius:2px;
+  background:currentColor;transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .16s
+}
+.menu-button span{transform:translateY(0)}
+.menu-button:before{transform:translateY(-6px)}
+.menu-button:after{transform:translateY(6px)}
+.menu-button.open{border-color:var(--crest);color:var(--crest)}
+.menu-button.open span{opacity:0}
+.menu-button.open:before{transform:rotate(45deg)}
+.menu-button.open:after{transform:rotate(-45deg)}
 
-  /* Es el mismo fondo que el body de index1/index2, para que no se vea costura al cargar. */
-  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#121714;display:none}
-  .app-frame.active{display:block}
+.drawer-backdrop{
+  position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;background:var(--velo);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s
+}
+.drawer-backdrop.open{opacity:1;visibility:visible}
+.drawer{
+  position:absolute;left:0;top:0;bottom:0;width:min(86vw,352px);
+  display:flex;flex-direction:column;
+  background:var(--panel);border-right:1px solid var(--line);
+  box-shadow:var(--s4);
+  transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  padding:calc(72px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom))
+}
+.drawer-backdrop.open .drawer{transform:translateX(0)}
 
-  /* ---------- botón del menú: una pieza sobre su casilla ---------- */
-  .menu-button{
-    position:fixed;
-    left:calc(12px + env(safe-area-inset-left));
-    top:calc(12px + env(safe-area-inset-top));
-    z-index:10020;width:46px;height:46px;padding:0;cursor:pointer;
-    border:1px solid var(--filete-vivo);border-radius:9px;
-    background:linear-gradient(180deg,#242D27,#161C19);
-    box-shadow:0 10px 26px rgba(0,0,0,.5), inset 0 1px 0 rgba(239,230,210,.07);
-    color:var(--boj);
-    display:flex;align-items:center;justify-content:center;
-    transition:border-color .2s, background .2s, color .2s, transform .12s var(--curva);
-  }
-  .menu-button:active{transform:scale(.93)}
-  .menu-button span,.menu-button:before,.menu-button:after{
-    content:"";display:block;position:absolute;width:19px;height:1.6px;border-radius:2px;
-    background:currentColor;transition:transform .2s var(--curva), opacity .16s
-  }
-  .menu-button span{transform:translateY(0)}
-  .menu-button:before{transform:translateY(-6px)}
-  .menu-button:after{transform:translateY(6px)}
-  .menu-button.open{border-color:rgba(217,164,65,.55);background:linear-gradient(180deg,#2A2A1F,#1A1A14);color:var(--laton-claro)}
-  .menu-button.open span{opacity:0}
-  .menu-button.open:before{transform:rotate(45deg)}
-  .menu-button.open:after{transform:rotate(-45deg)}
+.drawer-brand{
+  display:flex;align-items:center;gap:12px;padding:0 2px 16px;margin-bottom:14px;
+  border-bottom:1px solid var(--line);
+  opacity:0;transform:translateX(-8px);transition:opacity .3s cubic-bezier(.2,.8,.2,1),transform .3s cubic-bezier(.2,.8,.2,1)
+}
+.drawer-backdrop.open .drawer-brand{opacity:1;transform:none}
+.drawer-brand img{
+  width:42px;height:42px;object-fit:contain;padding:6px;border-radius:var(--r-ico);
+  background:var(--tinte-neutro);box-shadow:inset 0 0 0 1px var(--line)
+}
+.drawer-brand strong{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:600;letter-spacing:-.01em;line-height:1.05}
+.drawer-brand small{
+  display:block;margin-top:5px;font-family:var(--mono);font-size:.58rem;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)
+}
 
-  /* ---------- telón ---------- */
-  .drawer-backdrop{
-    position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;
-    background:rgba(7,10,8,.62);
-    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
-    opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s
-  }
-  .drawer-backdrop.open{opacity:1;visibility:visible}
+/* interruptor de apariencia: idéntico al de los métodos */
+.tema{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:var(--r-cap);background:var(--tinte-neutro);margin-bottom:16px;align-self:flex-start}
+.tema button{
+  width:34px;height:28px;padding:0;border:0;border-radius:var(--r-cap);background:transparent;
+  color:var(--muted2);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s
+}
+.tema button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tema button:hover{color:var(--ink)}
+.tema button[aria-pressed="true"]{background:var(--panel2);color:var(--ink);box-shadow:var(--s1)}
 
-  /* ---------- la planilla ---------- */
-  .drawer{
-    position:absolute;left:0;top:0;bottom:0;width:min(84vw,340px);
-    display:flex;flex-direction:column;
-    background:
-      linear-gradient(180deg, rgba(239,230,210,.045), rgba(239,230,210,0) 24%),
-      linear-gradient(180deg, var(--nogal) 0%, var(--nogal-hondo) 100%);
-    border-right:1px solid rgba(217,164,65,.26);
-    box-shadow:26px 0 60px rgba(0,0,0,.55);
-    transform:translateX(-102%);
-    transition:transform .28s var(--curva);
-    padding:calc(78px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
-    color:var(--boj);
-  }
-  .drawer-backdrop.open .drawer{transform:translateX(0)}
+/* los dos métodos, como tarjetas */
+.app-choice{
+  position:relative;width:100%;margin:0 0 10px;cursor:pointer;text-align:left;touch-action:manipulation;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+  padding:16px 16px;
+  border:1px solid var(--line);border-radius:var(--r-card);
+  background:var(--tinte-neutro);color:var(--ink);
+  font-family:var(--sans);font-size:1rem;font-weight:600;
+  box-shadow:var(--s1);
+  opacity:0;transform:translateX(-10px);
+  transition:opacity .3s cubic-bezier(.2,.8,.2,1) .05s,transform .3s cubic-bezier(.2,.8,.2,1) .05s,
+             background .18s,border-color .18s,box-shadow .18s
+}
+.drawer-backdrop.open .app-choice{opacity:1;transform:none}
+.drawer-backdrop.open .app-choice[data-app="2"]{transition-delay:.11s}
+.app-choice > span{display:block;min-width:0;font-family:var(--serif);font-size:1.16rem;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+.app-choice br{display:none}
+.app-choice small{
+  display:block;margin-top:6px;font-family:var(--mono);font-size:.6rem;font-weight:400;
+  letter-spacing:.1em;text-transform:uppercase;line-height:1.4;color:var(--muted2)
+}
+.app-choice:not(.active):hover{border-color:var(--line-viva);background:var(--panel2);box-shadow:var(--s2)}
+.app-choice:not(.active):active{transform:scale(.995)}
+.app-choice.active{
+  border-color:var(--gold);background:var(--tinte-oro);box-shadow:var(--s1),0 0 0 1px var(--gold)
+}
+.app-choice.active > span{color:var(--gold)}
+.app-choice.active:after{
+  content:"activo";
+  font-family:var(--mono);font-size:.56rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold);border-radius:var(--r-cap);padding:.3em .6em;white-space:nowrap
+}
+.drawer-note{
+  margin:auto 2px 0;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--muted2);font-family:var(--mono);font-size:.61rem;line-height:1.8;letter-spacing:.05em;
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .3s cubic-bezier(.2,.8,.2,1) .16s,transform .3s cubic-bezier(.2,.8,.2,1) .16s
+}
+.drawer-backdrop.open .drawer-note{opacity:1;transform:none}
+.drawer-note:before{
+  content:"";display:block;width:88px;height:10px;margin:0 0 14px;border-radius:1px;
+  background-image:
+    linear-gradient(90deg,transparent 55px,var(--crest) 55px 66px,transparent 66px),
+    repeating-linear-gradient(90deg,var(--line-viva) 0 11px,transparent 11px 22px)
+}
+.menu-button:focus-visible,.app-choice:focus-visible,.tema button:focus-visible{outline:2px solid var(--crest);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-  /* ---------- cabecera ---------- */
-  .drawer-brand{
-    display:flex;align-items:center;gap:13px;
-    padding:0 4px 18px;margin-bottom:4px;
-    border-bottom:1px solid var(--filete);
-    opacity:0;transform:translateX(-8px);
-    transition:opacity .32s var(--curva), transform .32s var(--curva)
-  }
-  .drawer-backdrop.open .drawer-brand{opacity:1;transform:none}
-  .drawer-brand img{
-    width:44px;height:44px;object-fit:contain;padding:6px;border-radius:7px;
-    background:rgba(239,230,210,.06);
-    box-shadow:inset 0 0 0 1px rgba(239,230,210,.10), 0 6px 14px rgba(0,0,0,.35)
-  }
-  .drawer-brand strong{
-    display:block;font-family:var(--serif);font-size:1.36rem;font-weight:600;
-    letter-spacing:.005em;line-height:1.05;color:var(--boj)
-  }
-  .drawer-brand small{
-    display:block;margin-top:6px;font-family:var(--mono);font-size:.6rem;font-weight:400;
-    letter-spacing:.15em;text-transform:uppercase;line-height:1.5;color:var(--boj-tenue)
-  }
-
-  /* ---------- renglones de la planilla ---------- */
-  .app-choice{
-    position:relative;width:100%;margin:0;cursor:pointer;text-align:left;touch-action:manipulation;
-    display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:12px;
-    padding:17px 12px 17px 10px;
-    border:0;border-bottom:1px solid var(--filete);border-radius:0;
-    background:transparent;color:var(--boj);
-    font-family:var(--sans);font-size:1rem;font-weight:600;
-    opacity:0;transform:translateX(-10px);
-    transition:opacity .3s var(--curva) .05s, transform .3s var(--curva) .05s, background .18s, color .18s, box-shadow .18s
-  }
-  .app-choice[data-app="1"]{border-top:1px solid var(--filete)}
-  .drawer-backdrop.open .app-choice{opacity:1;transform:none}
-  .drawer-backdrop.open .app-choice[data-app="2"]{transition-delay:.11s}
-
-  /* El número de jugada lo escribe el propio data-app. */
-  .app-choice:before{
-    content:attr(data-app) ".";
-    font-family:var(--mono);font-size:.84rem;font-weight:400;letter-spacing:.02em;
-    color:var(--boj-tenue);text-align:right
-  }
-  .app-choice > span{display:block;min-width:0;font-family:var(--serif);font-size:1.1rem;font-weight:600;letter-spacing:.005em;line-height:1.15}
-  .app-choice br{display:none}
-  .app-choice small{
-    display:block;margin-top:6px;font-family:var(--mono);font-size:.62rem;font-weight:400;
-    letter-spacing:.1em;text-transform:uppercase;line-height:1.4;color:var(--boj-tenue)
-  }
-  .app-choice:not(.active):active{background:rgba(239,230,210,.055)}
-
-  /* método en juego: bandera de latón levantada */
-  .app-choice.active{
-    background:linear-gradient(90deg, rgba(217,164,65,.15), rgba(217,164,65,.035) 68%, rgba(217,164,65,0));
-    box-shadow:inset 3px 0 0 var(--laton);
-    color:var(--laton-claro)
-  }
-  .app-choice.active:before{color:var(--laton)}
-  .app-choice.active small{color:rgba(240,213,154,.6)}
-  .app-choice.active:after{
-    content:"activo";
-    font-family:var(--mono);font-size:.58rem;font-weight:400;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--laton)
-  }
-
-  /* ---------- pie ---------- */
-  .drawer-note{
-    margin:auto 4px 0;padding-top:20px;border-top:1px solid var(--filete);
-    color:var(--boj-tenue);font-family:var(--mono);font-size:.62rem;line-height:1.8;letter-spacing:.05em;
-    opacity:0;transform:translateX(-8px);
-    transition:opacity .32s var(--curva) .16s, transform .32s var(--curva) .16s
-  }
-  .drawer-backdrop.open .drawer-note{opacity:1;transform:none}
-  .drawer-note:before{
-    content:"";display:block;width:88px;height:10px;margin:0 0 15px;border-radius:1px;
-    background-image:
-      linear-gradient(90deg, transparent 55px, var(--cresta) 55px 66px, transparent 66px),
-      repeating-linear-gradient(90deg, rgba(239,230,210,.19) 0 11px, transparent 11px 22px)
-  }
-
-  .menu-button:focus-visible,.app-choice:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
-
-  @media(max-width:480px){
-    .menu-button{left:calc(9px + env(safe-area-inset-left));top:calc(9px + env(safe-area-inset-top));width:42px;height:42px;border-radius:8px}
-    .drawer{width:min(88vw,320px);padding-left:16px;padding-right:16px;padding-top:calc(68px + env(safe-area-inset-top))}
-    .drawer-brand strong{font-size:1.26rem}
-  }
-  @media(max-height:560px){
-    .drawer{padding-top:calc(64px + env(safe-area-inset-top))}
-    .drawer-brand{padding-bottom:13px}
-    .app-choice{padding-top:13px;padding-bottom:13px}
-    .drawer-note{padding-top:14px;line-height:1.6}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .drawer,.drawer-backdrop,.drawer-brand,.drawer-note,.app-choice,
-    .menu-button,.menu-button span,.menu-button:before,.menu-button:after{transition-duration:.01ms}
-    .menu-button:active{transform:none}
-  }
+@media(max-width:480px){
+  .menu-button{left:calc(8px + env(safe-area-inset-left));top:calc(8px + env(safe-area-inset-top));width:41px;height:41px}
+  .drawer{padding-left:15px;padding-right:15px;padding-top:calc(64px + env(safe-area-inset-top))}
+  .drawer-brand strong{font-size:1.2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .drawer,.drawer-backdrop,.drawer-brand,.drawer-note,.app-choice,
+  .menu-button,.menu-button span,.menu-button:before,.menu-button:after{transition-duration:.01ms}
+  .menu-button:active,.app-choice:active{transform:none}
+}
 </style>
 </head>
 <body>
@@ -209,9 +191,14 @@
       <img src="torre.png" alt="Ajedrez">
       <div><strong>PC de L3</strong><small>Dos métodos en una aplicación</small></div>
     </div>
+    <div class="tema" id="tema" role="group" aria-label="Apariencia">
+      <button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg><span class="sr">Claro</span></button>
+      <button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg><span class="sr">Oscuro</span></button>
+      <button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg><span class="sr">Sistema</span></button>
+    </div>
     <button class="app-choice active" data-app="1" type="button"><span>PC de L1<br><small>Ejercicios tácticos</small></span></button>
     <button class="app-choice" data-app="2" type="button"><span>PC de L2<br><small>Ejercicios posicionales</small></span></button>
-    <p class="drawer-note">El progreso de cada método se conserva de forma independiente.</p>
+    <p class="drawer-note">El progreso de cada método se conserva de forma independiente. La apariencia y el tema del tablero se comparten.</p>
   </aside>
 </div>
 <iframe class="app-frame active" id="app-frame-1" src="index1.html" title="PC de L1" allow="autoplay"></iframe>
@@ -227,6 +214,7 @@
     menuButton.classList.toggle('open',open);
     menuButton.setAttribute('aria-expanded',open?'true':'false');
     backdrop.setAttribute('aria-hidden',open?'false':'true');
+    if(open) aplicarModo();
   }
   function selectApp(id){
     activeApp=String(id);
@@ -244,6 +232,38 @@
   var choices=document.querySelectorAll('.app-choice');
   for(var i=0;i<choices.length;i++) choices[i].onclick=function(){selectApp(this.getAttribute('data-app'));};
   try{var saved=localStorage.getItem('pc_l3_active_app');if(saved==='2')selectApp('2');}catch(e){}
+
+  /* ---- apariencia: misma clave que los métodos, así los tres van a una ---- */
+  var raiz=document.documentElement, K='pc_modo';
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function leerModo(){try{return localStorage.getItem(K)||'sistema'}catch(e){return 'sistema'}}
+  var modo=leerModo();
+  function aplicarModo(){
+    modo=leerModo();
+    if(['claro','oscuro','sistema'].indexOf(modo)<0) modo='sistema';
+    var oscuro = modo==='oscuro' || (modo==='sistema' && mq.matches);
+    raiz.setAttribute('data-modo', oscuro?'oscuro':'claro');
+    var bs=document.querySelectorAll('#tema button');
+    for(var i=0;i<bs.length;i++) bs[i].setAttribute('aria-pressed', String(bs[i].getAttribute('data-modo')===modo));
+    var m=document.querySelector('meta[name="theme-color"]');
+    if(m) m.setAttribute('content', oscuro?'#0F1411':'#ECEFE9');
+  }
+  var bt=document.querySelectorAll('#tema button');
+  for(var t=0;t<bt.length;t++){
+    bt[t].onclick=function(){
+      try{localStorage.setItem(K,this.getAttribute('data-modo'));}catch(e){}
+      aplicarModo();
+      /* avisa a los métodos ya cargados */
+      var frames=document.querySelectorAll('.app-frame');
+      for(var i=0;i<frames.length;i++){
+        try{ if(frames[i].contentWindow) frames[i].contentWindow.dispatchEvent(new StorageEvent('storage',{key:K})); }catch(e){}
+      }
+    };
+  }
+  if(mq.addEventListener) mq.addEventListener('change',function(){ if(modo==='sistema') aplicarModo(); });
+  else if(mq.addListener) mq.addListener(function(){ if(modo==='sistema') aplicarModo(); });
+  window.addEventListener('storage',function(e){ if(!e||!e.key||e.key===K) aplicarModo(); });
+  aplicarModo();
 
   /* Reenvía al método activo las respuestas del selector, portapapeles y guardado nativo. */
   window.pcAndroidResultadoBase64=function(tipoBase64,datoBase64){
