@@ -1870,6 +1870,22 @@ html[data-modo="claro"],html[data-modo="oscuro"]{
   .pc-perso-head-acciones .pc-modo-mini button{width:23px}
 }
 
+/* ---------- 54. cierre flotante y controles propios del nombre ----------
+   La X principal vuelve a flotar con la vista previa. El editor que aparece al
+   abrir el teclado conserva sus propios modos y su propia X, sin depender de la
+   ventana principal. */
+.pc-perso-head-acciones{padding-right:3rem}
+.pc-perso-cierre-flotante{
+  position:sticky;top:.55rem;z-index:40;
+  margin:.55rem .75rem -2.75rem auto;display:grid
+}
+.pc-nombre-acciones{display:none}
+.pc-perso-bg.escribiendo .pc-nombre-acciones{display:flex}
+@media(max-width:430px){
+  .pc-perso-head-acciones{padding-right:2.65rem}
+  .pc-perso-cierre-flotante{margin-right:.55rem}
+}
+
 </style>
 <script>
 /* Fija apariencia, tablero y encabezado antes del primer pintado.
@@ -7727,6 +7743,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
 <div class="pc-perso-bg" id="pc-perso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tablero personalizado">
   <div class="pc-temas-box">
+    <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <div class="pc-perso-cab">
       <div class="pc-temas-head">
         <div class="pc-perso-titulo">
@@ -7735,7 +7752,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
         </div>
         <div class="pc-perso-head-acciones">
           <div class="pc-modo pc-modo-mini pc-perso-modo" role="group" aria-label="Apariencia del tablero personalizado"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
-          <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
         </div>
       </div>
     </div>
@@ -7746,6 +7762,10 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
+        <div class="pc-nombre-acciones">
+          <div class="pc-modo pc-modo-mini pc-nombre-modo" role="group" aria-label="Apariencia del editor de nombre"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+          <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+        </div>
       </div>
       <div class="pc-nombre-fila">
         <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
@@ -8439,13 +8459,28 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     cerrar(cajaPerso);
   }
   var px=document.getElementById('pc-perso-x');
-  if(px) px.onclick=cerrarPersoSeguro;
-  var nx=document.getElementById('pc-nombre-x');
-  if(nx) nx.onclick=function(){
+  if(px){
+    px.addEventListener('pointerdown',function(ev){ ev.preventDefault(); px._tocado=true; cerrarPersoSeguro(); });
+    px.addEventListener('click',function(ev){
+      ev.preventDefault();
+      if(px._tocado){ px._tocado=false; return; }
+      cerrarPersoSeguro();
+    });
+  }
+  function cerrarEdicionNombre(){
     var campo=document.getElementById('pc-perso-nombre');
     try{ if(campo) campo.blur(); }catch(e){}
     if(cajaPerso) cajaPerso.classList.remove('escribiendo');
-  };
+  }
+  var nx=document.getElementById('pc-nombre-x');
+  if(nx){
+    nx.addEventListener('pointerdown',function(ev){ ev.preventDefault(); nx._tocado=true; cerrarEdicionNombre(); });
+    nx.addEventListener('click',function(ev){
+      ev.preventDefault();
+      if(nx._tocado){ nx._tocado=false; return; }
+      cerrarEdicionNombre();
+    });
+  }
   var pc2=document.getElementById('pc-perso-cerrar');
   if(pc2) pc2.onclick=cerrarPersoSeguro;
   if(cajaPerso) cajaPerso.onclick=function(e){ e.stopPropagation(); };
