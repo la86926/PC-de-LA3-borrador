@@ -866,6 +866,288 @@ body.workspace-open{overflow:hidden}
 @media(max-width:760px){.workspace-shell{min-height:100vh;max-height:100vh}}
 </style>
 
+
+<style id="piel-l3">
+/* ==============================================================
+   PIEL "boj, ébano y latón"  ·  El Método PC
+   Capa única añadida al final del <head>. No modifica ni una línea
+   del CSS de arriba: solo lo pisa por orden de cascada.
+   Para volver al aspecto anterior, borra este bloque completo.
+
+   Reglas del sistema:
+   · notación y datos → monoespaciada    · prosa y títulos → serif
+   · el latón marca lo activo            · la cresta roja marca lo urgente
+   ============================================================== */
+
+:root{
+  /* superficies: ébano y nogal */
+  --bg:#121714;
+  --panel:#1C241F;
+  --panel2:#26302A;
+  --line:#38443C;
+
+  /* tinta: boj */
+  --ink:#EFE6D2;
+  --muted:#A9B2A7;
+  --muted2:#89928A;
+
+  /* tablero de madera: boj y nogal (antes verde/marfil) */
+  --light:#EFE1C6;
+  --dark:#7A6248;
+
+  /* firma de la app, intacta */
+  --crest:#CF4D2E;
+  --gold:#D9A441;
+  --good:#77A268;
+  --bad:#CF4D2E;
+
+  /* resaltado de casilla: latón en vez de amarillo neón */
+  --hl:rgba(226,183,88,.44);
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono",monospace;
+
+  /* nuevos tokens de esta piel */
+  --laton-claro:#F0D59A;
+  --filete:rgba(239,230,210,.10);
+  --nogal-canto:#3C2F23;
+  --hondo:#151C18;
+}
+
+/* Fondo: el mismo tablero de 8 columnas del selector, apenas insinuado. */
+body{
+  background-color:var(--bg);
+  background-image:conic-gradient(rgba(239,230,210,.028) .25turn, transparent .25turn .5turn, rgba(239,230,210,.028) .5turn .75turn, transparent .75turn);
+  background-size:25vw 25vw;
+}
+
+/* ---------- barra superior ---------- */
+.topbar{background:rgba(18,23,20,.9);border-bottom:1px solid var(--filete)}
+.topbar > div > span{font-family:var(--serif);font-size:1.06rem;font-weight:600;letter-spacing:.004em}
+.topbar > div > span > small{
+  font-family:var(--mono);font-size:.58rem;font-weight:400;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted2);margin-top:4px
+}
+.wordmark small{font-family:var(--mono);letter-spacing:.15em;color:var(--muted2)}
+
+/* pestañas: la activa se apoya en una línea de latón */
+.tabs{background:rgba(239,230,210,.035);border:1px solid var(--filete);border-radius:9px}
+.tab{border-radius:6px;font-weight:600}
+.tab.active{background:rgba(217,164,65,.13);color:var(--laton-claro);box-shadow:inset 0 -2px 0 var(--gold)}
+.gtab{border-radius:5px;font-weight:600}
+.gtab.active{background:rgba(217,164,65,.13);color:var(--laton-claro);box-shadow:inset 0 -2px 0 var(--gold)}
+
+/* el regalo late más suave */
+.gift-btn{
+  border:1px solid rgba(217,164,65,.5);border-radius:10px;
+  background:linear-gradient(150deg,rgba(217,164,65,.16),rgba(239,230,210,.03))
+}
+@keyframes giftPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(217,164,65,.34)}
+  50%{box-shadow:0 0 0 8px rgba(217,164,65,0)}
+}
+.gift-btn:hover{transform:translateY(-1px) scale(1.04);border-color:var(--gold)}
+.gift-box{border:1px solid rgba(217,164,65,.42);border-radius:16px;background:linear-gradient(165deg,#2A231B,#181E1A)}
+.gift-x{border-radius:7px;border-color:var(--filete)}
+
+/* ---------- cabecera del tablero ---------- */
+.exno{font-family:var(--serif);font-size:1.55rem;font-weight:600;letter-spacing:-.005em}
+.chip{
+  font-family:var(--mono);font-size:.6rem;font-weight:400;letter-spacing:.14em;
+  border-radius:4px;border-color:var(--filete);padding:.22rem .48rem
+}
+.toplay{font-size:.88rem}
+.engine-banner-toggle{border-radius:6px;border-color:var(--filete);font-family:var(--sans);font-weight:600}
+.engine-banner-toggle[aria-pressed="true"]{color:var(--laton-claro);border-color:rgba(217,164,65,.5);background:rgba(217,164,65,.13)}
+
+/* ---------- el tablero, ahora de madera ---------- */
+.frame{
+  background:linear-gradient(150deg,#40311F 0%,#241C15 58%,#33271C 100%);
+  border-radius:11px;
+  box-shadow:
+    0 24px 50px -22px rgba(0,0,0,.8),
+    inset 0 0 0 1px rgba(240,213,154,.16),
+    inset 0 1px 0 rgba(255,255,255,.07)
+}
+.board{border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.55), 0 3px 12px rgba(0,0,0,.4)}
+
+/* coordenadas: notación, por lo tanto monoespaciada */
+.coord{font-family:var(--mono);font-size:.56rem;font-weight:600;opacity:.9}
+.sq.l .coord{color:#8A6A46}
+.sq.d .coord{color:#E7D8BC}
+.ex-coord{font-family:var(--mono);font-weight:600}
+.ex-sq.l .ex-coord{color:#8A6A46}
+.ex-sq.d .ex-coord{color:#E7D8BC}
+
+/* marcas de jugada legal sobre madera */
+.sq.l .dot{background:rgba(58,38,18,.32)}
+.sq.d .dot{background:rgba(18,11,4,.42)}
+.cap{border-color:rgba(58,38,18,.16)}
+.sq.d .cap{border-color:rgba(18,11,4,.26)}
+@keyframes peck{
+  0%{box-shadow:inset 0 0 0 0 rgba(119,162,104,0)}
+  35%{box-shadow:inset 0 0 0 5px var(--good)}
+  100%{box-shadow:inset 0 0 0 0 rgba(119,162,104,0)}
+}
+@keyframes shake{
+  0%,100%{box-shadow:inset 0 0 0 0 rgba(207,77,46,0)}
+  20%{box-shadow:inset 0 0 0 5px var(--crest);transform:translateX(-2px)}
+  60%{transform:translateX(2px)}
+}
+
+/* la cresta del pájaro carpintero marca el mate */
+.mate-badge{background:var(--crest);box-shadow:0 2px 7px rgba(0,0,0,.55), inset 0 0 0 1.5px rgba(255,241,234,.9)}
+.mate-badge svg{stroke:#FFF1EA}
+
+/* ---------- estado: un filete de color a la izquierda ---------- */
+.status{
+  border-radius:9px;background:#1B231E;border:1px solid var(--filete);
+  font-size:.9rem;padding:.6rem .85rem
+}
+.status.ok{background:rgba(119,162,104,.12);border-color:rgba(119,162,104,.34);color:#C3E0B7;box-shadow:inset 3px 0 0 var(--good)}
+.status.no{background:rgba(207,77,46,.12);border-color:rgba(207,77,46,.36);color:#F0B6A6;box-shadow:inset 3px 0 0 var(--crest)}
+.status.done{background:rgba(217,164,65,.12);border-color:rgba(217,164,65,.38);color:var(--laton-claro);box-shadow:inset 3px 0 0 var(--gold)}
+.status.free{border-color:var(--filete);box-shadow:inset 3px 0 0 rgba(137,146,138,.5)}
+
+/* ---------- botones ---------- */
+.btn{
+  border:1px solid var(--filete);background:#212A24;border-radius:8px;
+  font-weight:600;letter-spacing:.004em;
+  box-shadow:inset 0 1px 0 rgba(239,230,210,.05)
+}
+.btn:hover{border-color:rgba(217,164,65,.45);background:#2A342C;color:var(--laton-claro)}
+.btn.primary{
+  background:linear-gradient(180deg,#D6552F,#BE4325);border-color:#E06A44;color:#FFF2EB;
+  box-shadow:0 10px 22px -14px rgba(207,77,46,.95), inset 0 1px 0 rgba(255,255,255,.2)
+}
+.btn.primary:hover{background:linear-gradient(180deg,#E1603A,#C74A29);border-color:#E9784F;color:#FFF6F1}
+.fbtn{border-radius:7px;border-color:var(--filete);background:var(--hondo);font-weight:600}
+.fbtn.active{color:var(--laton-claro);border-color:rgba(217,164,65,.5);background:rgba(217,164,65,.11)}
+.fbtn small{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--muted2)}
+
+/* ---------- notación ---------- */
+.moves{
+  border-radius:9px;background:var(--hondo);border:1px solid var(--filete);
+  letter-spacing:.02em
+}
+.moves .ply.now{background:var(--gold);color:#171310;font-weight:700}
+.moves .num{color:var(--muted2)}
+
+/* ---------- panel lateral ---------- */
+.panel-card{background:#1B231E;border:1px solid var(--filete);border-radius:11px}
+.panel-card h3{font-family:var(--serif);font-size:1.02rem;letter-spacing:.004em}
+.prog .cell{background:var(--hondo);border:1px solid var(--filete);border-radius:8px}
+.prog .big{font-family:var(--serif);font-size:1.3rem}
+.prog .lbl{font-family:var(--mono);font-size:.57rem;letter-spacing:.13em;color:var(--muted2)}
+.bar{height:5px;border-radius:3px;background:rgba(0,0,0,.42);border:1px solid var(--filete)}
+.jump input{border-radius:7px;border-color:var(--filete);background:var(--hondo)}
+.jump input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(217,164,65,.14)}
+.tagx{border-radius:4px;border-color:var(--filete);background:rgba(239,230,210,.045);font-family:var(--mono);font-size:.65rem;letter-spacing:.06em}
+.ref .vs{font-family:var(--serif);font-size:1.04rem}
+.expl summary{font-family:var(--sans);font-weight:600}
+.expl .body{color:#CFC7B5;border-top-color:var(--filete)}
+.note{border-radius:7px;border-color:rgba(217,164,65,.34);background:rgba(217,164,65,.09)}
+
+/* ---------- lecturas: guía, método, motivos ---------- */
+.reading h1,.reading h2{font-family:var(--serif)}
+.reading h2 .k{font-family:var(--mono);color:var(--crest);font-weight:700;letter-spacing:.04em}
+.reading p{color:#D6CEBD}
+.reading .lead{color:var(--muted)}
+.steps li{border-top-color:var(--filete)}
+.steps li::before{border-radius:4px;border-color:rgba(217,164,65,.55);color:var(--gold);font-family:var(--mono);font-weight:600;width:1.9rem;height:1.9rem}
+.motif{background:#1B231E;border:1px solid var(--filete);border-radius:10px}
+.motif h4{font-family:var(--serif);font-size:.98rem}
+.callout{background:#1B231E;border-left:3px solid var(--crest);border-radius:0 9px 9px 0}
+.kbd{font-family:var(--mono);border-radius:4px;border-color:var(--filete);background:var(--panel2)}
+footer{border-top-color:var(--filete)}
+
+/* ---------- ventanas ---------- */
+.modal-box,.confirm-box{
+  background:linear-gradient(170deg,#242D26,#171E19);
+  border:1px solid var(--filete);border-radius:13px;
+  box-shadow:0 26px 60px -18px rgba(0,0,0,.85)
+}
+.modal-head h3{font-family:var(--serif)}
+.modal-x,.pc-io-close{border-radius:7px;border-color:var(--filete);background:var(--hondo)}
+.hist-row{background:var(--hondo);border:1px solid var(--filete);border-radius:7px}
+.hist-row:hover{border-color:rgba(217,164,65,.5);background:rgba(217,164,65,.07)}
+.hist-n{font-family:var(--mono);font-weight:600}
+.hist-d{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--muted2)}
+.pc-io-box{background:linear-gradient(170deg,#242D26,#171E19);border:1px solid var(--filete);border-radius:14px}
+.pc-io-head h3{font-family:var(--serif)}
+.pc-io-area{border-radius:9px;border-color:var(--filete);background:#101613}
+.pc-io-area:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(217,164,65,.15)}
+.pc-io-name{color:var(--laton-claro)}
+
+/* ---------- sala de lectura (explicación): papel de boj ---------- */
+.workspace-shell{
+  background:linear-gradient(180deg,#F7F2E6,#EFE9DA);
+  color:#1E1B15;border:1px solid rgba(255,255,255,.55);border-radius:20px;
+  box-shadow:0 40px 110px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.85)
+}
+.workspace-topbar{background:rgba(247,242,230,.86);border-bottom:1px solid rgba(30,27,21,.1)}
+.workspace-topbar h2{font-family:var(--serif);color:#1E1B15;letter-spacing:-.015em}
+.workspace-topbar p{color:#6B6455}
+.workspace-eyebrow{font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:#8A8271}
+.workspace-close{background:#E8E1CF;color:#2C271E;border-radius:9px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.workspace-close:hover{background:#DED6C1;transform:none}
+
+.explanation-bg{
+  --ex-shell:linear-gradient(180deg,#F7F2E6,#EFE9DA);
+  --ex-topbar:rgba(247,242,230,.88);--ex-ink:#1E1B15;--ex-muted:#6B6455;
+  --ex-card:rgba(255,253,246,.84);--ex-card-border:rgba(30,27,21,.10);
+  --ex-card-muted:#6B6455;--ex-soft:#EBE4D2;--ex-soft-ink:#2C271E;
+  --ex-button:#E8E1CF;--ex-button-ink:#2C271E;--ex-board-frame:#DFD6C0;
+}
+.explanation-bg[data-resolved-theme="dark"]{
+  --ex-shell:linear-gradient(180deg,#1A211C,#121714);
+  --ex-topbar:rgba(18,23,20,.9);--ex-ink:#EFE6D2;--ex-muted:#A9B2A7;
+  --ex-card:rgba(239,230,210,.05);--ex-card-border:rgba(239,230,210,.1);
+  --ex-card-muted:#B4BCB2;--ex-soft:#26302A;--ex-soft-ink:#EFE6D2;
+  --ex-button:#2A342D;--ex-button-ink:#EFE6D2;--ex-board-frame:#2E241A;
+}
+.explanation-hero{background:linear-gradient(135deg,#221A13,#3B2D1F);border-radius:20px}
+.explanation-hero:after{background:rgba(217,164,65,.16)}
+.explanation-lead h3{font-family:var(--serif);letter-spacing:-.015em}
+.explanation-lead p{color:#D8CEB9}
+.move-orb{
+  background:radial-gradient(circle at 35% 25%,#5B4631,#1E1710 68%);
+  border:1px solid rgba(240,213,154,.16);border-radius:50%
+}
+.move-orb span{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;color:#BCAF97}
+.move-orb strong{font-family:var(--serif);color:var(--laton-claro)}
+.explain-chip{background:rgba(239,230,210,.08);border:1px solid rgba(239,230,210,.12);color:#E2D8C3;border-radius:5px;font-family:var(--mono);font-size:.62rem;letter-spacing:.07em}
+.explain-section,.explain-card{border-radius:16px}
+.section-heading h3,.snapshot-copy h3{font-family:var(--serif);letter-spacing:-.012em}
+.explain-card .card-icon{background:#EDE5D2;color:#3A3226;border-radius:8px}
+.line-token{border-radius:6px;background:var(--ex-soft);color:var(--ex-soft-ink)}
+.line-token.key{background:#2B2118;color:var(--laton-claro)}
+.explanation-bg[data-resolved-theme="dark"] .line-token.key{background:var(--gold);color:#171310}
+.explain-theme-switch{background:#EAE3D1;border:1px solid rgba(30,27,21,.09);border-radius:9px;padding:3px}
+.explain-theme-switch button{border-radius:6px;color:#6B6455;font-family:var(--mono);font-size:.62rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
+.explain-theme-switch button.active{background:#FFFDF7;color:#1E1B15;box-shadow:0 2px 7px rgba(30,27,21,.1)}
+.explanation-bg[data-resolved-theme="dark"] .explain-theme-switch{background:#222B25;border-color:var(--filete)}
+.explanation-bg[data-resolved-theme="dark"] .explain-theme-switch button{color:var(--muted)}
+.explanation-bg[data-resolved-theme="dark"] .explain-theme-switch button.active{background:rgba(217,164,65,.16);color:var(--laton-claro);box-shadow:inset 0 -2px 0 var(--gold)}
+.source-section p{color:var(--ex-card-muted)}
+.local-note{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:#8A8271}
+.snapshot-board-wrap{border-radius:14px}
+.explain-board{border-radius:3px}
+.snapshot-meta span{border-radius:5px;font-family:var(--mono);font-size:.62rem;font-weight:400;letter-spacing:.07em}
+
+/* ---------- suelo de calidad ---------- */
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-thumb{background:rgba(239,230,210,.16);border-radius:6px}
+*::-webkit-scrollbar-thumb:hover{background:rgba(239,230,210,.26)}
+*::-webkit-scrollbar-track{background:transparent}
+@media(prefers-reduced-motion:reduce){
+  .gift-btn{animation:none}
+  .gift-box .emoji{animation:none}
+  .view{animation:none}
+}
+</style>
 </head>
 <body>
     
@@ -4604,7 +4886,7 @@ function compartirLogro(){
     const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
     const ctx=cv.getContext('2d');
     const gr=ctx.createLinearGradient(0,0,W,H);
-    gr.addColorStop(0,'#2c352f'); gr.addColorStop(1,'#1b211e');
+    gr.addColorStop(0,'#33271C'); gr.addColorStop(1,'#121714');
     ctx.fillStyle=gr; ctx.fillRect(0,0,W,H);
     ctx.strokeStyle='#d9a441'; ctx.lineWidth=6; ctx.strokeRect(40,40,W-80,H-80);
     ctx.textAlign='center';
@@ -4612,7 +4894,7 @@ function compartirLogro(){
     ctx.fillStyle='#ece6d8'; ctx.font='600 64px Georgia'; ctx.fillText('El Método PC',W/2,390);
     ctx.fillStyle='#d9a441'; ctx.font='700 150px Georgia'; ctx.fillText(solved.size,W/2,590);
     ctx.fillStyle='#ece6d8'; ctx.font='500 52px Georgia'; ctx.fillText('ejercicios tácticos resueltos',W/2,670);
-    ctx.fillStyle='#98a39a'; ctx.font='40px Georgia';
+    ctx.fillStyle='#A9B2A7'; ctx.font='40px Georgia';
     ctx.fillText(Math.round(solved.size/PUZZLES.length*100)+'% del libro · racha actual: '+lastStreak,W/2,760);
     ctx.fillStyle='#cf4d2e'; ctx.font='italic 42px Georgia';
     ctx.fillText('«Un error enseña más que cien victorias.»',W/2,900);
@@ -5546,7 +5828,7 @@ function sndSolved(){ play('move'); setTimeout(()=>play('capture'),140); }
 
   /* % NUEVO: lluvia de confeti al resolver */
 function lanzarConfeti(cantidad){
-  const colores=['#cf4d2e','#d9a441','#74a36a','#eeeed2','#70d6ff'];
+  const colores=['#cf4d2e','#d9a441','#77a268','#efe1c6','#a9713f'];
   for(let i=0;i<cantidad;i++){
     const c=document.createElement('div');
     c.className='confeti';

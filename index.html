@@ -15,13 +15,14 @@
      ============================================================ */
   :root{
     --ebano:#121714;
-    --nogal:#212A24;
-    --nogal-hondo:#151B17;
+    --nogal:#222B24;
+    --nogal-hondo:#151C18;
     --boj:#EFE6D2;
     --boj-medio:#B4BCB2;
     --boj-tenue:#89928A;
     --laton:#D9A441;
     --laton-claro:#F0D59A;
+    --cresta:#CF4D2E;
     --filete:rgba(239,230,210,.10);
     --filete-vivo:rgba(239,230,210,.18);
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
@@ -44,8 +45,8 @@
     color:var(--boj);
   }
 
-  /* Cambia transparent por #141A16 si tus métodos no traen fondo propio. */
-  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#141A16;display:none}
+  /* Es el mismo fondo que el body de index1/index2, para que no se vea costura al cargar. */
+  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#121714;display:none}
   .app-frame.active{display:block}
 
   /* ---------- botón del menú: una pieza sobre su casilla ---------- */
@@ -175,7 +176,9 @@
   .drawer-backdrop.open .drawer-note{opacity:1;transform:none}
   .drawer-note:before{
     content:"";display:block;width:88px;height:10px;margin:0 0 15px;border-radius:1px;
-    background-image:repeating-linear-gradient(90deg, rgba(239,230,210,.19) 0 11px, transparent 11px 22px)
+    background-image:
+      linear-gradient(90deg, transparent 55px, var(--cresta) 55px 66px, transparent 66px),
+      repeating-linear-gradient(90deg, rgba(239,230,210,.19) 0 11px, transparent 11px 22px)
   }
 
   .menu-button:focus-visible,.app-choice:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
