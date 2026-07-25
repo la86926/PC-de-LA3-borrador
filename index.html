@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PC de L3</title>
+<link rel="icon" type="image/png" href="torre.png">
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111713;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#1b211e;display:none}
+  .app-frame.active{display:block}
+  .menu-button{position:fixed;left:10px;top:10px;z-index:10020;width:44px;height:44px;border:1px solid rgba(217,164,65,.72);border-radius:13px;background:rgba(27,33,30,.94);box-shadow:0 8px 24px rgba(0,0,0,.36);display:flex;align-items:center;justify-content:center;padding:0;color:#f0d59a;cursor:pointer}
+  .menu-button span,.menu-button:before,.menu-button:after{content:"";display:block;position:absolute;width:21px;height:2px;border-radius:4px;background:currentColor;transition:transform .18s,opacity .18s}
+  .menu-button span{transform:translateY(0)}
+  .menu-button:before{transform:translateY(-7px)}
+  .menu-button:after{transform:translateY(7px)}
+  .menu-button.open span{opacity:0}
+  .menu-button.open:before{transform:rotate(45deg)}
+  .menu-button.open:after{transform:rotate(-45deg)}
+  .drawer-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;background:rgba(0,0,0,.58);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+  .drawer-backdrop.open{opacity:1;visibility:visible}
+  .drawer{position:absolute;left:0;top:0;bottom:0;width:min(82vw,320px);background:linear-gradient(180deg,#202923,#151b17);border-right:1px solid rgba(255,255,255,.08);box-shadow:18px 0 48px rgba(0,0,0,.38);transform:translateX(-102%);transition:transform .24s ease;padding:76px 18px 22px;color:#ece6d8}
+  .drawer-backdrop.open .drawer{transform:translateX(0)}
+  .drawer-brand{display:flex;align-items:center;gap:12px;padding:0 8px 20px;border-bottom:1px solid rgba(255,255,255,.09);margin-bottom:16px}
+  .drawer-brand img{width:46px;height:46px;object-fit:contain}
+  .drawer-brand strong{display:block;font-family:Georgia,serif;font-size:1.18rem}
+  .drawer-brand small{display:block;color:#98a39a;font-size:.72rem;margin-top:2px}
+  .app-choice{width:100%;border:1px solid rgba(255,255,255,.09);background:#252e29;color:#ece6d8;border-radius:14px;padding:15px 14px;margin:8px 0;text-align:left;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+  .app-choice small{font-size:.68rem;color:#98a39a;font-weight:500}
+  .app-choice.active{border-color:#d9a441;background:rgba(217,164,65,.13);color:#f0d59a}
+  .app-choice.active:after{content:"✓";font-size:1rem}
+  .drawer-note{color:#727d74;font-size:.72rem;line-height:1.5;margin:20px 8px 0}
+  @media(max-width:480px){.menu-button{left:7px;top:7px;width:40px;height:40px;border-radius:11px}.drawer{padding-top:68px}}
+</style>
+</head>
+<body>
+<button class="menu-button" id="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+<div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-label="Elegir aplicación">
+    <div class="drawer-brand">
+      <img src="torre.png" alt="Ajedrez">
+      <div><strong>PC de L3</strong><small>Dos métodos en una aplicación</small></div>
+    </div>
+    <button class="app-choice active" data-app="1" type="button"><span>PC de L1<br><small>Ejercicios tácticos</small></span></button>
+    <button class="app-choice" data-app="2" type="button"><span>PC de L2<br><small>Ejercicios posicionales</small></span></button>
+    <p class="drawer-note">El progreso de cada método se conserva de forma independiente.</p>
+  </aside>
+</div>
+<iframe class="app-frame active" id="app-frame-1" src="index1.html" title="PC de L1" allow="autoplay"></iframe>
+<iframe class="app-frame" id="app-frame-2" src="index2.html" title="PC de L2" allow="autoplay"></iframe>
+<script>
+(function(){
+  var menuButton=document.getElementById('menu-button');
+  var backdrop=document.getElementById('drawer-backdrop');
+  var activeApp='1';
+
+  function setDrawer(open){
+    backdrop.classList.toggle('open',open);
+    menuButton.classList.toggle('open',open);
+    menuButton.setAttribute('aria-expanded',open?'true':'false');
+    backdrop.setAttribute('aria-hidden',open?'false':'true');
+  }
+  function selectApp(id){
+    activeApp=String(id);
+    var frames=document.querySelectorAll('.app-frame');
+    for(var i=0;i<frames.length;i++) frames[i].classList.remove('active');
+    var frame=document.getElementById('app-frame-'+activeApp);
+    if(frame) frame.classList.add('active');
+    var choices=document.querySelectorAll('.app-choice');
+    for(var j=0;j<choices.length;j++) choices[j].classList.toggle('active',choices[j].getAttribute('data-app')===activeApp);
+    try{localStorage.setItem('pc_l3_active_app',activeApp);}catch(e){}
+    setDrawer(false);
+  }
+  menuButton.onclick=function(){setDrawer(!backdrop.classList.contains('open'));};
+  backdrop.onclick=function(e){if(e.target===backdrop)setDrawer(false);};
+  var choices=document.querySelectorAll('.app-choice');
+  for(var i=0;i<choices.length;i++) choices[i].onclick=function(){selectApp(this.getAttribute('data-app'));};
+  try{var saved=localStorage.getItem('pc_l3_active_app');if(saved==='2')selectApp('2');}catch(e){}
+
+  /* Reenvía al método activo las respuestas del selector, portapapeles y guardado nativo. */
+  window.pcAndroidResultadoBase64=function(tipoBase64,datoBase64){
+    var frame=document.getElementById('app-frame-'+activeApp);
+    try{
+      if(frame && frame.contentWindow && typeof frame.contentWindow.pcAndroidResultadoBase64==='function'){
+        frame.contentWindow.pcAndroidResultadoBase64(tipoBase64,datoBase64);
+      }
+    }catch(e){}
+  };
+
+  window.PC_ANDROID_BACK=function(){
+    if(backdrop.classList.contains('open')){setDrawer(false);return true;}
+    var frame=document.getElementById('app-frame-'+activeApp);
+    try{
+      if(frame && frame.contentWindow && typeof frame.contentWindow.PC_ANDROID_BACK==='function'){
+        frame.contentWindow.PC_ANDROID_BACK();
+        return true;
+      }
+    }catch(e){}
+    return true;
+  };
+})();
+</script>
+</body>
+</html>
