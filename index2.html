@@ -352,146 +352,240 @@ body.workspace-open{overflow:hidden}
 }
 
 /* ===== apariencia nueva ===== */
-/* ---------- 136 temas de tablero. Sin repetidos: ΔE mínimo 8 en Lab.
-     Los que llevan trama (madera, lino, pizarra, cuadrícula, tejido, punteado, periódico)
-     solo compiten entre sí, porque la textura ya los distingue de los planos.
-     Coordenadas, resaltado y 6 pruebas de contraste calculados por tema. ---------- */
-html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46)}
-html[data-tablero="periodico"]{--light:#F3EDDD;--dark:#CFC3A6;--coord-l:#726B5B;--coord-d:#5C5A54;--hl:rgba(58,96,208,.32)}
-html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32)}
-html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46)}
-html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32)}
-html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46)}
-html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32)}
-html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46)}
-html[data-tablero="musgo"]{--light:#E9EFDF;--dark:#6C8757;--coord-l:#4C5E3D;--coord-d:#F1F5EA;--hl:rgba(255,206,61,.46)}
-html[data-tablero="arena"]{--light:#F3EBDB;--dark:#AE8F6E;--coord-l:#7A644D;--coord-d:#312F2C;--hl:rgba(58,96,208,.32)}
-html[data-tablero="lavanda"]{--light:#EEE9F3;--dark:#8478A3;--coord-l:#5C5472;--coord-d:#F4F1F7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="menta"]{--light:#E6F1EB;--dark:#6B9C88;--coord-l:#4B6D5F;--coord-d:#2E302F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cobre"]{--light:#F5E7D9;--dark:#AC6D4A;--coord-l:#784C34;--coord-d:#F8EFE6;--hl:rgba(58,96,208,.32)}
-html[data-tablero="tinta"]{--light:#DCE0E5;--dark:#434D67;--coord-l:#2F3648;--coord-d:#E8EBEE;--hl:rgba(255,206,61,.46)}
-html[data-tablero="oliva"]{--light:#EDEDDB;--dark:#858650;--coord-l:#5D5E38;--coord-d:#F3F3E8;--hl:rgba(58,96,208,.32)}
-html[data-tablero="antiguo"]{--light:#F5E8E8;--dark:#B27B7F;--coord-l:#7D5659;--coord-d:#FAF5F5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="grafito"]{--light:#E8E8E8;--dark:#565656;--coord-l:#3C3C3C;--coord-d:#F0F0F0;--hl:rgba(255,206,61,.46)}
-html[data-tablero="miel"]{--light:#F8EFD5;--dark:#C39646;--coord-l:#886931;--coord-d:#32302B;--hl:rgba(58,96,208,.32)}
-html[data-tablero="marron"]{--light:#F0D9B5;--dark:#B58863;--coord-l:#7F5F45;--coord-d:#302B24;--hl:rgba(58,96,208,.32)}
-html[data-tablero="azul"]{--light:#DEE3E6;--dark:#8CA2AD;--coord-l:#627179;--coord-d:#2C2D2E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="amarillo"]{--light:#FFFFDD;--dark:#86A666;--coord-l:#5E7447;--coord-d:#33332C;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lima"]{--light:#F1F5D8;--dark:#8FA84E;--coord-l:#647637;--coord-d:#30312B;--hl:rgba(255,206,61,.46)}
-html[data-tablero="arce"]{--light:#F7E2C0;--dark:#C08552;--coord-l:#865D39;--coord-d:#312D26;--hl:rgba(58,96,208,.32)}
-html[data-tablero="roble"]{--light:#EFD9B4;--dark:#A97C50;--coord-l:#765738;--coord-d:#F8EEDD;--hl:rgba(58,96,208,.32)}
-html[data-tablero="caoba"]{--light:#EEDCC4;--dark:#96543B;--coord-l:#693B29;--coord-d:#F4E8D9;--hl:rgba(255,206,61,.46)}
-html[data-tablero="bambu"]{--light:#F3EED2;--dark:#A6AB5E;--coord-l:#747842;--coord-d:#31302A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="oceano"]{--light:#DBE9EF;--dark:#4E7A93;--coord-l:#375567;--coord-d:#E8F1F5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="acero"]{--light:#E2E7EA;--dark:#7C8B99;--coord-l:#57616B;--coord-d:#F8F9FA;--hl:rgba(255,206,61,.46)}
-html[data-tablero="zafiro"]{--light:#E3E9F5;--dark:#56699E;--coord-l:#3C4A6F;--coord-d:#EDF1F8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="jade"]{--light:#E6EFE2;--dark:#5E8C6A;--coord-l:#42624A;--coord-d:#EFF5EC;--hl:rgba(255,206,61,.46)}
-html[data-tablero="esmeralda"]{--light:#E2EEE4;--dark:#2F7A50;--coord-l:#215538;--coord-d:#ECF4ED;--hl:rgba(255,206,61,.46)}
-html[data-tablero="salvia"]{--light:#EBEFE5;--dark:#8AA07C;--coord-l:#617057;--coord-d:#2F302E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="pino"]{--light:#E7EDE2;--dark:#4F6E4A;--coord-l:#374D34;--coord-d:#EFF3EC;--hl:rgba(255,206,61,.46)}
-html[data-tablero="terracota"]{--light:#F5E3D6;--dark:#C2612F;--coord-l:#884421;--coord-d:#F8EDE4;--hl:rgba(58,96,208,.32)}
-html[data-tablero="granate"]{--light:#F2E2E0;--dark:#A63A3A;--coord-l:#742929;--coord-d:#F7ECEB;--hl:rgba(255,206,61,.46)}
-html[data-tablero="coral"]{--light:#F7E6E1;--dark:#C87A64;--coord-l:#8C5546;--coord-d:#312E2D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="violeta"]{--light:#EAE4F5;--dark:#6A55A8;--coord-l:#4A3C76;--coord-d:#F1EDF8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="ciruela"]{--light:#EEE6EF;--dark:#85618C;--coord-l:#5D4462;--coord-d:#F4EFF5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="algodon"]{--light:#F7E7EE;--dark:#C98BA5;--coord-l:#8D6174;--coord-d:#312E30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="perla"]{--light:#F3F1EE;--dark:#A89E93;--coord-l:#766F67;--coord-d:#313030;--hl:rgba(58,96,208,.32)}
-html[data-tablero="aguamarina"]{--light:#E3F0EF;--dark:#6FA5A0;--coord-l:#4E7470;--coord-d:#2D3030;--hl:rgba(255,206,61,.46)}
-html[data-tablero="niebla"]{--light:#EDEFF0;--dark:#9DA8AE;--coord-l:#6E767A;--coord-d:#2F3030;--hl:rgba(255,206,61,.46)}
-html[data-tablero="turquesa"]{--light:#E2F0F0;--dark:#3F8F8F;--coord-l:#2C6464;--coord-d:#ECF5F5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="petroleo"]{--light:#DBE7E8;--dark:#35646A;--coord-l:#25464A;--coord-d:#E8EFF0;--hl:rgba(255,206,61,.46)}
-html[data-tablero="verdeagua"]{--light:#E4F1EC;--dark:#4FA07E;--coord-l:#377058;--coord-d:#2E302F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cobalto"]{--light:#DEE6F4;--dark:#3F5FA8;--coord-l:#2C4276;--coord-d:#EAEFF8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lila"]{--light:#F1EBF7;--dark:#A78BD0;--coord-l:#756192;--coord-d:#302F31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="espliego"]{--light:#EAE8F6;--dark:#4F4C95;--coord-l:#373568;--coord-d:#F1F0F9;--hl:rgba(255,206,61,.46)}
-html[data-tablero="berenjena"]{--light:#EDE6EE;--dark:#6B3A72;--coord-l:#4B2950;--coord-d:#A6A1A7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="fucsia"]{--light:#F7E4EF;--dark:#B45A8E;--coord-l:#7E3F63;--coord-d:#FAEDF5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="malva"]{--light:#F3EAEF;--dark:#B08FA4;--coord-l:#7B6473;--coord-d:#312F30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cereza"]{--light:#F6E2E4;--dark:#B03E5E;--coord-l:#7B2B42;--coord-d:#F9ECED;--hl:rgba(255,206,61,.46)}
-html[data-tablero="grana"]{--light:#F1DEDE;--dark:#8C2F2F;--coord-l:#622121;--coord-d:#F6EAEA;--hl:rgba(255,206,61,.46)}
-html[data-tablero="salmon"]{--light:#FAE9E1;--dark:#DE9174;--coord-l:#9B6651;--coord-d:#322F2D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="oxido"]{--light:#F3E3D6;--dark:#9C5A2E;--coord-l:#6D3F20;--coord-d:#F7EDE4;--hl:rgba(58,96,208,.32)}
-html[data-tablero="ambar"]{--light:#FAEFD2;--dark:#D89A2E;--coord-l:#976C20;--coord-d:#32302A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="calabaza"]{--light:#F9E9D4;--dark:#DE7B2A;--coord-l:#9B561D;--coord-d:#322F2A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="mostaza"]{--light:#F7F0D2;--dark:#C0A32A;--coord-l:#86721D;--coord-d:#31302A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="selva"]{--light:#E4EDDC;--dark:#3E6B36;--coord-l:#2B4B26;--coord-d:#EDF3E8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="militar"]{--light:#EAEBDD;--dark:#6F7448;--coord-l:#4E5132;--coord-d:#F1F2E9;--hl:rgba(58,96,208,.32)}
-html[data-tablero="hierba"]{--light:#EBF2DD;--dark:#6F9A38;--coord-l:#4E6C27;--coord-d:#2F302C;--hl:rgba(255,206,61,.46)}
-html[data-tablero="helecho"]{--light:#E7F0E3;--dark:#4C8452;--coord-l:#355C39;--coord-d:#EFF5ED;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lino"]{--light:#F4F0E4;--dark:#B4A583;--coord-l:#7E745C;--coord-d:#31302E;--hl:rgba(58,96,208,.32)}
-html[data-tablero="caqui"]{--light:#F0EEE0;--dark:#96925F;--coord-l:#696642;--coord-d:#30302D;--hl:rgba(58,96,208,.32)}
-html[data-tablero="cedro"]{--light:#F5E7CE;--dark:#A88238;--coord-l:#765B27;--coord-d:#FAF4E9;--hl:rgba(58,96,208,.32)}
-html[data-tablero="laguna"]{--light:#E0EEF2;--dark:#4E8CA8;--coord-l:#376276;--coord-d:#EBF4F7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="bruma"]{--light:#EEF1F2;--dark:#8794A0;--coord-l:#5E6870;--coord-d:#303030;--hl:rgba(255,206,61,.46)}
-html[data-tablero="camelia"]{--light:#F7E9E9;--dark:#D09F9F;--coord-l:#926F6F;--coord-d:#312F2F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="rosaceniza"]{--light:#F0E5E5;--dark:#BA9797;--coord-l:#826A6A;--coord-d:#302E2E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="rosapolvo"]{--light:#F6E4E4;--dark:#D08B8B;--coord-l:#926161;--coord-d:#312E2E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="chicle"]{--light:#FDF3F3;--dark:#EEB5B5;--coord-l:#A77F7F;--coord-d:#605C5C;--hl:rgba(255,206,61,.46)}
-html[data-tablero="durazno"]{--light:#F7EEE9;--dark:#D0B39F;--coord-l:#927D6F;--coord-d:#5E5A59;--hl:rgba(58,96,208,.32)}
-html[data-tablero="arcillaclara"]{--light:#F6EBE4;--dark:#D0A78B;--coord-l:#927561;--coord-d:#312F2E;--hl:rgba(58,96,208,.32)}
-html[data-tablero="mango"]{--light:#FDF7F3;--dark:#EECBB5;--coord-l:#837064;--coord-d:#605E5C;--hl:rgba(58,96,208,.32)}
-html[data-tablero="vainilla"]{--light:#F7F4E9;--dark:#D0C69F;--coord-l:#726D57;--coord-d:#5E5D59;--hl:rgba(58,96,208,.32)}
-html[data-tablero="mostazaclara"]{--light:#F6F3E4;--dark:#D0C28B;--coord-l:#726B4C;--coord-d:#5D5C57;--hl:rgba(58,96,208,.32)}
-html[data-tablero="limon"]{--light:#F4F7E9;--dark:#C6D09F;--coord-l:#6D7257;--coord-d:#5D5E59;--hl:rgba(255,206,61,.46)}
-html[data-tablero="jazmin"]{--light:#F9FBEF;--dark:#D8E3AB;--coord-l:#777D5E;--coord-d:#5F5F5B;--hl:rgba(255,206,61,.46)}
-html[data-tablero="caquiclaro"]{--light:#EEF0E5;--dark:#B3BA97;--coord-l:#7D826A;--coord-d:#5A5B57;--hl:rgba(255,206,61,.46)}
-html[data-tablero="limapalida"]{--light:#F3F6E4;--dark:#C2D08B;--coord-l:#6B724C;--coord-d:#5C5D57;--hl:rgba(255,206,61,.46)}
-html[data-tablero="pistacho"]{--light:#EEF7E9;--dark:#B3D09F;--coord-l:#627257;--coord-d:#5A5E59;--hl:rgba(255,206,61,.46)}
-html[data-tablero="apio"]{--light:#F4FBEF;--dark:#C1E3AB;--coord-l:#6A7D5E;--coord-d:#5D5F5B;--hl:rgba(255,206,61,.46)}
-html[data-tablero="musgoclaro"]{--light:#EBF6E4;--dark:#A7D08B;--coord-l:#5C724C;--coord-d:#595D57;--hl:rgba(255,206,61,.46)}
-html[data-tablero="mentaclara"]{--light:#E9F7E9;--dark:#9FD09F;--coord-l:#577257;--coord-d:#595E59;--hl:rgba(255,206,61,.46)}
-html[data-tablero="espuma"]{--light:#EFFBEF;--dark:#ABE3AB;--coord-l:#5E7D5E;--coord-d:#5B5F5B;--hl:rgba(255,206,61,.46)}
-html[data-tablero="salviaclara"]{--light:#E5F0E5;--dark:#97BA97;--coord-l:#6A826A;--coord-d:#575B57;--hl:rgba(255,206,61,.46)}
-html[data-tablero="mentapolvo"]{--light:#E4F6E4;--dark:#8BD08B;--coord-l:#619261;--coord-d:#575D57;--hl:rgba(255,206,61,.46)}
-html[data-tablero="verdeaguaclaro"]{--light:#E9F7EE;--dark:#9FD0B3;--coord-l:#577262;--coord-d:#595E5A;--hl:rgba(255,206,61,.46)}
-html[data-tablero="rocio"]{--light:#EFFBF4;--dark:#ABE3C1;--coord-l:#5E7D6A;--coord-d:#5B5F5D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="jadeclaro"]{--light:#E5F0E9;--dark:#97BAA5;--coord-l:#6A8274;--coord-d:#575B59;--hl:rgba(255,206,61,.46)}
-html[data-tablero="verdepiscina"]{--light:#E4F6EB;--dark:#8BD0A7;--coord-l:#4C725C;--coord-d:#575D59;--hl:rgba(255,206,61,.46)}
-html[data-tablero="aguamarinaclara"]{--light:#E9F7F4;--dark:#9FD0C6;--coord-l:#57726D;--coord-d:#595E5D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="petroleoclaro"]{--light:#E5F0EE;--dark:#97BAB3;--coord-l:#6A827D;--coord-d:#575B5A;--hl:rgba(255,206,61,.46)}
-html[data-tablero="celeste"]{--light:#E9F4F7;--dark:#9FC6D0;--coord-l:#6F8B92;--coord-d:#595D5E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="celestenube"]{--light:#F3FBFD;--dark:#B5E2EE;--coord-l:#647C83;--coord-d:#5C5F60;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cielopalido"]{--light:#E9EEF7;--dark:#9FB3D0;--coord-l:#6F7D92;--coord-d:#595A5E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="denimclaro"]{--light:#E4EBF6;--dark:#8BA7D0;--coord-l:#617592;--coord-d:#2E2F31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="zafiroclaro"]{--light:#F3F7FD;--dark:#B5CBEE;--coord-l:#647083;--coord-d:#5C5E60;--hl:rgba(255,206,61,.46)}
-html[data-tablero="hortensia"]{--light:#E9E9F7;--dark:#9F9FD0;--coord-l:#6F6F92;--coord-d:#2F2F31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="pizarraclara"]{--light:#E5E5F0;--dark:#9797BA;--coord-l:#6A6A82;--coord-d:#2E2E30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lavandaazul"]{--light:#E4E4F6;--dark:#8B8BD0;--coord-l:#616192;--coord-d:#2E2E31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="azulbebe"]{--light:#F3F3FD;--dark:#B5B5EE;--coord-l:#7F7FA7;--coord-d:#5C5C60;--hl:rgba(255,206,61,.46)}
-html[data-tablero="espliegoclaro"]{--light:#F4EFFB;--dark:#C1ABE3;--coord-l:#87789F;--coord-d:#5D5B5F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="glicina"]{--light:#F4E9F7;--dark:#C69FD0;--coord-l:#8B6F92;--coord-d:#312F31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="ciruelaclara"]{--light:#EEE5F0;--dark:#B397BA;--coord-l:#7D6A82;--coord-d:#302E30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lilapolvo"]{--light:#F3E4F6;--dark:#C28BD0;--coord-l:#886192;--coord-d:#312E31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lilanube"]{--light:#FBF3FD;--dark:#E2B5EE;--coord-l:#7C6483;--coord-d:#5F5C60;--hl:rgba(255,206,61,.46)}
-html[data-tablero="lilapalido"]{--light:#FBEFF9;--dark:#E3ABD8;--coord-l:#9F7897;--coord-d:#5F5B5F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="ciclamenclaro"]{--light:#F6E4F3;--dark:#D08BC2;--coord-l:#926188;--coord-d:#312E31;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cuarzorosa"]{--light:#F7E9EE;--dark:#D09FB3;--coord-l:#926F7D;--coord-d:#312F30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="fresaclara"]{--light:#FDF3F7;--dark:#EEB5CB;--coord-l:#836470;--coord-d:#605C5E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="marfil"]{--light:#F6F6F3;--dark:#CDCAC1;--coord-l:#716F6A;--coord-d:#5D5D5C;--hl:rgba(58,96,208,.32)}
-html[data-tablero="humoclaro"]{--light:#D4D5D9;--dark:#A5A6AC;--coord-l:#5B5B5F;--coord-d:#515152;--hl:rgba(255,206,61,.46)}
-html[data-tablero="maderaveta"]{--light:#E8C89A;--dark:#9A6A3E;--coord-l:#6C4A2B;--coord-d:#F0DBBD;--hl:rgba(58,96,208,.32)}
-html[data-tablero="lino"]{--light:#EEEADC;--dark:#B9AE93;--coord-l:#827A67;--coord-d:#302F2C;--hl:rgba(58,96,208,.32)}
-html[data-tablero="pizarraveta"]{--light:#DDE0DE;--dark:#5A6A66;--coord-l:#3F4A47;--coord-d:#E9EBEA;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cuadricula"]{--light:#EFF3F6;--dark:#B6C6D2;--coord-l:#646D74;--coord-d:#5B5C5D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="tejido"]{--light:#EDE7DB;--dark:#A78F72;--coord-l:#756450;--coord-d:#2F2E2C;--hl:rgba(58,96,208,.32)}
-html[data-tablero="puntos"]{--light:#EDEFEA;--dark:#9FB09C;--coord-l:#6F7B6D;--coord-d:#2F302F;--hl:rgba(255,206,61,.46)}
-html[data-tablero="carbon"]{--light:#DEE1E4;--dark:#3A4046;--coord-l:#292D31;--coord-d:#9B9EA0;--hl:rgba(255,206,61,.46)}
-html[data-tablero="marino"]{--light:#DDE3EF;--dark:#2E4166;--coord-l:#202E47;--coord-d:#9B9FA7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="bosquehondo"]{--light:#E3EBDD;--dark:#2E5233;--coord-l:#203924;--coord-d:#9FA49B;--hl:rgba(255,206,61,.46)}
-html[data-tablero="borgona"]{--light:#EFE0E2;--dark:#6E2233;--coord-l:#4D1824;--coord-d:#A79D9E;--hl:rgba(255,206,61,.46)}
-html[data-tablero="chartreuse"]{--light:#F2F6D6;--dark:#A3B62E;--coord-l:#727F20;--coord-d:#30312B;--hl:rgba(58,96,208,.32)}
-html[data-tablero="turquesahondo"]{--light:#DFEFEF;--dark:#22706E;--coord-l:#184E4D;--coord-d:#EAF5F5;--hl:rgba(255,206,61,.46)}
-html[data-tablero="violetahondo"]{--light:#E9E4F2;--dark:#4B3A85;--coord-l:#34295D;--coord-d:#A3A0A9;--hl:rgba(255,206,61,.46)}
-html[data-tablero="oxidohondo"]{--light:#F1E2D6;--dark:#7E3F1E;--coord-l:#582C15;--coord-d:#F6ECE4;--hl:rgba(58,96,208,.32)}
-html[data-tablero="botella"]{--light:#E4EEE6;--dark:#1F5A46;--coord-l:#163F31;--coord-d:#A0A7A1;--hl:rgba(255,206,61,.46)}
-html[data-tablero="acerohondo"]{--light:#DFE6EC;--dark:#3C5A72;--coord-l:#2A3F50;--coord-d:#EAEFF3;--hl:rgba(255,206,61,.46)}
-html[data-tablero="ciruelahondo"]{--light:#EEE4EE;--dark:#5A2C55;--coord-l:#3F1F3C;--coord-d:#A7A0A7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="buganvilla"]{--light:#F1E1EA;--dark:#8B2A62;--coord-l:#611D45;--coord-d:#F6ECF1;--hl:rgba(255,206,61,.46)}
-html[data-tablero="grisazul"]{--light:#E4E9EE;--dark:#5A6D80;--coord-l:#3F4C5A;--coord-d:#EDF1F4;--hl:rgba(255,206,61,.46)}
-html[data-tablero="rosaviejo"]{--light:#F2E3E4;--dark:#8E5A64;--coord-l:#633F46;--coord-d:#F7EDED;--hl:rgba(255,206,61,.46)}
+/* ---------- 196 temas. Sin repetidos: ΔE mínimo 8 en Lab contra los de su misma trama.
+     --acento-tema es la casilla oscura profundizada hasta que la casilla clara se lea
+     encima con 4.6:1, y --acento-ink es esa casilla clara: el botón de aceptar queda
+     hecho con los dos colores del tablero. ---------- */
+html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6}
+html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6}
+html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2}
+html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF}
+html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4}
+html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE}
+html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5}
+html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0}
+html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7}
+html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46);--acento-tema:#8A4B4E;--acento-ink:#F1E3E1}
+html[data-tablero="musgo"]{--light:#E9EFDF;--dark:#6C8757;--coord-l:#4C5E3D;--coord-d:#F1F5EA;--hl:rgba(255,206,61,.46);--acento-tema:#526742;--acento-ink:#E9EFDF}
+html[data-tablero="arena"]{--light:#F3EBDB;--dark:#AE8F6E;--coord-l:#7A644D;--coord-d:#312F2C;--hl:rgba(58,96,208,.32);--acento-tema:#76614B;--acento-ink:#F3EBDB}
+html[data-tablero="lavanda"]{--light:#EEE9F3;--dark:#8478A3;--coord-l:#5C5472;--coord-d:#F4F1F7;--hl:rgba(255,206,61,.46);--acento-tema:#645B7C;--acento-ink:#EEE9F3}
+html[data-tablero="menta"]{--light:#E6F1EB;--dark:#6B9C88;--coord-l:#4B6D5F;--coord-d:#2E302F;--hl:rgba(255,206,61,.46);--acento-tema:#496A5C;--acento-ink:#E6F1EB}
+html[data-tablero="cobre"]{--light:#F5E7D9;--dark:#AC6D4A;--coord-l:#784C34;--coord-d:#F8EFE6;--hl:rgba(58,96,208,.32);--acento-tema:#835338;--acento-ink:#F5E7D9}
+html[data-tablero="tinta"]{--light:#DCE0E5;--dark:#434D67;--coord-l:#2F3648;--coord-d:#E8EBEE;--hl:rgba(255,206,61,.46);--acento-tema:#434D67;--acento-ink:#DCE0E5}
+html[data-tablero="oliva"]{--light:#EDEDDB;--dark:#858650;--coord-l:#5D5E38;--coord-d:#F3F3E8;--hl:rgba(58,96,208,.32);--acento-tema:#65663D;--acento-ink:#EDEDDB}
+html[data-tablero="antiguo"]{--light:#F5E8E8;--dark:#B27B7F;--coord-l:#7D5659;--coord-d:#FAF5F5;--hl:rgba(255,206,61,.46);--acento-tema:#875D61;--acento-ink:#F5E8E8}
+html[data-tablero="grafito"]{--light:#E8E8E8;--dark:#565656;--coord-l:#3C3C3C;--coord-d:#F0F0F0;--hl:rgba(255,206,61,.46);--acento-tema:#565656;--acento-ink:#E8E8E8}
+html[data-tablero="miel"]{--light:#F8EFD5;--dark:#C39646;--coord-l:#886931;--coord-d:#32302B;--hl:rgba(58,96,208,.32);--acento-tema:#856630;--acento-ink:#F8EFD5}
+html[data-tablero="marron"]{--light:#F0D9B5;--dark:#B58863;--coord-l:#7F5F45;--coord-d:#302B24;--hl:rgba(58,96,208,.32);--acento-tema:#6D523B;--acento-ink:#F0D9B5}
+html[data-tablero="azul"]{--light:#DEE3E6;--dark:#8CA2AD;--coord-l:#627179;--coord-d:#2C2D2E;--hl:rgba(255,206,61,.46);--acento-tema:#546168;--acento-ink:#DEE3E6}
+html[data-tablero="amarillo"]{--light:#FFFFDD;--dark:#86A666;--coord-l:#5E7447;--coord-d:#33332C;--hl:rgba(255,206,61,.46);--acento-tema:#5B7145;--acento-ink:#FFFFDD}
+html[data-tablero="lima"]{--light:#F1F5D8;--dark:#8FA84E;--coord-l:#647637;--coord-d:#30312B;--hl:rgba(255,206,61,.46);--acento-tema:#617235;--acento-ink:#F1F5D8}
+html[data-tablero="arce"]{--light:#F7E2C0;--dark:#C08552;--coord-l:#865D39;--coord-d:#312D26;--hl:rgba(58,96,208,.32);--acento-tema:#835A38;--acento-ink:#F7E2C0}
+html[data-tablero="roble"]{--light:#EFD9B4;--dark:#A97C50;--coord-l:#765738;--coord-d:#F8EEDD;--hl:rgba(58,96,208,.32);--acento-tema:#735436;--acento-ink:#EFD9B4}
+html[data-tablero="caoba"]{--light:#EEDCC4;--dark:#96543B;--coord-l:#693B29;--coord-d:#F4E8D9;--hl:rgba(255,206,61,.46);--acento-tema:#8A4D36;--acento-ink:#EEDCC4}
+html[data-tablero="bambu"]{--light:#F3EED2;--dark:#A6AB5E;--coord-l:#747842;--coord-d:#31302A;--hl:rgba(58,96,208,.32);--acento-tema:#646738;--acento-ink:#F3EED2}
+html[data-tablero="oceano"]{--light:#DBE9EF;--dark:#4E7A93;--coord-l:#375567;--coord-d:#E8F1F5;--hl:rgba(255,206,61,.46);--acento-tema:#42667B;--acento-ink:#DBE9EF}
+html[data-tablero="acero"]{--light:#E2E7EA;--dark:#7C8B99;--coord-l:#57616B;--coord-d:#F8F9FA;--hl:rgba(255,206,61,.46);--acento-tema:#545F68;--acento-ink:#E2E7EA}
+html[data-tablero="zafiro"]{--light:#E3E9F5;--dark:#56699E;--coord-l:#3C4A6F;--coord-d:#EDF1F8;--hl:rgba(255,206,61,.46);--acento-tema:#4F6191;--acento-ink:#E3E9F5}
+html[data-tablero="jade"]{--light:#E6EFE2;--dark:#5E8C6A;--coord-l:#42624A;--coord-d:#EFF5EC;--hl:rgba(255,206,61,.46);--acento-tema:#476A51;--acento-ink:#E6EFE2}
+html[data-tablero="esmeralda"]{--light:#E2EEE4;--dark:#2F7A50;--coord-l:#215538;--coord-d:#ECF4ED;--hl:rgba(255,206,61,.46);--acento-tema:#2B704A;--acento-ink:#E2EEE4}
+html[data-tablero="salvia"]{--light:#EBEFE5;--dark:#8AA07C;--coord-l:#617057;--coord-d:#2F302E;--hl:rgba(255,206,61,.46);--acento-tema:#5E6D54;--acento-ink:#EBEFE5}
+html[data-tablero="pino"]{--light:#E7EDE2;--dark:#4F6E4A;--coord-l:#374D34;--coord-d:#EFF3EC;--hl:rgba(255,206,61,.46);--acento-tema:#4F6E4A;--acento-ink:#E7EDE2}
+html[data-tablero="terracota"]{--light:#F5E3D6;--dark:#C2612F;--coord-l:#884421;--coord-d:#F8EDE4;--hl:rgba(58,96,208,.32);--acento-tema:#934A24;--acento-ink:#F5E3D6}
+html[data-tablero="granate"]{--light:#F2E2E0;--dark:#A63A3A;--coord-l:#742929;--coord-d:#F7ECEB;--hl:rgba(255,206,61,.46);--acento-tema:#A63A3A;--acento-ink:#F2E2E0}
+html[data-tablero="coral"]{--light:#F7E6E1;--dark:#C87A64;--coord-l:#8C5546;--coord-d:#312E2D;--hl:rgba(255,206,61,.46);--acento-tema:#885344;--acento-ink:#F7E6E1}
+html[data-tablero="violeta"]{--light:#EAE4F5;--dark:#6A55A8;--coord-l:#4A3C76;--coord-d:#F1EDF8;--hl:rgba(255,206,61,.46);--acento-tema:#6A55A8;--acento-ink:#EAE4F5}
+html[data-tablero="ciruela"]{--light:#EEE6EF;--dark:#85618C;--coord-l:#5D4462;--coord-d:#F4EFF5;--hl:rgba(255,206,61,.46);--acento-tema:#7A5981;--acento-ink:#EEE6EF}
+html[data-tablero="algodon"]{--light:#F7E7EE;--dark:#C98BA5;--coord-l:#8D6174;--coord-d:#312E30;--hl:rgba(255,206,61,.46);--acento-tema:#795363;--acento-ink:#F7E7EE}
+html[data-tablero="perla"]{--light:#F3F1EE;--dark:#A89E93;--coord-l:#766F67;--coord-d:#313030;--hl:rgba(58,96,208,.32);--acento-tema:#726B64;--acento-ink:#F3F1EE}
+html[data-tablero="aguamarina"]{--light:#E3F0EF;--dark:#6FA5A0;--coord-l:#4E7470;--coord-d:#2D3030;--hl:rgba(255,206,61,.46);--acento-tema:#4B706D;--acento-ink:#E3F0EF}
+html[data-tablero="niebla"]{--light:#EDEFF0;--dark:#9DA8AE;--coord-l:#6E767A;--coord-d:#2F3030;--hl:rgba(255,206,61,.46);--acento-tema:#5E6568;--acento-ink:#EDEFF0}
+html[data-tablero="turquesa"]{--light:#E2F0F0;--dark:#3F8F8F;--coord-l:#2C6464;--coord-d:#ECF5F5;--hl:rgba(255,206,61,.46);--acento-tema:#306D6D;--acento-ink:#E2F0F0}
+html[data-tablero="petroleo"]{--light:#DBE7E8;--dark:#35646A;--coord-l:#25464A;--coord-d:#E8EFF0;--hl:rgba(255,206,61,.46);--acento-tema:#35646A;--acento-ink:#DBE7E8}
+html[data-tablero="verdeagua"]{--light:#E4F1EC;--dark:#4FA07E;--coord-l:#377058;--coord-d:#2E302F;--hl:rgba(255,206,61,.46);--acento-tema:#366D56;--acento-ink:#E4F1EC}
+html[data-tablero="cobalto"]{--light:#DEE6F4;--dark:#3F5FA8;--coord-l:#2C4276;--coord-d:#EAEFF8;--hl:rgba(255,206,61,.46);--acento-tema:#3F5FA8;--acento-ink:#DEE6F4}
+html[data-tablero="lila"]{--light:#F1EBF7;--dark:#A78BD0;--coord-l:#756192;--coord-d:#302F31;--hl:rgba(255,206,61,.46);--acento-tema:#725F8D;--acento-ink:#F1EBF7}
+html[data-tablero="espliego"]{--light:#EAE8F6;--dark:#4F4C95;--coord-l:#373568;--coord-d:#F1F0F9;--hl:rgba(255,206,61,.46);--acento-tema:#4F4C95;--acento-ink:#EAE8F6}
+html[data-tablero="berenjena"]{--light:#EDE6EE;--dark:#6B3A72;--coord-l:#4B2950;--coord-d:#A6A1A7;--hl:rgba(255,206,61,.46);--acento-tema:#6B3A72;--acento-ink:#EDE6EE}
+html[data-tablero="fucsia"]{--light:#F7E4EF;--dark:#B45A8E;--coord-l:#7E3F63;--coord-d:#FAEDF5;--hl:rgba(255,206,61,.46);--acento-tema:#974C77;--acento-ink:#F7E4EF}
+html[data-tablero="malva"]{--light:#F3EAEF;--dark:#B08FA4;--coord-l:#7B6473;--coord-d:#312F30;--hl:rgba(255,206,61,.46);--acento-tema:#786170;--acento-ink:#F3EAEF}
+html[data-tablero="cereza"]{--light:#F6E2E4;--dark:#B03E5E;--coord-l:#7B2B42;--coord-d:#F9ECED;--hl:rgba(255,206,61,.46);--acento-tema:#A23956;--acento-ink:#F6E2E4}
+html[data-tablero="grana"]{--light:#F1DEDE;--dark:#8C2F2F;--coord-l:#622121;--coord-d:#F6EAEA;--hl:rgba(255,206,61,.46);--acento-tema:#8C2F2F;--acento-ink:#F1DEDE}
+html[data-tablero="salmon"]{--light:#FAE9E1;--dark:#DE9174;--coord-l:#9B6651;--coord-d:#322F2D;--hl:rgba(255,206,61,.46);--acento-tema:#855746;--acento-ink:#FAE9E1}
+html[data-tablero="oxido"]{--light:#F3E3D6;--dark:#9C5A2E;--coord-l:#6D3F20;--coord-d:#F7EDE4;--hl:rgba(58,96,208,.32);--acento-tema:#90532A;--acento-ink:#F3E3D6}
+html[data-tablero="ambar"]{--light:#FAEFD2;--dark:#D89A2E;--coord-l:#976C20;--coord-d:#32302A;--hl:rgba(58,96,208,.32);--acento-tema:#825C1C;--acento-ink:#FAEFD2}
+html[data-tablero="calabaza"]{--light:#F9E9D4;--dark:#DE7B2A;--coord-l:#9B561D;--coord-d:#322F2A;--hl:rgba(58,96,208,.32);--acento-tema:#97541D;--acento-ink:#F9E9D4}
+html[data-tablero="mostaza"]{--light:#F7F0D2;--dark:#C0A32A;--coord-l:#86721D;--coord-d:#31302A;--hl:rgba(58,96,208,.32);--acento-tema:#736219;--acento-ink:#F7F0D2}
+html[data-tablero="selva"]{--light:#E4EDDC;--dark:#3E6B36;--coord-l:#2B4B26;--coord-d:#EDF3E8;--hl:rgba(255,206,61,.46);--acento-tema:#3E6B36;--acento-ink:#E4EDDC}
+html[data-tablero="militar"]{--light:#EAEBDD;--dark:#6F7448;--coord-l:#4E5132;--coord-d:#F1F2E9;--hl:rgba(58,96,208,.32);--acento-tema:#666B42;--acento-ink:#EAEBDD}
+html[data-tablero="hierba"]{--light:#EBF2DD;--dark:#6F9A38;--coord-l:#4E6C27;--coord-d:#2F302C;--hl:rgba(255,206,61,.46);--acento-tema:#54752B;--acento-ink:#EBF2DD}
+html[data-tablero="helecho"]{--light:#E7F0E3;--dark:#4C8452;--coord-l:#355C39;--coord-d:#EFF5ED;--hl:rgba(255,206,61,.46);--acento-tema:#406F45;--acento-ink:#E7F0E3}
+html[data-tablero="lino"]{--light:#F4F0E4;--dark:#B4A583;--coord-l:#7E745C;--coord-d:#31302E;--hl:rgba(58,96,208,.32);--acento-tema:#6C634F;--acento-ink:#F4F0E4}
+html[data-tablero="caqui"]{--light:#F0EEE0;--dark:#96925F;--coord-l:#696642;--coord-d:#30302D;--hl:rgba(58,96,208,.32);--acento-tema:#666341;--acento-ink:#F0EEE0}
+html[data-tablero="cedro"]{--light:#F5E7CE;--dark:#A88238;--coord-l:#765B27;--coord-d:#FAF4E9;--hl:rgba(58,96,208,.32);--acento-tema:#80632B;--acento-ink:#F5E7CE}
+html[data-tablero="laguna"]{--light:#E0EEF2;--dark:#4E8CA8;--coord-l:#376276;--coord-d:#EBF4F7;--hl:rgba(255,206,61,.46);--acento-tema:#3B6A80;--acento-ink:#E0EEF2}
+html[data-tablero="bruma"]{--light:#EEF1F2;--dark:#8794A0;--coord-l:#5E6870;--coord-d:#303030;--hl:rgba(255,206,61,.46);--acento-tema:#5C656D;--acento-ink:#EEF1F2}
+html[data-tablero="camelia"]{--light:#F7E9E9;--dark:#D09F9F;--coord-l:#926F6F;--coord-d:#312F2F;--hl:rgba(255,206,61,.46);--acento-tema:#7D5F5F;--acento-ink:#F7E9E9}
+html[data-tablero="rosaceniza"]{--light:#F0E5E5;--dark:#BA9797;--coord-l:#826A6A;--coord-d:#302E2E;--hl:rgba(255,206,61,.46);--acento-tema:#705B5B;--acento-ink:#F0E5E5}
+html[data-tablero="rosapolvo"]{--light:#F6E4E4;--dark:#D08B8B;--coord-l:#926161;--coord-d:#312E2E;--hl:rgba(255,206,61,.46);--acento-tema:#7D5353;--acento-ink:#F6E4E4}
+html[data-tablero="chicle"]{--light:#FDF3F3;--dark:#EEB5B5;--coord-l:#A77F7F;--coord-d:#605C5C;--hl:rgba(255,206,61,.46);--acento-tema:#7C5E5E;--acento-ink:#FDF3F3}
+html[data-tablero="durazno"]{--light:#F7EEE9;--dark:#D0B39F;--coord-l:#927D6F;--coord-d:#5E5A59;--hl:rgba(58,96,208,.32);--acento-tema:#6C5D53;--acento-ink:#F7EEE9}
+html[data-tablero="arcillaclara"]{--light:#F6EBE4;--dark:#D0A78B;--coord-l:#927561;--coord-d:#312F2E;--hl:rgba(58,96,208,.32);--acento-tema:#7D6453;--acento-ink:#F6EBE4}
+html[data-tablero="mango"]{--light:#FDF7F3;--dark:#EECBB5;--coord-l:#837064;--coord-d:#605E5C;--hl:rgba(58,96,208,.32);--acento-tema:#7C6A5E;--acento-ink:#FDF7F3}
+html[data-tablero="vainilla"]{--light:#F7F4E9;--dark:#D0C69F;--coord-l:#726D57;--coord-d:#5E5D59;--hl:rgba(58,96,208,.32);--acento-tema:#6C6753;--acento-ink:#F7F4E9}
+html[data-tablero="mostazaclara"]{--light:#F6F3E4;--dark:#D0C28B;--coord-l:#726B4C;--coord-d:#5D5C57;--hl:rgba(58,96,208,.32);--acento-tema:#6C6548;--acento-ink:#F6F3E4}
+html[data-tablero="limon"]{--light:#F4F7E9;--dark:#C6D09F;--coord-l:#6D7257;--coord-d:#5D5E59;--hl:rgba(255,206,61,.46);--acento-tema:#676C53;--acento-ink:#F4F7E9}
+html[data-tablero="jazmin"]{--light:#F9FBEF;--dark:#D8E3AB;--coord-l:#777D5E;--coord-d:#5F5F5B;--hl:rgba(255,206,61,.46);--acento-tema:#5F644B;--acento-ink:#F9FBEF}
+html[data-tablero="caquiclaro"]{--light:#EEF0E5;--dark:#B3BA97;--coord-l:#7D826A;--coord-d:#5A5B57;--hl:rgba(255,206,61,.46);--acento-tema:#5D614F;--acento-ink:#EEF0E5}
+html[data-tablero="limapalida"]{--light:#F3F6E4;--dark:#C2D08B;--coord-l:#6B724C;--coord-d:#5C5D57;--hl:rgba(255,206,61,.46);--acento-tema:#656C48;--acento-ink:#F3F6E4}
+html[data-tablero="pistacho"]{--light:#EEF7E9;--dark:#B3D09F;--coord-l:#627257;--coord-d:#5A5E59;--hl:rgba(255,206,61,.46);--acento-tema:#5D6C53;--acento-ink:#EEF7E9}
+html[data-tablero="apio"]{--light:#F4FBEF;--dark:#C1E3AB;--coord-l:#6A7D5E;--coord-d:#5D5F5B;--hl:rgba(255,206,61,.46);--acento-tema:#647659;--acento-ink:#F4FBEF}
+html[data-tablero="musgoclaro"]{--light:#EBF6E4;--dark:#A7D08B;--coord-l:#5C724C;--coord-d:#595D57;--hl:rgba(255,206,61,.46);--acento-tema:#576C48;--acento-ink:#EBF6E4}
+html[data-tablero="mentaclara"]{--light:#E9F7E9;--dark:#9FD09F;--coord-l:#577257;--coord-d:#595E59;--hl:rgba(255,206,61,.46);--acento-tema:#536C53;--acento-ink:#E9F7E9}
+html[data-tablero="espuma"]{--light:#EFFBEF;--dark:#ABE3AB;--coord-l:#5E7D5E;--coord-d:#5B5F5B;--hl:rgba(255,206,61,.46);--acento-tema:#597659;--acento-ink:#EFFBEF}
+html[data-tablero="salviaclara"]{--light:#E5F0E5;--dark:#97BA97;--coord-l:#6A826A;--coord-d:#575B57;--hl:rgba(255,206,61,.46);--acento-tema:#4F614F;--acento-ink:#E5F0E5}
+html[data-tablero="mentapolvo"]{--light:#E4F6E4;--dark:#8BD08B;--coord-l:#619261;--coord-d:#575D57;--hl:rgba(255,206,61,.46);--acento-tema:#486C48;--acento-ink:#E4F6E4}
+html[data-tablero="verdeaguaclaro"]{--light:#E9F7EE;--dark:#9FD0B3;--coord-l:#577262;--coord-d:#595E5A;--hl:rgba(255,206,61,.46);--acento-tema:#536C5D;--acento-ink:#E9F7EE}
+html[data-tablero="rocio"]{--light:#EFFBF4;--dark:#ABE3C1;--coord-l:#5E7D6A;--coord-d:#5B5F5D;--hl:rgba(255,206,61,.46);--acento-tema:#597664;--acento-ink:#EFFBF4}
+html[data-tablero="jadeclaro"]{--light:#E5F0E9;--dark:#97BAA5;--coord-l:#6A8274;--coord-d:#575B59;--hl:rgba(255,206,61,.46);--acento-tema:#4F6156;--acento-ink:#E5F0E9}
+html[data-tablero="verdepiscina"]{--light:#E4F6EB;--dark:#8BD0A7;--coord-l:#4C725C;--coord-d:#575D59;--hl:rgba(255,206,61,.46);--acento-tema:#486C57;--acento-ink:#E4F6EB}
+html[data-tablero="aguamarinaclara"]{--light:#E9F7F4;--dark:#9FD0C6;--coord-l:#57726D;--coord-d:#595E5D;--hl:rgba(255,206,61,.46);--acento-tema:#536C67;--acento-ink:#E9F7F4}
+html[data-tablero="petroleoclaro"]{--light:#E5F0EE;--dark:#97BAB3;--coord-l:#6A827D;--coord-d:#575B5A;--hl:rgba(255,206,61,.46);--acento-tema:#4F615D;--acento-ink:#E5F0EE}
+html[data-tablero="celeste"]{--light:#E9F4F7;--dark:#9FC6D0;--coord-l:#6F8B92;--coord-d:#595D5E;--hl:rgba(255,206,61,.46);--acento-tema:#53676C;--acento-ink:#E9F4F7}
+html[data-tablero="celestenube"]{--light:#F3FBFD;--dark:#B5E2EE;--coord-l:#647C83;--coord-d:#5C5F60;--hl:rgba(255,206,61,.46);--acento-tema:#506369;--acento-ink:#F3FBFD}
+html[data-tablero="cielopalido"]{--light:#E9EEF7;--dark:#9FB3D0;--coord-l:#6F7D92;--coord-d:#595A5E;--hl:rgba(255,206,61,.46);--acento-tema:#5F6B7D;--acento-ink:#E9EEF7}
+html[data-tablero="denimclaro"]{--light:#E4EBF6;--dark:#8BA7D0;--coord-l:#617592;--coord-d:#2E2F31;--hl:rgba(255,206,61,.46);--acento-tema:#53647D;--acento-ink:#E4EBF6}
+html[data-tablero="zafiroclaro"]{--light:#F3F7FD;--dark:#B5CBEE;--coord-l:#647083;--coord-d:#5C5E60;--hl:rgba(255,206,61,.46);--acento-tema:#5E6A7C;--acento-ink:#F3F7FD}
+html[data-tablero="hortensia"]{--light:#E9E9F7;--dark:#9F9FD0;--coord-l:#6F6F92;--coord-d:#2F2F31;--hl:rgba(255,206,61,.46);--acento-tema:#5F5F7D;--acento-ink:#E9E9F7}
+html[data-tablero="pizarraclara"]{--light:#E5E5F0;--dark:#9797BA;--coord-l:#6A6A82;--coord-d:#2E2E30;--hl:rgba(255,206,61,.46);--acento-tema:#5B5B70;--acento-ink:#E5E5F0}
+html[data-tablero="lavandaazul"]{--light:#E4E4F6;--dark:#8B8BD0;--coord-l:#616192;--coord-d:#2E2E31;--hl:rgba(255,206,61,.46);--acento-tema:#5F5F8D;--acento-ink:#E4E4F6}
+html[data-tablero="azulbebe"]{--light:#F3F3FD;--dark:#B5B5EE;--coord-l:#7F7FA7;--coord-d:#5C5C60;--hl:rgba(255,206,61,.46);--acento-tema:#5E5E7C;--acento-ink:#F3F3FD}
+html[data-tablero="espliegoclaro"]{--light:#F4EFFB;--dark:#C1ABE3;--coord-l:#87789F;--coord-d:#5D5B5F;--hl:rgba(255,206,61,.46);--acento-tema:#746788;--acento-ink:#F4EFFB}
+html[data-tablero="glicina"]{--light:#F4E9F7;--dark:#C69FD0;--coord-l:#8B6F92;--coord-d:#312F31;--hl:rgba(255,206,61,.46);--acento-tema:#775F7D;--acento-ink:#F4E9F7}
+html[data-tablero="ciruelaclara"]{--light:#EEE5F0;--dark:#B397BA;--coord-l:#7D6A82;--coord-d:#302E30;--hl:rgba(255,206,61,.46);--acento-tema:#6B5B70;--acento-ink:#EEE5F0}
+html[data-tablero="lilapolvo"]{--light:#F3E4F6;--dark:#C28BD0;--coord-l:#886192;--coord-d:#312E31;--hl:rgba(255,206,61,.46);--acento-tema:#74537D;--acento-ink:#F3E4F6}
+html[data-tablero="lilanube"]{--light:#FBF3FD;--dark:#E2B5EE;--coord-l:#7C6483;--coord-d:#5F5C60;--hl:rgba(255,206,61,.46);--acento-tema:#765E7C;--acento-ink:#FBF3FD}
+html[data-tablero="lilapalido"]{--light:#FBEFF9;--dark:#E3ABD8;--coord-l:#9F7897;--coord-d:#5F5B5F;--hl:rgba(255,206,61,.46);--acento-tema:#765970;--acento-ink:#FBEFF9}
+html[data-tablero="ciclamenclaro"]{--light:#F6E4F3;--dark:#D08BC2;--coord-l:#926188;--coord-d:#312E31;--hl:rgba(255,206,61,.46);--acento-tema:#7D5374;--acento-ink:#F6E4F3}
+html[data-tablero="cuarzorosa"]{--light:#F7E9EE;--dark:#D09FB3;--coord-l:#926F7D;--coord-d:#312F30;--hl:rgba(255,206,61,.46);--acento-tema:#7D5F6B;--acento-ink:#F7E9EE}
+html[data-tablero="fresaclara"]{--light:#FDF3F7;--dark:#EEB5CB;--coord-l:#836470;--coord-d:#605C5E;--hl:rgba(255,206,61,.46);--acento-tema:#7C5E6A;--acento-ink:#FDF3F7}
+html[data-tablero="marfil"]{--light:#F6F6F3;--dark:#CDCAC1;--coord-l:#716F6A;--coord-d:#5D5D5C;--hl:rgba(58,96,208,.32);--acento-tema:#6B6964;--acento-ink:#F6F6F3}
+html[data-tablero="humoclaro"]{--light:#D4D5D9;--dark:#A5A6AC;--coord-l:#5B5B5F;--coord-d:#515152;--hl:rgba(255,206,61,.46);--acento-tema:#565659;--acento-ink:#D4D5D9}
+html[data-tablero="maderaveta"]{--light:#E8C89A;--dark:#9A6A3E;--coord-l:#6C4A2B;--coord-d:#F0DBBD;--hl:rgba(58,96,208,.32);--acento-tema:#69482A;--acento-ink:#E8C89A}
+html[data-tablero="lino"]{--light:#EEEADC;--dark:#B9AE93;--coord-l:#827A67;--coord-d:#302F2C;--hl:rgba(58,96,208,.32);--acento-tema:#605A4C;--acento-ink:#EEEADC}
+html[data-tablero="pizarraveta"]{--light:#DDE0DE;--dark:#5A6A66;--coord-l:#3F4A47;--coord-d:#E9EBEA;--hl:rgba(255,206,61,.46);--acento-tema:#53625E;--acento-ink:#DDE0DE}
+html[data-tablero="cuadricula"]{--light:#EFF3F6;--dark:#B6C6D2;--coord-l:#646D74;--coord-d:#5B5C5D;--hl:rgba(255,206,61,.46);--acento-tema:#5F676D;--acento-ink:#EFF3F6}
+html[data-tablero="tejido"]{--light:#EDE7DB;--dark:#A78F72;--coord-l:#756450;--coord-d:#2F2E2C;--hl:rgba(58,96,208,.32);--acento-tema:#72614E;--acento-ink:#EDE7DB}
+html[data-tablero="puntos"]{--light:#EDEFEA;--dark:#9FB09C;--coord-l:#6F7B6D;--coord-d:#2F302F;--hl:rgba(255,206,61,.46);--acento-tema:#5F6A5E;--acento-ink:#EDEFEA}
+html[data-tablero="carbon"]{--light:#DEE1E4;--dark:#3A4046;--coord-l:#292D31;--coord-d:#9B9EA0;--hl:rgba(255,206,61,.46);--acento-tema:#3A4046;--acento-ink:#DEE1E4}
+html[data-tablero="marino"]{--light:#DDE3EF;--dark:#2E4166;--coord-l:#202E47;--coord-d:#9B9FA7;--hl:rgba(255,206,61,.46);--acento-tema:#2E4166;--acento-ink:#DDE3EF}
+html[data-tablero="bosquehondo"]{--light:#E3EBDD;--dark:#2E5233;--coord-l:#203924;--coord-d:#9FA49B;--hl:rgba(255,206,61,.46);--acento-tema:#2E5233;--acento-ink:#E3EBDD}
+html[data-tablero="borgona"]{--light:#EFE0E2;--dark:#6E2233;--coord-l:#4D1824;--coord-d:#A79D9E;--hl:rgba(255,206,61,.46);--acento-tema:#6E2233;--acento-ink:#EFE0E2}
+html[data-tablero="chartreuse"]{--light:#F2F6D6;--dark:#A3B62E;--coord-l:#727F20;--coord-d:#30312B;--hl:rgba(58,96,208,.32);--acento-tema:#626D1C;--acento-ink:#F2F6D6}
+html[data-tablero="turquesahondo"]{--light:#DFEFEF;--dark:#22706E;--coord-l:#184E4D;--coord-d:#EAF5F5;--hl:rgba(255,206,61,.46);--acento-tema:#22706E;--acento-ink:#DFEFEF}
+html[data-tablero="violetahondo"]{--light:#E9E4F2;--dark:#4B3A85;--coord-l:#34295D;--coord-d:#A3A0A9;--hl:rgba(255,206,61,.46);--acento-tema:#4B3A85;--acento-ink:#E9E4F2}
+html[data-tablero="oxidohondo"]{--light:#F1E2D6;--dark:#7E3F1E;--coord-l:#582C15;--coord-d:#F6ECE4;--hl:rgba(58,96,208,.32);--acento-tema:#7E3F1E;--acento-ink:#F1E2D6}
+html[data-tablero="botella"]{--light:#E4EEE6;--dark:#1F5A46;--coord-l:#163F31;--coord-d:#A0A7A1;--hl:rgba(255,206,61,.46);--acento-tema:#1F5A46;--acento-ink:#E4EEE6}
+html[data-tablero="acerohondo"]{--light:#DFE6EC;--dark:#3C5A72;--coord-l:#2A3F50;--coord-d:#EAEFF3;--hl:rgba(255,206,61,.46);--acento-tema:#3C5A72;--acento-ink:#DFE6EC}
+html[data-tablero="ciruelahondo"]{--light:#EEE4EE;--dark:#5A2C55;--coord-l:#3F1F3C;--coord-d:#A7A0A7;--hl:rgba(255,206,61,.46);--acento-tema:#5A2C55;--acento-ink:#EEE4EE}
+html[data-tablero="buganvilla"]{--light:#F1E1EA;--dark:#8B2A62;--coord-l:#611D45;--coord-d:#F6ECF1;--hl:rgba(255,206,61,.46);--acento-tema:#8B2A62;--acento-ink:#F1E1EA}
+html[data-tablero="grisazul"]{--light:#E4E9EE;--dark:#5A6D80;--coord-l:#3F4C5A;--coord-d:#EDF1F4;--hl:rgba(255,206,61,.46);--acento-tema:#536476;--acento-ink:#E4E9EE}
+html[data-tablero="rosaviejo"]{--light:#F2E3E4;--dark:#8E5A64;--coord-l:#633F46;--coord-d:#F7EDED;--hl:rgba(255,206,61,.46);--acento-tema:#83535C;--acento-ink:#F2E3E4}
+html[data-tablero="robleclaro"]{--light:#EFDCBB;--dark:#B98A52;--coord-l:#826139;--coord-d:#302C25;--hl:rgba(58,96,208,.32);--acento-tema:#6F5331;--acento-ink:#EFDCBB}
+html[data-tablero="nogaloscuro"]{--light:#E3CBA4;--dark:#7B5330;--coord-l:#563A22;--coord-d:#EDDDC4;--hl:rgba(58,96,208,.32);--acento-tema:#714C2C;--acento-ink:#E3CBA4}
+html[data-tablero="cerezo"]{--light:#F0D6C0;--dark:#A85B3E;--coord-l:#76402B;--coord-d:#F5E4D6;--hl:rgba(255,206,61,.46);--acento-tema:#8D4C34;--acento-ink:#F0D6C0}
+html[data-tablero="arcedorado"]{--light:#F6E6C3;--dark:#C99A4E;--coord-l:#8D6C37;--coord-d:#312E27;--hl:rgba(58,96,208,.32);--acento-tema:#795C2F;--acento-ink:#F6E6C3}
+html[data-tablero="wengue"]{--light:#DCC7AC;--dark:#5E4530;--coord-l:#423022;--coord-d:#E8DBC9;--hl:rgba(58,96,208,.32);--acento-tema:#5E4530;--acento-ink:#DCC7AC}
+html[data-tablero="tecarojiza"]{--light:#EDD3B2;--dark:#9C6134;--coord-l:#6D4424;--coord-d:#F3E2CD;--hl:rgba(58,96,208,.32);--acento-tema:#774A28;--acento-ink:#EDD3B2}
+html[data-tablero="fresnogris"]{--light:#E7DECB;--dark:#9A8C74;--coord-l:#6C6251;--coord-d:#2E2C29;--hl:rgba(58,96,208,.32);--acento-tema:#695F4F;--acento-ink:#E7DECB}
+html[data-tablero="maderaebano"]{--light:#D9CDBB;--dark:#4A3B2C;--coord-l:#34291F;--coord-d:#989083;--hl:rgba(58,96,208,.32);--acento-tema:#4A3B2C;--acento-ink:#D9CDBB}
+html[data-tablero="linoazul"]{--light:#E4EAF0;--dark:#96A9BD;--coord-l:#697684;--coord-d:#2E2F30;--hl:rgba(255,206,61,.46);--acento-tema:#5A6571;--acento-ink:#E4EAF0}
+html[data-tablero="linoverde"]{--light:#E7EEE3;--dark:#9BB198;--coord-l:#6C7C6A;--coord-d:#2E302D;--hl:rgba(255,206,61,.46);--acento-tema:#5D6A5B;--acento-ink:#E7EEE3}
+html[data-tablero="linorosa"]{--light:#F2E7E6;--dark:#C0A0A0;--coord-l:#867070;--coord-d:#302E2E;--hl:rgba(255,206,61,.46);--acento-tema:#736060;--acento-ink:#F2E7E6}
+html[data-tablero="linogris"]{--light:#E9EAEA;--dark:#A2A6A6;--coord-l:#717474;--coord-d:#2F2F2F;--hl:rgba(255,206,61,.46);--acento-tema:#616464;--acento-ink:#E9EAEA}
+html[data-tablero="linoarena"]{--light:#F3E9CF;--dark:#C9AF7C;--coord-l:#8D7A57;--coord-d:#5C594F;--hl:rgba(58,96,208,.32);--acento-tema:#695B40;--acento-ink:#F3E9CF}
+html[data-tablero="linocarbon"]{--light:#E2E2E0;--dark:#7C7C78;--coord-l:#575754;--coord-d:#ECECEB;--hl:rgba(58,96,208,.32);--acento-tema:#5E5E5B;--acento-ink:#E2E2E0}
+html[data-tablero="linovioleta"]{--light:#EAE6F0;--dark:#A69CBB;--coord-l:#746D83;--coord-d:#2F2E30;--hl:rgba(255,206,61,.46);--acento-tema:#645E70;--acento-ink:#EAE6F0}
+html[data-tablero="pizarraazul"]{--light:#DFE5EA;--dark:#566B7C;--coord-l:#3C4B57;--coord-d:#EAEEF1;--hl:rgba(255,206,61,.46);--acento-tema:#4F6272;--acento-ink:#DFE5EA}
+html[data-tablero="pizarraverde"]{--light:#E0E7E1;--dark:#4F6B58;--coord-l:#374B3E;--coord-d:#EBEFEC;--hl:rgba(255,206,61,.46);--acento-tema:#4F6B58;--acento-ink:#E0E7E1}
+html[data-tablero="pizarramorada"]{--light:#E5E0EA;--dark:#5E5270;--coord-l:#42394E;--coord-d:#EEEBF1;--hl:rgba(255,206,61,.46);--acento-tema:#5E5270;--acento-ink:#E5E0EA}
+html[data-tablero="pizarraparda"]{--light:#E8E2DA;--dark:#6B5C4C;--coord-l:#4B4035;--coord-d:#F0ECE7;--hl:rgba(58,96,208,.32);--acento-tema:#6B5C4C;--acento-ink:#E8E2DA}
+html[data-tablero="pizarraroja"]{--light:#EBDFDF;--dark:#74484A;--coord-l:#513234;--coord-d:#F2EAEA;--hl:rgba(255,206,61,.46);--acento-tema:#74484A;--acento-ink:#EBDFDF}
+html[data-tablero="pizarrapalida"]{--light:#E9ECEE;--dark:#8494A0;--coord-l:#5C6870;--coord-d:#2F2F30;--hl:rgba(255,206,61,.46);--acento-tema:#5A656D;--acento-ink:#E9ECEE}
+html[data-tablero="pizarranegra"]{--light:#DEDEDE;--dark:#3F4448;--coord-l:#2C3032;--coord-d:#9B9B9B;--hl:rgba(255,206,61,.46);--acento-tema:#3F4448;--acento-ink:#DEDEDE}
+html[data-tablero="cuadriculaverde"]{--light:#EFF5EF;--dark:#B4CDB6;--coord-l:#637164;--coord-d:#5B5D5B;--hl:rgba(255,206,61,.46);--acento-tema:#5E6B5F;--acento-ink:#EFF5EF}
+html[data-tablero="cuadriculasepia"]{--light:#F5F0E4;--dark:#CFC0A0;--coord-l:#726A58;--coord-d:#5D5B57;--hl:rgba(58,96,208,.32);--acento-tema:#6C6453;--acento-ink:#F5F0E4}
+html[data-tablero="cuadricularosa"]{--light:#F7EFF2;--dark:#D6BCC6;--coord-l:#76676D;--coord-d:#5E5B5C;--hl:rgba(255,206,61,.46);--acento-tema:#6F6267;--acento-ink:#F7EFF2}
+html[data-tablero="cuadriculagris"]{--light:#EFF0F1;--dark:#A9AFB4;--coord-l:#767A7E;--coord-d:#303030;--hl:rgba(255,206,61,.46);--acento-tema:#65696C;--acento-ink:#EFF0F1}
+html[data-tablero="cuadriculaambar"]{--light:#F7F1E0;--dark:#D4C08A;--coord-l:#756A4C;--coord-d:#5E5C55;--hl:rgba(58,96,208,.32);--acento-tema:#6E6448;--acento-ink:#F7F1E0}
+html[data-tablero="cuadriculamenta"]{--light:#E8F6F2;--dark:#93C8BC;--coord-l:#678C84;--coord-d:#585D5C;--hl:rgba(255,206,61,.46);--acento-tema:#4C6862;--acento-ink:#E8F6F2}
+html[data-tablero="cuadriculalila"]{--light:#F2EFF7;--dark:#C3B8D4;--coord-l:#888194;--coord-d:#5C5B5E;--hl:rgba(255,206,61,.46);--acento-tema:#65606E;--acento-ink:#F2EFF7}
+html[data-tablero="tejidorojo"]{--light:#F0E3E0;--dark:#A76A5E;--coord-l:#754A42;--coord-d:#F5EDEB;--hl:rgba(255,206,61,.46);--acento-tema:#7F5147;--acento-ink:#F0E3E0}
+html[data-tablero="tejidoazul"]{--light:#E3E9F1;--dark:#6E86A6;--coord-l:#4D5E74;--coord-d:#EDF1F6;--hl:rgba(255,206,61,.46);--acento-tema:#54667E;--acento-ink:#E3E9F1}
+html[data-tablero="tejidoverde"]{--light:#E6EDE3;--dark:#7C9A72;--coord-l:#576C50;--coord-d:#2E2F2D;--hl:rgba(255,206,61,.46);--acento-tema:#54694E;--acento-ink:#E6EDE3}
+html[data-tablero="tejidomostaza"]{--light:#F3EDD8;--dark:#BFA65E;--coord-l:#867442;--coord-d:#312F2B;--hl:rgba(58,96,208,.32);--acento-tema:#736438;--acento-ink:#F3EDD8}
+html[data-tablero="tejidogris"]{--light:#E8E9E9;--dark:#8E9294;--coord-l:#636668;--coord-d:#2E2F2F;--hl:rgba(255,206,61,.46);--acento-tema:#616365;--acento-ink:#E8E9E9}
+html[data-tablero="tejidomorado"]{--light:#E9E4EE;--dark:#8B7BA0;--coord-l:#615670;--coord-d:#F1EDF4;--hl:rgba(255,206,61,.46);--acento-tema:#6A5D7A;--acento-ink:#E9E4EE}
+html[data-tablero="tejidonegro"]{--light:#E0E0DE;--dark:#55565A;--coord-l:#3C3C3F;--coord-d:#EBEBEA;--hl:rgba(255,206,61,.46);--acento-tema:#55565A;--acento-ink:#E0E0DE}
+html[data-tablero="tejidoarena"]{--light:#F5EEDA;--dark:#CDB47F;--coord-l:#907E59;--coord-d:#5D5A53;--hl:rgba(58,96,208,.32);--acento-tema:#6B5E42;--acento-ink:#F5EEDA}
+html[data-tablero="puntosazul"]{--light:#E9EFF5;--dark:#8FA9C0;--coord-l:#647686;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#566573;--acento-ink:#E9EFF5}
+html[data-tablero="puntosrosa"]{--light:#F6EBEF;--dark:#C99BAD;--coord-l:#8D6C79;--coord-d:#312F30;--hl:rgba(255,206,61,.46);--acento-tema:#795D68;--acento-ink:#F6EBEF}
+html[data-tablero="puntosverde"]{--light:#EAF1E9;--dark:#92B08F;--coord-l:#667B64;--coord-d:#2F302F;--hl:rgba(255,206,61,.46);--acento-tema:#586A56;--acento-ink:#EAF1E9}
+html[data-tablero="puntosnaranja"]{--light:#F7EBDF;--dark:#C99668;--coord-l:#8D6949;--coord-d:#312F2D;--hl:rgba(58,96,208,.32);--acento-tema:#795A3E;--acento-ink:#F7EBDF}
+html[data-tablero="puntosmorado"]{--light:#EDE8F3;--dark:#A192BC;--coord-l:#716684;--coord-d:#2F2E31;--hl:rgba(255,206,61,.46);--acento-tema:#6D6380;--acento-ink:#EDE8F3}
+html[data-tablero="puntosgris"]{--light:#EDEEEE;--dark:#A0A4A6;--coord-l:#707374;--coord-d:#2F3030;--hl:rgba(255,206,61,.46);--acento-tema:#606264;--acento-ink:#EDEEEE}
+html[data-tablero="puntosocre"]{--light:#F4EEDC;--dark:#C0AE7A;--coord-l:#867A55;--coord-d:#31302C;--hl:rgba(58,96,208,.32);--acento-tema:#736849;--acento-ink:#F4EEDC}
+html[data-tablero="puntoscrema"]{--light:#F6F0E2;--dark:#CBBFA2;--coord-l:#706959;--coord-d:#5D5B56;--hl:rgba(58,96,208,.32);--acento-tema:#6A6354;--acento-ink:#F6F0E2}
+html[data-tablero="periodico"]{--light:#E8D6BE;--dark:#B8A996;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#60584E;--acento-ink:#E8D6BE;--halo:#F2E8DB}
+html[data-tablero="periodicoazul"]{--light:#DAE2F0;--dark:#AFB2B9;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#5B5D60;--acento-ink:#DAE2F0;--halo:#EBEFF7}
+html[data-tablero="periodicoverde"]{--light:#DEEBD8;--dark:#B2B8A8;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#5D6057;--acento-ink:#DEEBD8;--halo:#EDF4EA}
+html[data-tablero="periodicorosa"]{--light:#F3DFE1;--dark:#C0B0AE;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#645C5A;--acento-ink:#F3DFE1;--halo:#F8EDEE}
+html[data-tablero="periodicoocre"]{--light:#F3ECC2;--dark:#C0B999;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#646050;--acento-ink:#F3ECC2;--halo:#F8F5DD}
+html[data-tablero="periodicogris"]{--light:#E4E4E2;--dark:#B6B3AF;--coord-l:#3B342E;--coord-d:#3B342E;--hl:rgba(201,201,106,.55);--acento-tema:#5F5D5B;--acento-ink:#E4E4E2;--halo:#F0F0EF}
+html[data-tablero="anillo"]{--light:#E6ECF2;--dark:#7C93A8;--coord-l:#576776;--coord-d:#2E2F30;--hl:rgba(255,206,61,.46);--acento-tema:#546472;--acento-ink:#E6ECF2}
+html[data-tablero="rombo"]{--light:#E7F0E9;--dark:#6D9B7E;--coord-l:#4C6C58;--coord-d:#2E302F;--hl:rgba(255,206,61,.46);--acento-tema:#4A6956;--acento-ink:#E7F0E9}
+html[data-tablero="esquinas"]{--light:#F2EADC;--dark:#B79E7C;--coord-l:#806F57;--coord-d:#302F2C;--hl:rgba(58,96,208,.32);--acento-tema:#6E5F4A;--acento-ink:#F2EADC}
+html[data-tablero="cruces"]{--light:#EDEAF4;--dark:#8E85AE;--coord-l:#635D7A;--coord-d:#FAFAFC;--hl:rgba(255,206,61,.46);--acento-tema:#6C6584;--acento-ink:#EDEAF4}
+html[data-tablero="puntomedio"]{--light:#F3E7E0;--dark:#B0765F;--coord-l:#7B5342;--coord-d:#F7EFEB;--hl:rgba(255,206,61,.46);--acento-tema:#865A48;--acento-ink:#F3E7E0}
+html[data-tablero="marco"]{--light:#E9E9EA;--dark:#6E7276;--coord-l:#4D5053;--coord-d:#F1F1F1;--hl:rgba(255,206,61,.46);--acento-tema:#5C6063;--acento-ink:#E9E9EA}
+html[data-tablero="estrella"]{--light:#EFE6EE;--dark:#8A6A8C;--coord-l:#614A62;--coord-d:#F5EFF4;--hl:rgba(255,206,61,.46);--acento-tema:#745976;--acento-ink:#EFE6EE}
+html[data-tablero="vertice"]{--light:#EEEEE0;--dark:#8C9060;--coord-l:#626543;--coord-d:#FBFBF7;--hl:rgba(58,96,208,.32);--acento-tema:#6A6D49;--acento-ink:#EEEEE0}
+html[data-tablero="halo"]{--light:#E2EFEF;--dark:#5E9A99;--coord-l:#426C6B;--coord-d:#2D3030;--hl:rgba(255,206,61,.46);--acento-tema:#406968;--acento-ink:#E2EFEF}
+html[data-tablero="degrade"]{--light:#F6EDD8;--dark:#C4A05C;--coord-l:#897040;--coord-d:#312F2B;--hl:rgba(58,96,208,.32);--acento-tema:#766037;--acento-ink:#F6EDD8}
+
+html[data-tablero="hojas"]{--light:#E9F0E2;--dark:#7FA06A;--coord-l:#59704A;--coord-d:#2F302D;--hl:rgba(255,206,61,.46);--acento-tema:#566D48;--acento-ink:#E9F0E2}
+html[data-tablero="granocafe"]{--light:#F0E4D6;--dark:#8E5E3C;--coord-l:#63422A;--coord-d:#F5EDE4;--hl:rgba(58,96,208,.32);--acento-tema:#835637;--acento-ink:#F0E4D6}
+html[data-tablero="olivo"]{--light:#EFEFE0;--dark:#8A9A6B;--coord-l:#616C4B;--coord-d:#30302D;--hl:rgba(255,206,61,.46);--acento-tema:#5E6949;--acento-ink:#EFEFE0}
+html[data-tablero="fronda"]{--light:#E5EFE6;--dark:#5C8A6A;--coord-l:#40614A;--coord-d:#EEF5EF;--hl:rgba(255,206,61,.46);--acento-tema:#466951;--acento-ink:#E5EFE6}
+html[data-tablero="trebol"]{--light:#EAF2E4;--dark:#6E9E58;--coord-l:#4D6F3E;--coord-d:#2F302E;--hl:rgba(255,206,61,.46);--acento-tema:#4B6B3C;--acento-ink:#EAF2E4}
+html[data-tablero="ginkgo"]{--light:#F5F1D8;--dark:#C0B152;--coord-l:#867C39;--coord-d:#31302B;--hl:rgba(58,96,208,.32);--acento-tema:#736A31;--acento-ink:#F5F1D8}
+html[data-tablero="espiga"]{--light:#F6EDD4;--dark:#C9A458;--coord-l:#8D733E;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#796235;--acento-ink:#F6EDD4}
+html[data-tablero="ramapino"]{--light:#E4ECE4;--dark:#4E7458;--coord-l:#37513E;--coord-d:#EDF3ED;--hl:rgba(255,206,61,.46);--acento-tema:#486B51;--acento-ink:#E4ECE4}
+html[data-tablero="semillas"]{--light:#F1E9DC;--dark:#A98D6A;--coord-l:#76634A;--coord-d:#302F2C;--hl:rgba(58,96,208,.32);--acento-tema:#736048;--acento-ink:#F1E9DC}
+html[data-tablero="loto"]{--light:#F6E9EE;--dark:#C58BA0;--coord-l:#8A6170;--coord-d:#312F30;--hl:rgba(255,206,61,.46);--acento-tema:#865F6D;--acento-ink:#F6E9EE}
+
+/* ---- diez dibujos de naturaleza: un motivo por casilla, translúcido en las dos caras ---- */
+html[data-trama="hojas"],.pc-tema[data-trama="hojas"],.pc-conf-mini[data-trama="hojas"],.pc-perso-previa[data-trama="hojas"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-25 50 50)'%3E%3Cpath d='M50 20c13 9 19 22 19 32 0 13-8 23-19 26-11-3-19-13-19-26 0-10 6-23 19-32z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 24v54M50 38l11 7M50 38L39 45M50 52l11 7M50 52L39 59M50 66l9 6M50 66l-9 6' stroke='rgba(0,0,0,.09)' stroke-width='1.9' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-25 50 50)'%3E%3Cpath d='M50 20c13 9 19 22 19 32 0 13-8 23-19 26-11-3-19-13-19-26 0-10 6-23 19-32z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 24v54M50 38l11 7M50 38L39 45M50 52l11 7M50 52L39 59M50 66l9 6M50 66l-9 6' stroke='rgba(0,0,0,.17)' stroke-width='1.9' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-25 50 50)'%3E%3Cpath d='M50 20c13 9 19 22 19 32 0 13-8 23-19 26-11-3-19-13-19-26 0-10 6-23 19-32z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 24v54M50 38l11 7M50 38L39 45M50 52l11 7M50 52L39 59M50 66l9 6M50 66l-9 6' stroke='rgba(0,0,0,.15)' stroke-width='1.9' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="granocafe"],.pc-tema[data-trama="granocafe"],.pc-conf-mini[data-trama="granocafe"],.pc-perso-previa[data-trama="granocafe"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-20 50 50)'%3E%3Cellipse cx='50' cy='50' rx='21' ry='29' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 21c-7 9 7 17 0 29s7 20 0 29' stroke='rgba(0,0,0,.09)' stroke-width='2.7' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-20 50 50)'%3E%3Cellipse cx='50' cy='50' rx='21' ry='29' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 21c-7 9 7 17 0 29s7 20 0 29' stroke='rgba(0,0,0,.17)' stroke-width='2.7' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg transform='rotate(-20 50 50)'%3E%3Cellipse cx='50' cy='50' rx='21' ry='29' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 21c-7 9 7 17 0 29s7 20 0 29' stroke='rgba(0,0,0,.15)' stroke-width='2.7' fill='none'/%3E%3C/g%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="olivo"],.pc-tema[data-trama="olivo"],.pc-conf-mini[data-trama="olivo"],.pc-perso-previa[data-trama="olivo"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M26 76C40 64 56 46 74 28' stroke='rgba(0,0,0,.09)' stroke-width='2.4' fill='none'/%3E%3Cellipse cx='42' cy='55' rx='11' ry='6' fill='rgba(0,0,0,.07)' transform='rotate(-40 42 55)'/%3E%3Cellipse cx='58' cy='42' rx='11' ry='6' fill='rgba(0,0,0,.07)' transform='rotate(-40 58 42)'/%3E%3Cellipse cx='34' cy='44' rx='9' ry='5.5' fill='rgba(0,0,0,.07)' transform='rotate(20 34 44)'/%3E%3Cellipse cx='66' cy='58' rx='9' ry='5.5' fill='rgba(0,0,0,.07)' transform='rotate(20 66 58)'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M26 76C40 64 56 46 74 28' stroke='rgba(0,0,0,.17)' stroke-width='2.4' fill='none'/%3E%3Cellipse cx='42' cy='55' rx='11' ry='6' fill='rgba(0,0,0,.13)' transform='rotate(-40 42 55)'/%3E%3Cellipse cx='58' cy='42' rx='11' ry='6' fill='rgba(0,0,0,.13)' transform='rotate(-40 58 42)'/%3E%3Cellipse cx='34' cy='44' rx='9' ry='5.5' fill='rgba(0,0,0,.13)' transform='rotate(20 34 44)'/%3E%3Cellipse cx='66' cy='58' rx='9' ry='5.5' fill='rgba(0,0,0,.13)' transform='rotate(20 66 58)'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M26 76C40 64 56 46 74 28' stroke='rgba(0,0,0,.15)' stroke-width='2.4' fill='none'/%3E%3Cellipse cx='42' cy='55' rx='11' ry='6' fill='rgba(0,0,0,.12)' transform='rotate(-40 42 55)'/%3E%3Cellipse cx='58' cy='42' rx='11' ry='6' fill='rgba(0,0,0,.12)' transform='rotate(-40 58 42)'/%3E%3Cellipse cx='34' cy='44' rx='9' ry='5.5' fill='rgba(0,0,0,.12)' transform='rotate(20 34 44)'/%3E%3Cellipse cx='66' cy='58' rx='9' ry='5.5' fill='rgba(0,0,0,.12)' transform='rotate(20 66 58)'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="fronda"],.pc-tema[data-trama="fronda"],.pc-conf-mini[data-trama="fronda"],.pc-perso-previa[data-trama="fronda"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 84V24' stroke='rgba(0,0,0,.09)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 30 c7 -4 12 -1 16 4 M50 30 c-7 -4 -12 -1 -16 4 M50 42 c6 -4 10 -1 13 4 M50 42 c-6 -4 -10 -1 -13 4 M50 54 c5 -4 8 -1 11 4 M50 54 c-5 -4 -8 -1 -11 4 M50 66 c4 -4 7 -1 9 4 M50 66 c-4 -4 -7 -1 -9 4 M50 76 c3 -4 5 -1 7 4 M50 76 c-3 -4 -5 -1 -7 4' stroke='rgba(0,0,0,.09)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 84V24' stroke='rgba(0,0,0,.17)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 30 c7 -4 12 -1 16 4 M50 30 c-7 -4 -12 -1 -16 4 M50 42 c6 -4 10 -1 13 4 M50 42 c-6 -4 -10 -1 -13 4 M50 54 c5 -4 8 -1 11 4 M50 54 c-5 -4 -8 -1 -11 4 M50 66 c4 -4 7 -1 9 4 M50 66 c-4 -4 -7 -1 -9 4 M50 76 c3 -4 5 -1 7 4 M50 76 c-3 -4 -5 -1 -7 4' stroke='rgba(0,0,0,.17)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 84V24' stroke='rgba(0,0,0,.15)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 30 c7 -4 12 -1 16 4 M50 30 c-7 -4 -12 -1 -16 4 M50 42 c6 -4 10 -1 13 4 M50 42 c-6 -4 -10 -1 -13 4 M50 54 c5 -4 8 -1 11 4 M50 54 c-5 -4 -8 -1 -11 4 M50 66 c4 -4 7 -1 9 4 M50 66 c-4 -4 -7 -1 -9 4 M50 76 c3 -4 5 -1 7 4 M50 76 c-3 -4 -5 -1 -7 4' stroke='rgba(0,0,0,.15)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="trebol"],.pc-tema[data-trama="trebol"],.pc-conf-mini[data-trama="trebol"],.pc-perso-previa[data-trama="trebol"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='36' r='10.5' fill='rgba(0,0,0,.07)'/%3E%3Ccircle cx='38.5' cy='50' r='10.5' fill='rgba(0,0,0,.07)'/%3E%3Ccircle cx='61.5' cy='50' r='10.5' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 58c0 11-2 17-6 24' stroke='rgba(0,0,0,.09)' stroke-width='2.2' fill='none'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='36' r='10.5' fill='rgba(0,0,0,.13)'/%3E%3Ccircle cx='38.5' cy='50' r='10.5' fill='rgba(0,0,0,.13)'/%3E%3Ccircle cx='61.5' cy='50' r='10.5' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 58c0 11-2 17-6 24' stroke='rgba(0,0,0,.17)' stroke-width='2.2' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='36' r='10.5' fill='rgba(0,0,0,.12)'/%3E%3Ccircle cx='38.5' cy='50' r='10.5' fill='rgba(0,0,0,.12)'/%3E%3Ccircle cx='61.5' cy='50' r='10.5' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 58c0 11-2 17-6 24' stroke='rgba(0,0,0,.15)' stroke-width='2.2' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="ginkgo"],.pc-tema[data-trama="ginkgo"],.pc-conf-mini[data-trama="ginkgo"],.pc-perso-previa[data-trama="ginkgo"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 76C30 70 22 54 26 40 30 30 40 24 50 24 60 24 70 30 74 40 78 54 70 70 50 76z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 74V26M50 72L36 34M50 72l14-38' stroke='rgba(0,0,0,.09)' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 76C30 70 22 54 26 40 30 30 40 24 50 24 60 24 70 30 74 40 78 54 70 70 50 76z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 74V26M50 72L36 34M50 72l14-38' stroke='rgba(0,0,0,.17)' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 76C30 70 22 54 26 40 30 30 40 24 50 24 60 24 70 30 74 40 78 54 70 70 50 76z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 74V26M50 72L36 34M50 72l14-38' stroke='rgba(0,0,0,.15)' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="espiga"],.pc-tema[data-trama="espiga"],.pc-conf-mini[data-trama="espiga"],.pc-perso-previa[data-trama="espiga"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 88V30' stroke='rgba(0,0,0,.09)' stroke-width='2.1' fill='none'/%3E%3Cellipse cx='43' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(-35 43 36)'/%3E%3Cellipse cx='57' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(35 57 36)'/%3E%3Cellipse cx='44' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(-35 44 46)'/%3E%3Cellipse cx='56' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(35 56 46)'/%3E%3Cellipse cx='44' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(-35 44 56)'/%3E%3Cellipse cx='56' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(35 56 56)'/%3E%3Cellipse cx='45' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(-35 45 66)'/%3E%3Cellipse cx='55' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(35 55 66)'/%3E%3Cellipse cx='45' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(-35 45 76)'/%3E%3Cellipse cx='55' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.07)' transform='rotate(35 55 76)'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 88V30' stroke='rgba(0,0,0,.17)' stroke-width='2.1' fill='none'/%3E%3Cellipse cx='43' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(-35 43 36)'/%3E%3Cellipse cx='57' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(35 57 36)'/%3E%3Cellipse cx='44' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(-35 44 46)'/%3E%3Cellipse cx='56' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(35 56 46)'/%3E%3Cellipse cx='44' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(-35 44 56)'/%3E%3Cellipse cx='56' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(35 56 56)'/%3E%3Cellipse cx='45' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(-35 45 66)'/%3E%3Cellipse cx='55' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(35 55 66)'/%3E%3Cellipse cx='45' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(-35 45 76)'/%3E%3Cellipse cx='55' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.13)' transform='rotate(35 55 76)'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 88V30' stroke='rgba(0,0,0,.15)' stroke-width='2.1' fill='none'/%3E%3Cellipse cx='43' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(-35 43 36)'/%3E%3Cellipse cx='57' cy='36' rx='9.0' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(35 57 36)'/%3E%3Cellipse cx='44' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(-35 44 46)'/%3E%3Cellipse cx='56' cy='46' rx='8.4' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(35 56 46)'/%3E%3Cellipse cx='44' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(-35 44 56)'/%3E%3Cellipse cx='56' cy='56' rx='7.8' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(35 56 56)'/%3E%3Cellipse cx='45' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(-35 45 66)'/%3E%3Cellipse cx='55' cy='66' rx='7.2' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(35 55 66)'/%3E%3Cellipse cx='45' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(-35 45 76)'/%3E%3Cellipse cx='55' cy='76' rx='6.6' ry='4.6' fill='rgba(0,0,0,.12)' transform='rotate(35 55 76)'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="ramapino"],.pc-tema[data-trama="ramapino"],.pc-conf-mini[data-trama="ramapino"],.pc-perso-previa[data-trama="ramapino"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 86V22' stroke='rgba(0,0,0,.09)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 32 l17 8 M50 32 l-17 8 M50 42 l15 8 M50 42 l-15 8 M50 52 l13 8 M50 52 l-13 8 M50 62 l12 8 M50 62 l-12 8 M50 72 l10 8 M50 72 l-10 8' stroke='rgba(0,0,0,.09)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 86V22' stroke='rgba(0,0,0,.17)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 32 l17 8 M50 32 l-17 8 M50 42 l15 8 M50 42 l-15 8 M50 52 l13 8 M50 52 l-13 8 M50 62 l12 8 M50 62 l-12 8 M50 72 l10 8 M50 72 l-10 8' stroke='rgba(0,0,0,.17)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 86V22' stroke='rgba(0,0,0,.15)' stroke-width='2.1' fill='none'/%3E%3Cpath d='M50 32 l17 8 M50 32 l-17 8 M50 42 l15 8 M50 42 l-15 8 M50 52 l13 8 M50 52 l-13 8 M50 62 l12 8 M50 62 l-12 8 M50 72 l10 8 M50 72 l-10 8' stroke='rgba(0,0,0,.15)' stroke-width='1.9' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="semillas"],.pc-tema[data-trama="semillas"],.pc-conf-mini[data-trama="semillas"],.pc-perso-previa[data-trama="semillas"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 22c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M32 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M68 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.07)'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 22c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M32 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M68 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.13)'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 22c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M32 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M68 56c7 6 9 12 9 16 0 6-4 10-9 11-5-1-9-5-9-11 0-4 2-10 9-16z' fill='rgba(0,0,0,.12)'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="loto"],.pc-tema[data-trama="loto"],.pc-conf-mini[data-trama="loto"],.pc-perso-previa[data-trama="loto"]{--trama-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 78c-4-10-4-20 0-30 4 10 4 20 0 30z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 78c-9-7-14-16-15-27 8 5 13 14 15 27z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 78c9-7 14-16 15-27-8 5-13 14-15 27z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 78c-13-3-22-10-27-20 10 0 20 6 27 20z' fill='rgba(0,0,0,.07)'/%3E%3Cpath d='M50 78c13-3 22-10 27-20-10 0-20 6-27 20z' fill='rgba(0,0,0,.07)'/%3E%3C/svg%3E");--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 78c-4-10-4-20 0-30 4 10 4 20 0 30z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 78c-9-7-14-16-15-27 8 5 13 14 15 27z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 78c9-7 14-16 15-27-8 5-13 14-15 27z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 78c-13-3-22-10-27-20 10 0 20 6 27 20z' fill='rgba(0,0,0,.13)'/%3E%3Cpath d='M50 78c13-3 22-10 27-20-10 0-20 6-27 20z' fill='rgba(0,0,0,.13)'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 78c-4-10-4-20 0-30 4 10 4 20 0 30z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 78c-9-7-14-16-15-27 8 5 13 14 15 27z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 78c9-7 14-16 15-27-8 5-13 14-15 27z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 78c-13-3-22-10-27-20 10 0 20 6 27 20z' fill='rgba(0,0,0,.12)'/%3E%3Cpath d='M50 78c13-3 22-10 27-20-10 0-20 6-27 20z' fill='rgba(0,0,0,.12)'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+/* ---- diez estilos de un solo motivo por casilla: no saturan el tablero ---- */
+html[data-trama="anillo"],.pc-tema[data-trama="anillo"],.pc-conf-mini[data-trama="anillo"],.pc-perso-previa[data-trama="anillo"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='33' fill='none' stroke='rgba(0,0,0,.17)' stroke-width='2.6'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='33' fill='none' stroke='rgba(0,0,0,.17)' stroke-width='2.6'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="rombo"],.pc-tema[data-trama="rombo"],.pc-conf-mini[data-trama="rombo"],.pc-perso-previa[data-trama="rombo"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 15 85 50 50 85 15 50z' fill='none' stroke='rgba(0,0,0,.16)' stroke-width='2.6'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 15 85 50 50 85 15 50z' fill='none' stroke='rgba(0,0,0,.16)' stroke-width='2.6'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="esquinas"],.pc-tema[data-trama="esquinas"],.pc-conf-mini[data-trama="esquinas"],.pc-perso-previa[data-trama="esquinas"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M9 23V9h14M77 9h14v14M91 77v14H77M23 91H9V77' fill='none' stroke='rgba(0,0,0,.20)' stroke-width='3.2'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M9 23V9h14M77 9h14v14M91 77v14H77M23 91H9V77' fill='none' stroke='rgba(0,0,0,.20)' stroke-width='3.2'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="cruces"],.pc-tema[data-trama="cruces"],.pc-conf-mini[data-trama="cruces"],.pc-perso-previa[data-trama="cruces"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15 8v13M8.5 14.5h13M85 8v13M78.5 14.5h13M15 79v13M8.5 85.5h13M85 79v13M78.5 85.5h13' stroke='rgba(0,0,0,.18)' stroke-width='2.6' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M15 8v13M8.5 14.5h13M85 8v13M78.5 14.5h13M15 79v13M8.5 85.5h13M85 79v13M78.5 85.5h13' stroke='rgba(0,0,0,.18)' stroke-width='2.6' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="puntomedio"],.pc-tema[data-trama="puntomedio"],.pc-conf-mini[data-trama="puntomedio"],.pc-perso-previa[data-trama="puntomedio"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='7.5' fill='rgba(0,0,0,.15)'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='7.5' fill='rgba(0,0,0,.15)'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="marco"],.pc-tema[data-trama="marco"],.pc-conf-mini[data-trama="marco"],.pc-perso-previa[data-trama="marco"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='11' y='11' width='78' height='78' rx='3' fill='none' stroke='rgba(0,0,0,.15)' stroke-width='2.3'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='11' y='11' width='78' height='78' rx='3' fill='none' stroke='rgba(0,0,0,.15)' stroke-width='2.3'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="estrella"],.pc-tema[data-trama="estrella"],.pc-conf-mini[data-trama="estrella"],.pc-perso-previa[data-trama="estrella"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 33v34M33 50h34M39 39l22 22M61 39L39 61' stroke='rgba(0,0,0,.14)' stroke-width='2.2' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 33v34M33 50h34M39 39l22 22M61 39L39 61' stroke='rgba(0,0,0,.14)' stroke-width='2.2' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="vertice"],.pc-tema[data-trama="vertice"],.pc-conf-mini[data-trama="vertice"],.pc-perso-previa[data-trama="vertice"]{--trama-l:none;--trama-d:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0 32L32 0M68 100l32-32' stroke='rgba(0,0,0,.19)' stroke-width='4' fill='none'/%3E%3C/svg%3E");--trama-tam:100% 100%;--trama-mini:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0 32L32 0M68 100l32-32' stroke='rgba(0,0,0,.19)' stroke-width='4' fill='none'/%3E%3C/svg%3E");--trama-mini-tam:25% 25%}
+html[data-trama="halo"],.pc-tema[data-trama="halo"],.pc-conf-mini[data-trama="halo"],.pc-perso-previa[data-trama="halo"]{--trama-l:none;--trama-d:radial-gradient(circle at 50% 44%,rgba(255,255,255,.17),rgba(0,0,0,.11) 78%);--trama-tam:100% 100%;--trama-mini:radial-gradient(circle at 50% 44%,rgba(255,255,255,.17),rgba(0,0,0,.11) 78%);--trama-mini-tam:25% 25%}
+html[data-trama="degrade"],.pc-tema[data-trama="degrade"],.pc-conf-mini[data-trama="degrade"],.pc-perso-previa[data-trama="degrade"]{--trama-l:none;--trama-d:linear-gradient(160deg,rgba(255,255,255,.15),rgba(0,0,0,.13));--trama-tam:100% 100%;--trama-mini:linear-gradient(160deg,rgba(255,255,255,.15),rgba(0,0,0,.13));--trama-mini-tam:25% 25%}
 
 /* ---------- 1. escala de formas y elevación ---------- */
 :root{
@@ -1312,29 +1406,7 @@ html[data-modo="claro"] .pc-fav.marcando:after{border-color:#E9A400}
 .pc-editor{padding:.95rem .85rem}
 
 /* ---------- 28. tablero Periódico: papel con trama oblicua ---------- */
-:root{--trama-papel:repeating-linear-gradient(45deg,rgba(58,48,32,.40) 0 2px,rgba(58,48,32,0) 2px 7px)}
 /* los colores de Periódico viven con los otros 115, arriba */
-html[data-tablero="periodico"] .sq.d,html[data-tablero="periodico"] .ex-sq.d{
-  background-color:var(--light);
-  background-image:var(--trama-papel)
-}
-html[data-tablero="periodico"] .sq .pc svg,html[data-tablero="periodico"] .ex-pc svg{
-  filter:drop-shadow(0 1px 1px rgba(58,48,32,.30)) sepia(.20) saturate(.85)
-}
-html[data-tablero="periodico"] .pc-muestra{
-  background-color:#F3EDDD;
-  background-image:
-    conic-gradient(rgba(0,0,0,0) .25turn,#F3EDDD .25turn .5turn,rgba(0,0,0,0) .5turn .75turn,#F3EDDD .75turn),
-    var(--trama-papel);
-  background-size:100% 100%,auto
-}
-.pc-tema[data-tema="periodico"] i,.pc-conf-mini.periodico{
-  background-color:#F3EDDD;
-  background-image:
-    conic-gradient(rgba(0,0,0,0) .25turn,#F3EDDD .25turn .5turn,rgba(0,0,0,0) .5turn .75turn,#F3EDDD .75turn),
-    var(--trama-papel);
-  background-size:50% 50%,auto
-}
 
 /* ---------- 29. tramas de tablero, hechas con degradados ----------
    Sin imágenes: nada que descargar, nada que sume peso al APK.
@@ -1392,9 +1464,6 @@ html[data-trama] .sq.l.sel,html[data-trama] .sq.l.last{
 html[data-trama] .sq.d.sel,html[data-trama] .sq.d.last{
   background-image:linear-gradient(var(--hl),var(--hl)),var(--trama-d)
 }
-html[data-tablero="periodico"] .sq.d.sel,html[data-tablero="periodico"] .sq.d.last{
-  background-image:linear-gradient(var(--hl),var(--hl)),var(--trama-papel)
-}
 
 /* ---------- 30. el nombre del tablero, con el mismo peso que los colores ---------- */
 .pc-nombre-caja .pc-nombre{width:100%}
@@ -1422,6 +1491,178 @@ html[data-tablero="periodico"] .sq.d.sel,html[data-tablero="periodico"] .sq.d.la
 .workspace-close{border-radius:12px}
 .text-action,.plan-primary,.plan-secondary{border-radius:12px}
 .goal-stepper{border-radius:12px}
+
+/* ---------- 32. Periódico, copiado de la foto ----------
+   Valores medidos sobre la imagen, no elegidos a ojo:
+     papel #E8D6BE · tinta #544B42 · halo de las piezas #F4E2D0
+     líneas a 135° ("/"), periodo 10.4% de la diagonal, tinta 45% del área
+     resaltado rgba(201,201,106,.55), sacado de la casilla marcada de la foto
+   Las medidas van en porcentaje para que la trama crezca con la casilla. */
+:root{--trama-papel:repeating-linear-gradient(135deg,#544B42 0 1px,rgba(84,75,66,0) 2.2px 4.6px)}
+/* halo claro alrededor de la pieza, como en la foto: separa la figura de la trama */
+/* la coordenada también se despega de las líneas */
+html[data-tablero="periodico"] .pc-muestra{
+  background-color:#E8D6BE;
+  background-image:
+    conic-gradient(rgba(0,0,0,0) .25turn,#E8D6BE .25turn .5turn,rgba(0,0,0,0) .5turn .75turn,#E8D6BE .75turn),
+    var(--trama-papel);
+  background-size:100% 100%,auto
+}
+.pc-tema[data-tema="periodico"] i,.pc-conf-mini.periodico{
+  background-color:#E8D6BE;
+  background-image:
+    conic-gradient(rgba(0,0,0,0) .25turn,#E8D6BE .25turn .5turn,rgba(0,0,0,0) .5turn .75turn,#E8D6BE .75turn),
+    var(--trama-papel);
+  background-size:50% 50%,auto
+}
+
+/* ---------- 33. deslizadores: misma pinta, mucho más fáciles de agarrar ----------
+   El área sensible pasa de 38 a 48 px de alto, pero los márgenes negativos
+   devuelven el espacio, así que ni el tamaño ni la separación cambian a la vista. */
+.pc-slider{height:48px;margin:-5px 0}
+
+/* ---------- 34. Periódico entra al sistema general de tramas ----------
+   Así se puede editar como cualquier otra: la trama se conserva y solo
+   cambian los colores. --base-d hace que su casilla oscura siga siendo
+   papel con líneas encima, no un tono medio. */
+html[data-trama="periodico"],.pc-tema[data-trama="periodico"],.pc-conf-mini[data-trama="periodico"],.pc-perso-previa[data-trama="periodico"]{
+  --trama-l:none;
+  --trama-d:repeating-linear-gradient(135deg,#544B42 0 2%,rgba(84,75,66,0) 5% 10.4%);
+  --trama-mini:repeating-linear-gradient(135deg,#544B42 0 1px,rgba(84,75,66,0) 2.2px 4.6px);
+  --base-d:var(--light)
+}
+html[data-trama] .sq.d,html[data-trama] .ex-sq.d{background-color:var(--base-d,var(--dark))}
+html[data-trama="periodico"] .sq .pc svg,html[data-trama="periodico"] .ex-pc svg{
+  filter:drop-shadow(0 0 1.6px var(--halo,#F4E2D0)) drop-shadow(0 0 1.6px var(--halo,#F4E2D0))
+}
+html[data-trama="periodico"][data-coords="si"] .sq:after,
+html[data-trama="periodico"][data-coords="si"] .ex-sq:after{
+  text-shadow:0 0 2px var(--light),0 0 2px var(--light),0 0 3px var(--light)
+}
+
+/* la vista previa del editor también luce la trama */
+.pc-perso-previa[data-trama] span.l{background-image:var(--trama-l);background-size:var(--trama-tam,auto)}
+.pc-perso-previa[data-trama] span.d{background-image:var(--trama-d);background-size:var(--trama-tam,auto)}
+
+/* ---------- 35. lápiz para editar un tablero a partir de otro ---------- */
+.pc-lapiz{
+  position:absolute;left:2px;bottom:0;width:20px;height:20px;padding:0;
+  display:grid;place-items:center;cursor:pointer;border:0;border-radius:50%;
+  background:transparent;color:var(--muted2);
+  transition:color .2s,transform .2s
+}
+.pc-lapiz svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pc-lapiz:hover{color:var(--gold);transform:scale(1.15)}
+
+/* ---------- 36. el botón de cerrar flota junto a la vista previa ---------- */
+.pc-perso-fijo{position:sticky;top:0;z-index:6}
+.pc-perso-fijo .pc-io-close{position:absolute;right:0;top:.1rem}
+.pc-perso-cab .pc-temas-head{padding-right:0}
+
+/* ---------- 37. el botón de aceptar toma el color del tablero elegido ----------
+   Cada tema trae su casilla oscura como acento y la tinta legible que le toca,
+   calculadas al generar la paleta. Los rojos de error se quedan como están,
+   porque ahí el color significa algo. */
+.btn.primary{
+  background:var(--acento-tema,var(--solido-acento));
+  color:var(--acento-ink,var(--sobre-solido));
+  border-color:transparent;
+  box-shadow:var(--s2)
+}
+.btn.primary:hover{
+  background:var(--acento-tema,var(--solido-acento));
+  color:var(--acento-ink,var(--sobre-solido));
+  filter:brightness(1.07)
+}
+.plan-primary{background:var(--acento-tema,var(--hero-btn));color:var(--acento-ink,var(--hero-btn-ink))}
+
+/* ---------- 38. el encabezado flotante ya no recorta las celdas ----------
+   Antes tapaba el relleno de la caja con márgenes negativos; al quedarse pegado
+   arriba, su fondo no cubría esa franja y las celdas se veían cortadas por él.
+   Ahora la caja no lleva relleno y cada hijo pone el suyo. */
+.pc-temas-box{padding:0}
+.pc-temas-fijo{margin:0;padding:1.15rem 1.15rem .7rem;border-radius:var(--r-box) var(--r-box) 0 0}
+.pc-perso-fijo{margin:0;padding:.55rem 1.15rem .9rem}
+.pc-temas-grid{margin:0 1.15rem 1.15rem}
+.pc-sin-resultado,.pc-favs-vacio{margin:1rem 1.15rem 1.15rem}
+.pc-perso-cab{margin:1.15rem 1.15rem 0}
+.pc-nombre-caja{margin-left:1.15rem;margin-right:1.15rem}
+.pc-perso-colores{margin:0 1.15rem 1.15rem;position:relative}
+@media(max-width:420px){
+  .pc-temas-fijo{padding:1.1rem .9rem .6rem}
+  .pc-perso-fijo{padding:.5rem .9rem .8rem}
+  .pc-temas-grid{margin:0 .9rem .9rem}
+  .pc-perso-cab,.pc-nombre-caja{margin-left:.9rem;margin-right:.9rem}
+  .pc-perso-colores{margin:0 .9rem .9rem}
+}
+
+/* ---------- 39. el nombre se confirma con un visto verde ---------- */
+html,html[data-modo="oscuro"]{--verde-ok:#4CB472;--verde-ok-tinte:rgba(76,180,114,.16)}
+html[data-modo="claro"]{--verde-ok:#2C8A4F;--verde-ok-tinte:rgba(44,138,79,.12)}
+.pc-nombre-fila{display:flex;align-items:center;gap:.5rem}
+.pc-nombre-fila .pc-nombre{flex:1;min-width:0}
+.pc-check{
+  flex:0 0 auto;width:44px;height:44px;padding:0;display:grid;place-items:center;cursor:pointer;
+  border:1px solid var(--verde-ok);border-radius:var(--r-boton);
+  background:var(--verde-ok-tinte);color:var(--verde-ok);
+  transition:background .2s,color .2s,transform .14s,border-color .2s
+}
+.pc-check svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.pc-check:active{transform:scale(.93)}
+.pc-check.listo{background:var(--verde-ok);color:#FFFFFF}
+.pc-pista.mal{color:var(--crest)}
+.pc-pista.bien{color:var(--verde-ok)}
+.pc-perso-colores.bloqueado > .pc-editor,
+.pc-perso-colores.bloqueado > .pc-perso-acciones{opacity:.42;filter:grayscale(.4)}
+.pc-velo-bloqueo{
+  position:absolute;inset:-6px;z-index:4;display:none;
+  border:0;background:transparent;cursor:pointer;border-radius:var(--r-card)
+}
+.pc-perso-colores.bloqueado .pc-velo-bloqueo{display:block}
+
+/* ---------- 40. sitio para el botón flotante del selector ----------
+   Solo cuando el método corre dentro del selector (en un marco): así el botón
+   hamburguesa no se para encima del nombre, del icono ni del número de ejercicio. */
+html[data-enmarcado="si"] .topbar{padding-left:62px}
+html[data-enmarcado="si"][data-barra="oculta"] .boardhead{padding-left:58px}
+@media(max-width:480px){
+  html[data-enmarcado="si"] .topbar{padding-left:56px}
+  html[data-enmarcado="si"][data-barra="oculta"] .boardhead{padding-left:52px}
+}
+
+/* ---------- 41. al escribir el nombre se aparta lo demás ----------
+   Solo en pantallas de dedo: con el teclado abierto no cabían el tablero,
+   los colores y el campo a la vez. En escritorio no cambia nada. */
+@media (pointer:coarse){
+  .pc-perso-bg.escribiendo .pc-perso-fijo,
+  .pc-perso-bg.escribiendo .pc-perso-colores{display:none}
+}
+
+/* ---------- 42. el cierre del editor, bien metido ---------- */
+.pc-perso-fijo .pc-io-close{position:absolute;right:1.15rem;top:.5rem}
+@media(max-width:420px){ .pc-perso-fijo .pc-io-close{right:.9rem;top:.45rem} }
+
+/* ---------- 43. apariencia en las ventanas grandes ---------- */
+.pc-modo-mini{padding:2px}
+.pc-modo-mini button{width:27px;height:23px}
+.pc-modo-mini button svg{width:13px;height:13px}
+.pc-temas-barra .pc-modo{margin-left:auto}
+.pc-perso-cab .pc-temas-head{align-items:center}
+.pc-perso-cab .pc-modo{flex:0 0 auto;margin-right:2.6rem}
+.explanation-topbar-actions .pc-modo,.workspace-topbar .pc-modo{flex:0 0 auto}
+.explanation-bg .pc-modo{border-color:var(--ex-card-border);background:var(--ex-card)}
+.explanation-bg .pc-modo button{color:var(--ex-muted)}
+.explanation-bg .pc-modo button[aria-pressed="true"]{background:var(--ex-button);color:var(--ex-ink)}
+
+/* ---------- 44. la barra de progreso toma el color del tablero ---------- */
+.bar>i{background:linear-gradient(90deg,var(--acento-tema,var(--gold)),var(--dark,var(--crest)))}
+
+/* ---------- 45. el icono del método se ve completo ----------
+   Estaba recortado a propósito con overflow y un desplazamiento; se quita
+   el recorte y se deja el dibujo entero, sea redondo, cuadrado o rombo. */
+.home-icon{width:1.95rem;height:1.95rem;overflow:visible;justify-content:center}
+.home-icon .crest{display:block;width:1.75rem;height:1.75rem;max-width:none;object-fit:contain;transform:none}
+.home-icon:hover .crest{transform:scale(1.06)}
 
 /* ---------- 15. ajustes por pantalla ---------- */
 @media(max-width:640px){
@@ -1469,13 +1710,17 @@ html[data-tablero="periodico"] .sq.d.sel,html[data-tablero="periodico"] .sq.d.la
     r.setAttribute('data-tablero', g('pc_tablero_2')||'cielo');
     if(g('pc_coords')==='si') r.setAttribute('data-coords','si');
     var tb=g('pc_tablero_2')||'cielo';
-    var TX={"maderaveta":"madera","lino":"lino","pizarraveta":"pizarra","cuadricula":"cuadricula","tejido":"tejido","puntos":"puntos"};
+    var TX={"maderaveta":"madera","lino":"lino","pizarraveta":"pizarra","cuadricula":"cuadricula","tejido":"tejido","puntos":"puntos","robleclaro":"madera","nogaloscuro":"madera","cerezo":"madera","arcedorado":"madera","wengue":"madera","tecarojiza":"madera","fresnogris":"madera","maderaebano":"madera","linoazul":"lino","linoverde":"lino","linorosa":"lino","linogris":"lino","linoarena":"lino","linocarbon":"lino","linovioleta":"lino","pizarraazul":"pizarra","pizarraverde":"pizarra","pizarramorada":"pizarra","pizarraparda":"pizarra","pizarraroja":"pizarra","pizarrapalida":"pizarra","pizarranegra":"pizarra","cuadriculaverde":"cuadricula","cuadriculasepia":"cuadricula","cuadricularosa":"cuadricula","cuadriculagris":"cuadricula","cuadriculaambar":"cuadricula","cuadriculamenta":"cuadricula","cuadriculalila":"cuadricula","tejidorojo":"tejido","tejidoazul":"tejido","tejidoverde":"tejido","tejidomostaza":"tejido","tejidogris":"tejido","tejidomorado":"tejido","tejidonegro":"tejido","tejidoarena":"tejido","puntosazul":"puntos","puntosrosa":"puntos","puntosverde":"puntos","puntosnaranja":"puntos","puntosmorado":"puntos","puntosgris":"puntos","puntosocre":"puntos","puntoscrema":"puntos","periodico":"periodico","periodicoazul":"periodico","periodicoverde":"periodico","periodicorosa":"periodico","periodicoocre":"periodico","periodicogris":"periodico","anillo":"anillo","rombo":"rombo","esquinas":"esquinas","cruces":"cruces","puntomedio":"puntomedio","marco":"marco","estrella":"estrella","vertice":"vertice","halo":"halo","degrade":"degrade","hojas":"hojas","granocafe":"granocafe","olivo":"olivo","fronda":"fronda","trebol":"trebol","ginkgo":"ginkgo","espiga":"espiga","ramapino":"ramapino","semillas":"semillas","loto":"loto"};
     if(TX[tb]) r.setAttribute('data-trama',TX[tb]);
     if(tb==='personalizado'){
       var pp=(g('pc_perso')||'').split('|');
-      if(pp.length===5){
+      if(pp.length>=5){
         var vv=['--light','--dark','--coord-l','--coord-d','--hl'];
         for(var q=0;q<5;q++) r.style.setProperty(vv[q],pp[q]);
+        if(pp[5]) r.setAttribute('data-trama',pp[5]);
+        if(pp[6]) r.style.setProperty('--acento-tema',pp[6]);
+        if(pp[7]) r.style.setProperty('--acento-ink',pp[7]);
+        if(pp[8]) r.style.setProperty('--halo',pp[8]);
       }
     }
   }catch(e){
@@ -1980,6 +2225,7 @@ html[data-tablero="periodico"] .sq.d.sel,html[data-tablero="periodico"] .sq.d.la
         <h2 id="plan-title">Tu entrenamiento</h2>
         <p>Continúa con intención, repasa tus errores y cumple una meta posible cada día.</p>
       </div>
+      <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
       <button class="workspace-close" id="b-gift-close" type="button" aria-label="Cerrar plan de entrenamiento">✕</button>
     </header>
 
@@ -2028,6 +2274,7 @@ html[data-tablero="periodico"] .sq.d.sel,html[data-tablero="periodico"] .sq.d.la
         <p id="explain-subtitle">Lectura local de la posición y de la línea principal.</p>
       </div>
       <div class="explanation-topbar-actions">
+        <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
           <button type="button" data-explain-theme="light">Claro</button>
           <button type="button" data-explain-theme="dark">Oscuro</button>
@@ -4226,6 +4473,7 @@ function renderHead(p){
 
 /* ---------- tablero ---------- */
 function renderBoard(){
+  state.destPend=null;
   const b=state.game.board();           // [rank8..rank1][a..h]
   boardEl.innerHTML='';
   const ranks = state.orient==='w'?[0,1,2,3,4,5,6,7]:[7,6,5,4,3,2,1,0];
@@ -4369,6 +4617,17 @@ boardEl.addEventListener('pointerdown',e=>{
 
   // Turno de juego normal
   if(!myTurn() && !state.freemode){return;}
+
+  /* Casilla elegida primero: el siguiente toque sobre una pieza que pueda ir
+     hasta ahí la lleva sin más. Cualquier otro toque cancela y sigue normal. */
+  if(state.destPend){
+    var destino=state.destPend;
+    state.destPend=null;
+    if(sq===destino){ clearMarks(); paintLast(); return; }
+    var alcanza=state.game.moves({square:sq,verbose:true}).some(function(m){return m.to===destino;});
+    if(alcanza){ state.sel=null; clearMarks(); tryMove(sq,destino); return; }
+    clearMarks(); paintLast();
+  }
   if(state.sel){
 
 
@@ -4408,6 +4667,18 @@ boardEl.addEventListener('pointerdown',e=>{
       if(origenes.length===1){
         clearMarks();
         tryMove(origenes[0],sq);
+        return;
+      }
+      if(origenes.length>1){
+        /* varias piezas pueden ocuparla: se recuerda el destino y se marcan
+           las candidatas, para resolverlo con un segundo toque */
+        state.destPend=sq;
+        clearMarks();
+        var cd=cellOf(sq); if(cd) cd.classList.add('sel');
+        for(var w=0;w<origenes.length;w++){
+          var co=cellOf(origenes[w]);
+          if(co){ var anillo=document.createElement('span'); anillo.className='cap'; co.appendChild(anillo); }
+        }
         return;
       }
     }
@@ -7421,20 +7692,25 @@ function ejecutarPremove(){
           <h3>Tablero personalizado</h3>
           <p>Elige los dos colores. La vista previa se actualiza mientras ajustas.</p>
         </div>
-        <button class="pc-io-close" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
+        <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
       </div>
     </div>
     <div class="pc-perso-fijo">
       <div class="pc-perso-previa" id="pc-perso-previa" role="img" aria-label="Vista previa del tablero"></div>
+      <button class="pc-io-close" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
     </div>
     <div class="pc-editor pc-nombre-caja">
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
       </div>
-      <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
-      <p class="pc-pista">Con este nombre aparecerá en tu lista de tableros.</p>
+      <div class="pc-nombre-fila">
+        <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
+        <button class="pc-check" id="pc-perso-check" type="button" aria-label="Confirmar el nombre del tablero" title="Confirmar el nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg></button>
+      </div>
+      <p class="pc-pista" id="pc-perso-pista">Escribe un nombre y toca el visto verde para seguir.</p>
     </div>
+    <div class="pc-perso-colores" id="pc-perso-colores">
     <div class="pc-editor">
       <div class="pc-editor-cab"><span class="pc-chip" id="pc-chip-l"></span><b>Casillas claras</b></div>
       <label class="pc-hexrow"><span>Hex</span><input class="pc-hex" id="pc-hex-l" type="text" spellcheck="false" autocomplete="off" maxlength="9" placeholder="EDE8D5"></label>
@@ -7456,6 +7732,18 @@ function ejecutarPremove(){
       </button>
       <button class="btn primary" id="pc-perso-usar" type="button">Usar sin guardar</button>
       <button class="btn" id="pc-perso-cerrar" type="button">Cerrar</button>
+    </div>
+      <button class="pc-velo-bloqueo" id="pc-velo-bloqueo" type="button" aria-label="Confirma primero el nombre del tablero"></button>
+    </div>
+  </div>
+</div>
+
+<div class="pc-conf-bg" id="pc-aviso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Aviso">
+  <div class="pc-conf-box">
+    <h3 id="pc-aviso-titulo">Primero el nombre</h3>
+    <p id="pc-aviso-texto">&mdash;</p>
+    <div class="pc-conf-acts">
+      <button class="btn primary" id="pc-aviso-ok" type="button">Entendido</button>
     </div>
   </div>
 </div>
@@ -7511,6 +7799,7 @@ function ejecutarPremove(){
         <span class="pc-riel" aria-hidden="true"><span class="pc-perilla"></span></span>
         Coordenadas en las casillas
       </button>
+      <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
     </div>
         <div class="pc-buscar">
           <svg class="pc-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.6"/><path d="M15.4 15.4L21 21"/></svg>
@@ -7534,7 +7823,7 @@ function ejecutarPremove(){
   var PC_ID='2';
   var K_MODO='pc_modo', K_TAB='pc_tablero_'+PC_ID, K_FAV='pc_favs', K_CO='pc_coords', K_PER='pc_perso', K_MIOS='pc_mios';
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
-  var TEMAS_TABLERO=[{"k":"cielo","n":"Cielo","l":"#E9F1F6","d":"#7AA4BB"},{"k":"periodico","n":"Periódico","l":"#F3EDDD","d":"#CFC3A6"},{"k":"nogal","n":"Nogal","l":"#EFE1C6","d":"#7A6248"},{"k":"bosque","n":"Bosque","l":"#EEEED2","d":"#769656"},{"k":"marmol","n":"Mármol","l":"#EFF1EF","d":"#7F8C86"},{"k":"torneo","n":"Azul torneo","l":"#E7ECF4","d":"#6A85AC"},{"k":"cafe","n":"Café","l":"#F2E3CE","d":"#966742"},{"k":"pizarra","n":"Pizarra","l":"#E5E8E5","d":"#68766E"},{"k":"trigo","n":"Trigo","l":"#F6EAD0","d":"#BE9C5E"},{"k":"ebano","n":"Ébano","l":"#E2DFD7","d":"#474642"},{"k":"vino","n":"Vino","l":"#F1E3E1","d":"#8A4B4E"},{"k":"musgo","n":"Musgo","l":"#E9EFDF","d":"#6C8757"},{"k":"arena","n":"Arena","l":"#F3EBDB","d":"#AE8F6E"},{"k":"lavanda","n":"Lavanda","l":"#EEE9F3","d":"#8478A3"},{"k":"menta","n":"Menta","l":"#E6F1EB","d":"#6B9C88"},{"k":"cobre","n":"Cobre","l":"#F5E7D9","d":"#AC6D4A"},{"k":"tinta","n":"Tinta","l":"#DCE0E5","d":"#434D67"},{"k":"oliva","n":"Oliva","l":"#EDEDDB","d":"#858650"},{"k":"antiguo","n":"Rosa antiguo","l":"#F5E8E8","d":"#B27B7F"},{"k":"grafito","n":"Grafito","l":"#E8E8E8","d":"#565656"},{"k":"miel","n":"Miel","l":"#F8EFD5","d":"#C39646"},{"k":"marron","n":"Marrón clásico","l":"#F0D9B5","d":"#B58863"},{"k":"azul","n":"Azul clásico","l":"#DEE3E6","d":"#8CA2AD"},{"k":"amarillo","n":"Amarillo clásico","l":"#FFFFDD","d":"#86A666"},{"k":"lima","n":"Lima","l":"#F1F5D8","d":"#8FA84E"},{"k":"arce","n":"Arce","l":"#F7E2C0","d":"#C08552"},{"k":"roble","n":"Roble","l":"#EFD9B4","d":"#A97C50"},{"k":"caoba","n":"Caoba","l":"#EEDCC4","d":"#96543B"},{"k":"bambu","n":"Bambú","l":"#F3EED2","d":"#A6AB5E"},{"k":"oceano","n":"Océano","l":"#DBE9EF","d":"#4E7A93"},{"k":"acero","n":"Acero","l":"#E2E7EA","d":"#7C8B99"},{"k":"zafiro","n":"Zafiro","l":"#E3E9F5","d":"#56699E"},{"k":"jade","n":"Jade","l":"#E6EFE2","d":"#5E8C6A"},{"k":"esmeralda","n":"Esmeralda","l":"#E2EEE4","d":"#2F7A50"},{"k":"salvia","n":"Salvia","l":"#EBEFE5","d":"#8AA07C"},{"k":"pino","n":"Pino","l":"#E7EDE2","d":"#4F6E4A"},{"k":"terracota","n":"Terracota","l":"#F5E3D6","d":"#C2612F"},{"k":"granate","n":"Granate","l":"#F2E2E0","d":"#A63A3A"},{"k":"coral","n":"Coral","l":"#F7E6E1","d":"#C87A64"},{"k":"violeta","n":"Violeta","l":"#EAE4F5","d":"#6A55A8"},{"k":"ciruela","n":"Ciruela","l":"#EEE6EF","d":"#85618C"},{"k":"algodon","n":"Algodón","l":"#F7E7EE","d":"#C98BA5"},{"k":"perla","n":"Perla","l":"#F3F1EE","d":"#A89E93"},{"k":"aguamarina","n":"Aguamarina","l":"#E3F0EF","d":"#6FA5A0"},{"k":"niebla","n":"Niebla","l":"#EDEFF0","d":"#9DA8AE"},{"k":"turquesa","n":"Turquesa","l":"#E2F0F0","d":"#3F8F8F"},{"k":"petroleo","n":"Petróleo","l":"#DBE7E8","d":"#35646A"},{"k":"verdeagua","n":"Verde agua","l":"#E4F1EC","d":"#4FA07E"},{"k":"cobalto","n":"Cobalto","l":"#DEE6F4","d":"#3F5FA8"},{"k":"lila","n":"Lila","l":"#F1EBF7","d":"#A78BD0"},{"k":"espliego","n":"Espliego","l":"#EAE8F6","d":"#4F4C95"},{"k":"berenjena","n":"Berenjena","l":"#EDE6EE","d":"#6B3A72"},{"k":"fucsia","n":"Fucsia","l":"#F7E4EF","d":"#B45A8E"},{"k":"malva","n":"Malva","l":"#F3EAEF","d":"#B08FA4"},{"k":"cereza","n":"Cereza","l":"#F6E2E4","d":"#B03E5E"},{"k":"grana","n":"Grana","l":"#F1DEDE","d":"#8C2F2F"},{"k":"salmon","n":"Salmón","l":"#FAE9E1","d":"#DE9174"},{"k":"oxido","n":"Óxido","l":"#F3E3D6","d":"#9C5A2E"},{"k":"ambar","n":"Ámbar","l":"#FAEFD2","d":"#D89A2E"},{"k":"calabaza","n":"Calabaza","l":"#F9E9D4","d":"#DE7B2A"},{"k":"mostaza","n":"Mostaza","l":"#F7F0D2","d":"#C0A32A"},{"k":"selva","n":"Selva","l":"#E4EDDC","d":"#3E6B36"},{"k":"militar","n":"Militar","l":"#EAEBDD","d":"#6F7448"},{"k":"hierba","n":"Hierba","l":"#EBF2DD","d":"#6F9A38"},{"k":"helecho","n":"Helecho","l":"#E7F0E3","d":"#4C8452"},{"k":"lino","n":"Lino","l":"#F4F0E4","d":"#B4A583"},{"k":"caqui","n":"Caqui","l":"#F0EEE0","d":"#96925F"},{"k":"cedro","n":"Cedro","l":"#F5E7CE","d":"#A88238"},{"k":"laguna","n":"Laguna","l":"#E0EEF2","d":"#4E8CA8"},{"k":"bruma","n":"Bruma","l":"#EEF1F2","d":"#8794A0"},{"k":"camelia","n":"Camelia","l":"#F7E9E9","d":"#D09F9F"},{"k":"rosaceniza","n":"Rosa ceniza","l":"#F0E5E5","d":"#BA9797"},{"k":"rosapolvo","n":"Rosa polvo","l":"#F6E4E4","d":"#D08B8B"},{"k":"chicle","n":"Chicle","l":"#FDF3F3","d":"#EEB5B5"},{"k":"durazno","n":"Durazno","l":"#F7EEE9","d":"#D0B39F"},{"k":"arcillaclara","n":"Arcilla clara","l":"#F6EBE4","d":"#D0A78B"},{"k":"mango","n":"Mango","l":"#FDF7F3","d":"#EECBB5"},{"k":"vainilla","n":"Vainilla","l":"#F7F4E9","d":"#D0C69F"},{"k":"mostazaclara","n":"Mostaza clara","l":"#F6F3E4","d":"#D0C28B"},{"k":"limon","n":"Limón","l":"#F4F7E9","d":"#C6D09F"},{"k":"jazmin","n":"Jazmín","l":"#F9FBEF","d":"#D8E3AB"},{"k":"caquiclaro","n":"Caqui claro","l":"#EEF0E5","d":"#B3BA97"},{"k":"limapalida","n":"Lima pálida","l":"#F3F6E4","d":"#C2D08B"},{"k":"pistacho","n":"Pistacho","l":"#EEF7E9","d":"#B3D09F"},{"k":"apio","n":"Apio","l":"#F4FBEF","d":"#C1E3AB"},{"k":"musgoclaro","n":"Musgo claro","l":"#EBF6E4","d":"#A7D08B"},{"k":"mentaclara","n":"Menta clara","l":"#E9F7E9","d":"#9FD09F"},{"k":"espuma","n":"Espuma","l":"#EFFBEF","d":"#ABE3AB"},{"k":"salviaclara","n":"Salvia clara","l":"#E5F0E5","d":"#97BA97"},{"k":"mentapolvo","n":"Menta polvo","l":"#E4F6E4","d":"#8BD08B"},{"k":"verdeaguaclaro","n":"Verde agua claro","l":"#E9F7EE","d":"#9FD0B3"},{"k":"rocio","n":"Rocío","l":"#EFFBF4","d":"#ABE3C1"},{"k":"jadeclaro","n":"Jade claro","l":"#E5F0E9","d":"#97BAA5"},{"k":"verdepiscina","n":"Verde piscina","l":"#E4F6EB","d":"#8BD0A7"},{"k":"aguamarinaclara","n":"Aguamarina clara","l":"#E9F7F4","d":"#9FD0C6"},{"k":"petroleoclaro","n":"Petróleo claro","l":"#E5F0EE","d":"#97BAB3"},{"k":"celeste","n":"Celeste","l":"#E9F4F7","d":"#9FC6D0"},{"k":"celestenube","n":"Celeste nube","l":"#F3FBFD","d":"#B5E2EE"},{"k":"cielopalido","n":"Cielo pálido","l":"#E9EEF7","d":"#9FB3D0"},{"k":"denimclaro","n":"Denim claro","l":"#E4EBF6","d":"#8BA7D0"},{"k":"zafiroclaro","n":"Zafiro claro","l":"#F3F7FD","d":"#B5CBEE"},{"k":"hortensia","n":"Hortensia","l":"#E9E9F7","d":"#9F9FD0"},{"k":"pizarraclara","n":"Pizarra clara","l":"#E5E5F0","d":"#9797BA"},{"k":"lavandaazul","n":"Lavanda azul","l":"#E4E4F6","d":"#8B8BD0"},{"k":"azulbebe","n":"Azul bebé","l":"#F3F3FD","d":"#B5B5EE"},{"k":"espliegoclaro","n":"Espliego claro","l":"#F4EFFB","d":"#C1ABE3"},{"k":"glicina","n":"Glicina","l":"#F4E9F7","d":"#C69FD0"},{"k":"ciruelaclara","n":"Ciruela clara","l":"#EEE5F0","d":"#B397BA"},{"k":"lilapolvo","n":"Lila polvo","l":"#F3E4F6","d":"#C28BD0"},{"k":"lilanube","n":"Lila nube","l":"#FBF3FD","d":"#E2B5EE"},{"k":"lilapalido","n":"Lila pálido","l":"#FBEFF9","d":"#E3ABD8"},{"k":"ciclamenclaro","n":"Ciclamen claro","l":"#F6E4F3","d":"#D08BC2"},{"k":"cuarzorosa","n":"Cuarzo rosa","l":"#F7E9EE","d":"#D09FB3"},{"k":"fresaclara","n":"Fresa clara","l":"#FDF3F7","d":"#EEB5CB"},{"k":"marfil","n":"Marfil","l":"#F6F6F3","d":"#CDCAC1"},{"k":"humoclaro","n":"Humo claro","l":"#D4D5D9","d":"#A5A6AC"},{"k":"maderaveta","n":"Madera veteada","l":"#E8C89A","d":"#9A6A3E","t":"madera"},{"k":"lino","n":"Lino","l":"#EEEADC","d":"#B9AE93","t":"lino"},{"k":"pizarraveta","n":"Pizarra rayada","l":"#DDE0DE","d":"#5A6A66","t":"pizarra"},{"k":"cuadricula","n":"Cuadrícula","l":"#EFF3F6","d":"#B6C6D2","t":"cuadricula"},{"k":"tejido","n":"Tejido","l":"#EDE7DB","d":"#A78F72","t":"tejido"},{"k":"puntos","n":"Punteado","l":"#EDEFEA","d":"#9FB09C","t":"puntos"},{"k":"carbon","n":"Carbón","l":"#DEE1E4","d":"#3A4046"},{"k":"marino","n":"Marino","l":"#DDE3EF","d":"#2E4166"},{"k":"bosquehondo","n":"Bosque hondo","l":"#E3EBDD","d":"#2E5233"},{"k":"borgona","n":"Borgoña","l":"#EFE0E2","d":"#6E2233"},{"k":"chartreuse","n":"Chartreuse","l":"#F2F6D6","d":"#A3B62E"},{"k":"turquesahondo","n":"Turquesa hondo","l":"#DFEFEF","d":"#22706E"},{"k":"violetahondo","n":"Violeta hondo","l":"#E9E4F2","d":"#4B3A85"},{"k":"oxidohondo","n":"Óxido hondo","l":"#F1E2D6","d":"#7E3F1E"},{"k":"botella","n":"Verde botella","l":"#E4EEE6","d":"#1F5A46"},{"k":"acerohondo","n":"Acero hondo","l":"#DFE6EC","d":"#3C5A72"},{"k":"ciruelahondo","n":"Ciruela honda","l":"#EEE4EE","d":"#5A2C55"},{"k":"buganvilla","n":"Buganvilla","l":"#F1E1EA","d":"#8B2A62"},{"k":"grisazul","n":"Gris azulado","l":"#E4E9EE","d":"#5A6D80"},{"k":"rosaviejo","n":"Rosa viejo","l":"#F2E3E4","d":"#8E5A64"}];
+  var TEMAS_TABLERO=[{"k":"cielo","n":"Cielo","l":"#E9F1F6","d":"#7AA4BB"},{"k":"nogal","n":"Nogal","l":"#EFE1C6","d":"#7A6248"},{"k":"bosque","n":"Bosque","l":"#EEEED2","d":"#769656"},{"k":"marmol","n":"Mármol","l":"#EFF1EF","d":"#7F8C86"},{"k":"torneo","n":"Azul torneo","l":"#E7ECF4","d":"#6A85AC"},{"k":"cafe","n":"Café","l":"#F2E3CE","d":"#966742"},{"k":"pizarra","n":"Pizarra","l":"#E5E8E5","d":"#68766E"},{"k":"trigo","n":"Trigo","l":"#F6EAD0","d":"#BE9C5E"},{"k":"ebano","n":"Ébano","l":"#E2DFD7","d":"#474642"},{"k":"vino","n":"Vino","l":"#F1E3E1","d":"#8A4B4E"},{"k":"musgo","n":"Musgo","l":"#E9EFDF","d":"#6C8757"},{"k":"arena","n":"Arena","l":"#F3EBDB","d":"#AE8F6E"},{"k":"lavanda","n":"Lavanda","l":"#EEE9F3","d":"#8478A3"},{"k":"menta","n":"Menta","l":"#E6F1EB","d":"#6B9C88"},{"k":"cobre","n":"Cobre","l":"#F5E7D9","d":"#AC6D4A"},{"k":"tinta","n":"Tinta","l":"#DCE0E5","d":"#434D67"},{"k":"oliva","n":"Oliva","l":"#EDEDDB","d":"#858650"},{"k":"antiguo","n":"Rosa antiguo","l":"#F5E8E8","d":"#B27B7F"},{"k":"grafito","n":"Grafito","l":"#E8E8E8","d":"#565656"},{"k":"miel","n":"Miel","l":"#F8EFD5","d":"#C39646"},{"k":"marron","n":"Marrón clásico","l":"#F0D9B5","d":"#B58863"},{"k":"azul","n":"Azul clásico","l":"#DEE3E6","d":"#8CA2AD"},{"k":"amarillo","n":"Amarillo clásico","l":"#FFFFDD","d":"#86A666"},{"k":"lima","n":"Lima","l":"#F1F5D8","d":"#8FA84E"},{"k":"arce","n":"Arce","l":"#F7E2C0","d":"#C08552"},{"k":"roble","n":"Roble","l":"#EFD9B4","d":"#A97C50"},{"k":"caoba","n":"Caoba","l":"#EEDCC4","d":"#96543B"},{"k":"bambu","n":"Bambú","l":"#F3EED2","d":"#A6AB5E"},{"k":"oceano","n":"Océano","l":"#DBE9EF","d":"#4E7A93"},{"k":"acero","n":"Acero","l":"#E2E7EA","d":"#7C8B99"},{"k":"zafiro","n":"Zafiro","l":"#E3E9F5","d":"#56699E"},{"k":"jade","n":"Jade","l":"#E6EFE2","d":"#5E8C6A"},{"k":"esmeralda","n":"Esmeralda","l":"#E2EEE4","d":"#2F7A50"},{"k":"salvia","n":"Salvia","l":"#EBEFE5","d":"#8AA07C"},{"k":"pino","n":"Pino","l":"#E7EDE2","d":"#4F6E4A"},{"k":"terracota","n":"Terracota","l":"#F5E3D6","d":"#C2612F"},{"k":"granate","n":"Granate","l":"#F2E2E0","d":"#A63A3A"},{"k":"coral","n":"Coral","l":"#F7E6E1","d":"#C87A64"},{"k":"violeta","n":"Violeta","l":"#EAE4F5","d":"#6A55A8"},{"k":"ciruela","n":"Ciruela","l":"#EEE6EF","d":"#85618C"},{"k":"algodon","n":"Algodón","l":"#F7E7EE","d":"#C98BA5"},{"k":"perla","n":"Perla","l":"#F3F1EE","d":"#A89E93"},{"k":"aguamarina","n":"Aguamarina","l":"#E3F0EF","d":"#6FA5A0"},{"k":"niebla","n":"Niebla","l":"#EDEFF0","d":"#9DA8AE"},{"k":"turquesa","n":"Turquesa","l":"#E2F0F0","d":"#3F8F8F"},{"k":"petroleo","n":"Petróleo","l":"#DBE7E8","d":"#35646A"},{"k":"verdeagua","n":"Verde agua","l":"#E4F1EC","d":"#4FA07E"},{"k":"cobalto","n":"Cobalto","l":"#DEE6F4","d":"#3F5FA8"},{"k":"lila","n":"Lila","l":"#F1EBF7","d":"#A78BD0"},{"k":"espliego","n":"Espliego","l":"#EAE8F6","d":"#4F4C95"},{"k":"berenjena","n":"Berenjena","l":"#EDE6EE","d":"#6B3A72"},{"k":"fucsia","n":"Fucsia","l":"#F7E4EF","d":"#B45A8E"},{"k":"malva","n":"Malva","l":"#F3EAEF","d":"#B08FA4"},{"k":"cereza","n":"Cereza","l":"#F6E2E4","d":"#B03E5E"},{"k":"grana","n":"Grana","l":"#F1DEDE","d":"#8C2F2F"},{"k":"salmon","n":"Salmón","l":"#FAE9E1","d":"#DE9174"},{"k":"oxido","n":"Óxido","l":"#F3E3D6","d":"#9C5A2E"},{"k":"ambar","n":"Ámbar","l":"#FAEFD2","d":"#D89A2E"},{"k":"calabaza","n":"Calabaza","l":"#F9E9D4","d":"#DE7B2A"},{"k":"mostaza","n":"Mostaza","l":"#F7F0D2","d":"#C0A32A"},{"k":"selva","n":"Selva","l":"#E4EDDC","d":"#3E6B36"},{"k":"militar","n":"Militar","l":"#EAEBDD","d":"#6F7448"},{"k":"hierba","n":"Hierba","l":"#EBF2DD","d":"#6F9A38"},{"k":"helecho","n":"Helecho","l":"#E7F0E3","d":"#4C8452"},{"k":"lino","n":"Lino","l":"#F4F0E4","d":"#B4A583"},{"k":"caqui","n":"Caqui","l":"#F0EEE0","d":"#96925F"},{"k":"cedro","n":"Cedro","l":"#F5E7CE","d":"#A88238"},{"k":"laguna","n":"Laguna","l":"#E0EEF2","d":"#4E8CA8"},{"k":"bruma","n":"Bruma","l":"#EEF1F2","d":"#8794A0"},{"k":"camelia","n":"Camelia","l":"#F7E9E9","d":"#D09F9F"},{"k":"rosaceniza","n":"Rosa ceniza","l":"#F0E5E5","d":"#BA9797"},{"k":"rosapolvo","n":"Rosa polvo","l":"#F6E4E4","d":"#D08B8B"},{"k":"chicle","n":"Chicle","l":"#FDF3F3","d":"#EEB5B5"},{"k":"durazno","n":"Durazno","l":"#F7EEE9","d":"#D0B39F"},{"k":"arcillaclara","n":"Arcilla clara","l":"#F6EBE4","d":"#D0A78B"},{"k":"mango","n":"Mango","l":"#FDF7F3","d":"#EECBB5"},{"k":"vainilla","n":"Vainilla","l":"#F7F4E9","d":"#D0C69F"},{"k":"mostazaclara","n":"Mostaza clara","l":"#F6F3E4","d":"#D0C28B"},{"k":"limon","n":"Limón","l":"#F4F7E9","d":"#C6D09F"},{"k":"jazmin","n":"Jazmín","l":"#F9FBEF","d":"#D8E3AB"},{"k":"caquiclaro","n":"Caqui claro","l":"#EEF0E5","d":"#B3BA97"},{"k":"limapalida","n":"Lima pálida","l":"#F3F6E4","d":"#C2D08B"},{"k":"pistacho","n":"Pistacho","l":"#EEF7E9","d":"#B3D09F"},{"k":"apio","n":"Apio","l":"#F4FBEF","d":"#C1E3AB"},{"k":"musgoclaro","n":"Musgo claro","l":"#EBF6E4","d":"#A7D08B"},{"k":"mentaclara","n":"Menta clara","l":"#E9F7E9","d":"#9FD09F"},{"k":"espuma","n":"Espuma","l":"#EFFBEF","d":"#ABE3AB"},{"k":"salviaclara","n":"Salvia clara","l":"#E5F0E5","d":"#97BA97"},{"k":"mentapolvo","n":"Menta polvo","l":"#E4F6E4","d":"#8BD08B"},{"k":"verdeaguaclaro","n":"Verde agua claro","l":"#E9F7EE","d":"#9FD0B3"},{"k":"rocio","n":"Rocío","l":"#EFFBF4","d":"#ABE3C1"},{"k":"jadeclaro","n":"Jade claro","l":"#E5F0E9","d":"#97BAA5"},{"k":"verdepiscina","n":"Verde piscina","l":"#E4F6EB","d":"#8BD0A7"},{"k":"aguamarinaclara","n":"Aguamarina clara","l":"#E9F7F4","d":"#9FD0C6"},{"k":"petroleoclaro","n":"Petróleo claro","l":"#E5F0EE","d":"#97BAB3"},{"k":"celeste","n":"Celeste","l":"#E9F4F7","d":"#9FC6D0"},{"k":"celestenube","n":"Celeste nube","l":"#F3FBFD","d":"#B5E2EE"},{"k":"cielopalido","n":"Cielo pálido","l":"#E9EEF7","d":"#9FB3D0"},{"k":"denimclaro","n":"Denim claro","l":"#E4EBF6","d":"#8BA7D0"},{"k":"zafiroclaro","n":"Zafiro claro","l":"#F3F7FD","d":"#B5CBEE"},{"k":"hortensia","n":"Hortensia","l":"#E9E9F7","d":"#9F9FD0"},{"k":"pizarraclara","n":"Pizarra clara","l":"#E5E5F0","d":"#9797BA"},{"k":"lavandaazul","n":"Lavanda azul","l":"#E4E4F6","d":"#8B8BD0"},{"k":"azulbebe","n":"Azul bebé","l":"#F3F3FD","d":"#B5B5EE"},{"k":"espliegoclaro","n":"Espliego claro","l":"#F4EFFB","d":"#C1ABE3"},{"k":"glicina","n":"Glicina","l":"#F4E9F7","d":"#C69FD0"},{"k":"ciruelaclara","n":"Ciruela clara","l":"#EEE5F0","d":"#B397BA"},{"k":"lilapolvo","n":"Lila polvo","l":"#F3E4F6","d":"#C28BD0"},{"k":"lilanube","n":"Lila nube","l":"#FBF3FD","d":"#E2B5EE"},{"k":"lilapalido","n":"Lila pálido","l":"#FBEFF9","d":"#E3ABD8"},{"k":"ciclamenclaro","n":"Ciclamen claro","l":"#F6E4F3","d":"#D08BC2"},{"k":"cuarzorosa","n":"Cuarzo rosa","l":"#F7E9EE","d":"#D09FB3"},{"k":"fresaclara","n":"Fresa clara","l":"#FDF3F7","d":"#EEB5CB"},{"k":"marfil","n":"Marfil","l":"#F6F6F3","d":"#CDCAC1"},{"k":"humoclaro","n":"Humo claro","l":"#D4D5D9","d":"#A5A6AC"},{"k":"maderaveta","n":"Madera veteada","l":"#E8C89A","d":"#9A6A3E","t":"madera"},{"k":"lino","n":"Lino","l":"#EEEADC","d":"#B9AE93","t":"lino"},{"k":"pizarraveta","n":"Pizarra rayada","l":"#DDE0DE","d":"#5A6A66","t":"pizarra"},{"k":"cuadricula","n":"Cuadrícula","l":"#EFF3F6","d":"#B6C6D2","t":"cuadricula"},{"k":"tejido","n":"Tejido","l":"#EDE7DB","d":"#A78F72","t":"tejido"},{"k":"puntos","n":"Punteado","l":"#EDEFEA","d":"#9FB09C","t":"puntos"},{"k":"carbon","n":"Carbón","l":"#DEE1E4","d":"#3A4046"},{"k":"marino","n":"Marino","l":"#DDE3EF","d":"#2E4166"},{"k":"bosquehondo","n":"Bosque hondo","l":"#E3EBDD","d":"#2E5233"},{"k":"borgona","n":"Borgoña","l":"#EFE0E2","d":"#6E2233"},{"k":"chartreuse","n":"Chartreuse","l":"#F2F6D6","d":"#A3B62E"},{"k":"turquesahondo","n":"Turquesa hondo","l":"#DFEFEF","d":"#22706E"},{"k":"violetahondo","n":"Violeta hondo","l":"#E9E4F2","d":"#4B3A85"},{"k":"oxidohondo","n":"Óxido hondo","l":"#F1E2D6","d":"#7E3F1E"},{"k":"botella","n":"Verde botella","l":"#E4EEE6","d":"#1F5A46"},{"k":"acerohondo","n":"Acero hondo","l":"#DFE6EC","d":"#3C5A72"},{"k":"ciruelahondo","n":"Ciruela honda","l":"#EEE4EE","d":"#5A2C55"},{"k":"buganvilla","n":"Buganvilla","l":"#F1E1EA","d":"#8B2A62"},{"k":"grisazul","n":"Gris azulado","l":"#E4E9EE","d":"#5A6D80"},{"k":"rosaviejo","n":"Rosa viejo","l":"#F2E3E4","d":"#8E5A64"},{"k":"robleclaro","n":"Roble claro","l":"#EFDCBB","d":"#B98A52","t":"madera"},{"k":"nogaloscuro","n":"Nogal oscuro","l":"#E3CBA4","d":"#7B5330","t":"madera"},{"k":"cerezo","n":"Cerezo","l":"#F0D6C0","d":"#A85B3E","t":"madera"},{"k":"arcedorado","n":"Arce dorado","l":"#F6E6C3","d":"#C99A4E","t":"madera"},{"k":"wengue","n":"Wengué","l":"#DCC7AC","d":"#5E4530","t":"madera"},{"k":"tecarojiza","n":"Teca rojiza","l":"#EDD3B2","d":"#9C6134","t":"madera"},{"k":"fresnogris","n":"Fresno gris","l":"#E7DECB","d":"#9A8C74","t":"madera"},{"k":"maderaebano","n":"Madera ébano","l":"#D9CDBB","d":"#4A3B2C","t":"madera"},{"k":"linoazul","n":"Lino azul","l":"#E4EAF0","d":"#96A9BD","t":"lino"},{"k":"linoverde","n":"Lino verde","l":"#E7EEE3","d":"#9BB198","t":"lino"},{"k":"linorosa","n":"Lino rosa","l":"#F2E7E6","d":"#C0A0A0","t":"lino"},{"k":"linogris","n":"Lino gris","l":"#E9EAEA","d":"#A2A6A6","t":"lino"},{"k":"linoarena","n":"Lino arena","l":"#F3E9CF","d":"#C9AF7C","t":"lino"},{"k":"linocarbon","n":"Lino carbón","l":"#E2E2E0","d":"#7C7C78","t":"lino"},{"k":"linovioleta","n":"Lino violeta","l":"#EAE6F0","d":"#A69CBB","t":"lino"},{"k":"pizarraazul","n":"Pizarra azul","l":"#DFE5EA","d":"#566B7C","t":"pizarra"},{"k":"pizarraverde","n":"Pizarra verde","l":"#E0E7E1","d":"#4F6B58","t":"pizarra"},{"k":"pizarramorada","n":"Pizarra morada","l":"#E5E0EA","d":"#5E5270","t":"pizarra"},{"k":"pizarraparda","n":"Pizarra parda","l":"#E8E2DA","d":"#6B5C4C","t":"pizarra"},{"k":"pizarraroja","n":"Pizarra roja","l":"#EBDFDF","d":"#74484A","t":"pizarra"},{"k":"pizarrapalida","n":"Pizarra pálida","l":"#E9ECEE","d":"#8494A0","t":"pizarra"},{"k":"pizarranegra","n":"Pizarra negra","l":"#DEDEDE","d":"#3F4448","t":"pizarra"},{"k":"cuadriculaverde","n":"Cuadrícula verde","l":"#EFF5EF","d":"#B4CDB6","t":"cuadricula"},{"k":"cuadriculasepia","n":"Cuadrícula sepia","l":"#F5F0E4","d":"#CFC0A0","t":"cuadricula"},{"k":"cuadricularosa","n":"Cuadrícula rosa","l":"#F7EFF2","d":"#D6BCC6","t":"cuadricula"},{"k":"cuadriculagris","n":"Cuadrícula gris","l":"#EFF0F1","d":"#A9AFB4","t":"cuadricula"},{"k":"cuadriculaambar","n":"Cuadrícula ámbar","l":"#F7F1E0","d":"#D4C08A","t":"cuadricula"},{"k":"cuadriculamenta","n":"Cuadrícula menta","l":"#E8F6F2","d":"#93C8BC","t":"cuadricula"},{"k":"cuadriculalila","n":"Cuadrícula lila","l":"#F2EFF7","d":"#C3B8D4","t":"cuadricula"},{"k":"tejidorojo","n":"Tejido rojo","l":"#F0E3E0","d":"#A76A5E","t":"tejido"},{"k":"tejidoazul","n":"Tejido azul","l":"#E3E9F1","d":"#6E86A6","t":"tejido"},{"k":"tejidoverde","n":"Tejido verde","l":"#E6EDE3","d":"#7C9A72","t":"tejido"},{"k":"tejidomostaza","n":"Tejido mostaza","l":"#F3EDD8","d":"#BFA65E","t":"tejido"},{"k":"tejidogris","n":"Tejido gris","l":"#E8E9E9","d":"#8E9294","t":"tejido"},{"k":"tejidomorado","n":"Tejido morado","l":"#E9E4EE","d":"#8B7BA0","t":"tejido"},{"k":"tejidonegro","n":"Tejido negro","l":"#E0E0DE","d":"#55565A","t":"tejido"},{"k":"tejidoarena","n":"Tejido arena","l":"#F5EEDA","d":"#CDB47F","t":"tejido"},{"k":"puntosazul","n":"Puntos azul","l":"#E9EFF5","d":"#8FA9C0","t":"puntos"},{"k":"puntosrosa","n":"Puntos rosa","l":"#F6EBEF","d":"#C99BAD","t":"puntos"},{"k":"puntosverde","n":"Puntos verde","l":"#EAF1E9","d":"#92B08F","t":"puntos"},{"k":"puntosnaranja","n":"Puntos naranja","l":"#F7EBDF","d":"#C99668","t":"puntos"},{"k":"puntosmorado","n":"Puntos morado","l":"#EDE8F3","d":"#A192BC","t":"puntos"},{"k":"puntosgris","n":"Puntos gris","l":"#EDEEEE","d":"#A0A4A6","t":"puntos"},{"k":"puntosocre","n":"Puntos ocre","l":"#F4EEDC","d":"#C0AE7A","t":"puntos"},{"k":"puntoscrema","n":"Puntos crema","l":"#F6F0E2","d":"#CBBFA2","t":"puntos"},{"k":"periodico","n":"Periódico","l":"#E8D6BE","d":"#B8A996","t":"periodico"},{"k":"periodicoazul","n":"Periódico azul","l":"#DAE2F0","d":"#AFB2B9","t":"periodico"},{"k":"periodicoverde","n":"Periódico verde","l":"#DEEBD8","d":"#B2B8A8","t":"periodico"},{"k":"periodicorosa","n":"Periódico rosa","l":"#F3DFE1","d":"#C0B0AE","t":"periodico"},{"k":"periodicoocre","n":"Periódico ocre","l":"#F3ECC2","d":"#C0B999","t":"periodico"},{"k":"periodicogris","n":"Periódico gris","l":"#E4E4E2","d":"#B6B3AF","t":"periodico"},{"k":"anillo","n":"Anillo","l":"#E6ECF2","d":"#7C93A8","t":"anillo"},{"k":"rombo","n":"Rombo","l":"#E7F0E9","d":"#6D9B7E","t":"rombo"},{"k":"esquinas","n":"Esquinas","l":"#F2EADC","d":"#B79E7C","t":"esquinas"},{"k":"cruces","n":"Cruces","l":"#EDEAF4","d":"#8E85AE","t":"cruces"},{"k":"puntomedio","n":"Punto medio","l":"#F3E7E0","d":"#B0765F","t":"puntomedio"},{"k":"marco","n":"Marco","l":"#E9E9EA","d":"#6E7276","t":"marco"},{"k":"estrella","n":"Estrella","l":"#EFE6EE","d":"#8A6A8C","t":"estrella"},{"k":"vertice","n":"Vértice","l":"#EEEEE0","d":"#8C9060","t":"vertice"},{"k":"halo","n":"Halo","l":"#E2EFEF","d":"#5E9A99","t":"halo"},{"k":"degrade","n":"Degradé","l":"#F6EDD8","d":"#C4A05C","t":"degrade"},{"k":"hojas","n":"Hojas","l":"#E9F0E2","d":"#7FA06A","t":"hojas"},{"k":"granocafe","n":"Grano de café","l":"#F0E4D6","d":"#8E5E3C","t":"granocafe"},{"k":"olivo","n":"Rama de olivo","l":"#EFEFE0","d":"#8A9A6B","t":"olivo"},{"k":"fronda","n":"Fronda de helecho","l":"#E5EFE6","d":"#5C8A6A","t":"fronda"},{"k":"trebol","n":"Trébol","l":"#EAF2E4","d":"#6E9E58","t":"trebol"},{"k":"ginkgo","n":"Ginkgo","l":"#F5F1D8","d":"#C0B152","t":"ginkgo"},{"k":"espiga","n":"Espiga","l":"#F6EDD4","d":"#C9A458","t":"espiga"},{"k":"ramapino","n":"Rama de pino","l":"#E4ECE4","d":"#4E7458","t":"ramapino"},{"k":"semillas","n":"Semillas","l":"#F1E9DC","d":"#A98D6A","t":"semillas"},{"k":"loto","n":"Loto","l":"#F6E9EE","d":"#C58BA0","t":"loto"}];
 
   /* ---------- memoria terca: localStorage y cookie a la vez ---------- */
   function galleta(k){
@@ -7610,10 +7899,22 @@ function ejecutarPremove(){
     try{ v=getComputedStyle(raiz).getPropertyValue('--panel'); }catch(e){}
     return leerColor(v) || {r:23,g:30,b:26,a:1};
   }
-  function paqueteEfectivo(cl,cd){
+  var TINTA_PAPEL={r:84,g:75,b:66,a:1};
+  function paqueteEfectivo(cl,cd,trama){
     var f=fondoDelTablero(), el=sobre(cl,f), ed=sobre(cd,f);
-    var hl = tonoCalido(ed) ? 'rgba(58,96,208,.32)' : 'rgba(255,206,61,.46)';
-    return [aTexto(cl),aTexto(cd),coordPara(el,ed),coordPara(ed,el),hl].join('|');
+    var esPapel = trama==='periodico';
+    var hl = esPapel ? 'rgba(201,201,106,.55)' : (tonoCalido(ed) ? 'rgba(58,96,208,.32)' : 'rgba(255,206,61,.46)');
+    var co1, co2;
+    if(esPapel){ co1=co2=coordPara(el,TINTA_PAPEL); }
+    else { co1=coordPara(el,ed); co2=coordPara(ed,el); }
+    var acen=aHex(ed), tinta=aHex(el);
+    for(var q=0;q<10;q++){
+      var pru=mezcla(ed,NEGRO,q*0.08);
+      if(contraste(el,pru)>=4.6){ acen=aHex(pru); break; }
+      if(q===9){ acen=aHex(mezcla(ed,NEGRO,0.72)); tinta='#FFFFFF'; }
+    }
+    var halo = aHex(mezcla(el,BLANCO,0.45));
+    return [aTexto(cl),aTexto(cd),co1,co2,hl,(trama||''),acen,tinta,halo].join('|');
   }
 
   /* ---------- estado ---------- */
@@ -7647,13 +7948,13 @@ function ejecutarPremove(){
   function esFav(k){ return favs.indexOf(k)>=0; }
   function persoComoTema(){
     var a=perso.split('|');
-    return {k:'personalizado', n:'Personalizado', l:(a[0]||'#EDE8D5'), d:(a[1]||'#7A6248')};
+    return {k:'personalizado', n:'Personalizado', l:(a[0]||'#EDE8D5'), d:(a[1]||'#7A6248'), t:(a[5]||'')};
   }
 
   function aplicarModo(){
     var oscuro = modo==='oscuro' || (modo==='sistema' && mq.matches);
     raiz.setAttribute('data-modo', oscuro?'oscuro':'claro');
-    var bs=document.querySelectorAll('#pc-modo button'),i;
+    var bs=document.querySelectorAll('.pc-modo button'),i;
     for(i=0;i<bs.length;i++) bs[i].setAttribute('aria-pressed', String(bs[i].getAttribute('data-modo')===modo));
     var m=document.querySelector('meta[name="theme-color"]');
     if(m) m.setAttribute('content', oscuro?'#0F1411':'#EEF1EB');
@@ -7665,23 +7966,33 @@ function ejecutarPremove(){
     }catch(e){}
   }
   var VARS=['--light','--dark','--coord-l','--coord-d','--hl'];
+  var EXTRA=['--acento-tema','--acento-ink','--halo'];
+  function ponerPaleta(v,trama,ac,ai,halo){
+    var i;
+    for(i=0;i<VARS.length;i++) raiz.style.setProperty(VARS[i], v[i]);
+    raiz.style.setProperty('--acento-tema', ac||v[1]);
+    raiz.style.setProperty('--acento-ink', ai||'#FFFFFF');
+    if(halo) raiz.style.setProperty('--halo', halo); else raiz.style.removeProperty('--halo');
+    return trama||'';
+  }
   function aplicarTema(){
-    var i, nombre='';
+    var i, nombre='', trama='';
     var t=temaPorClave(tema);
     if(tema==='personalizado'){
       var a=perso.split('|');
-      for(i=0;i<VARS.length;i++) raiz.style.setProperty(VARS[i], a[i]);
+      trama=ponerPaleta(a,a[5],a[6],a[7],a[8]);
       nombre='Personalizado';
     }else if(t && t.mio){
-      var b=[t.l,t.d,t.cl,t.cd,t.hl];
-      for(i=0;i<VARS.length;i++) raiz.style.setProperty(VARS[i], b[i]);
+      trama=ponerPaleta([t.l,t.d,t.cl,t.cd,t.hl],t.t,t.ac,t.ai,t.halo);
       nombre=t.n;
     }else{
       for(i=0;i<VARS.length;i++) raiz.style.removeProperty(VARS[i]);
+      for(i=0;i<EXTRA.length;i++) raiz.style.removeProperty(EXTRA[i]);
       nombre = t? t.n : '';
+      trama = (t && t.t) ? t.t : '';
     }
     raiz.setAttribute('data-tablero',tema);
-    if(t && t.t) raiz.setAttribute('data-trama',t.t); else raiz.removeAttribute('data-trama');
+    if(trama) raiz.setAttribute('data-trama',trama); else raiz.removeAttribute('data-trama');
     var n=document.getElementById('pc-tablero-nombre');
     if(n) n.textContent=nombre;
     var bs=document.querySelectorAll('.pc-tema');
@@ -7737,6 +8048,7 @@ function ejecutarPremove(){
     b.setAttribute('aria-pressed', String(t.k===tema));
     b.style.setProperty('--l',t.l); b.style.setProperty('--d',t.d);
     if(t.t) b.setAttribute('data-trama',t.t);
+    caja.setAttribute('data-tema-caja',t.k);
     var mini=document.createElement('i'); mini.setAttribute('aria-hidden','true');
     var nb=document.createElement('b'); nb.textContent=t.n;
     b.appendChild(mini); b.appendChild(nb);
@@ -7749,7 +8061,13 @@ function ejecutarPremove(){
     est.setAttribute('title','Favorito');
     est.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>';
     est.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); alternarFav(t.k); };
-    caja.appendChild(b); caja.appendChild(est);
+    var lap=document.createElement('button');
+    lap.type='button'; lap.className='pc-lapiz';
+    lap.setAttribute('aria-label','Editar los colores de '+t.n);
+    lap.setAttribute('title','Editar a partir de este');
+    lap.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17z"/><path d="M14.5 6.5l3 3"/></svg>';
+    lap.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); abrirPerso(t); };
+    caja.appendChild(b); caja.appendChild(est); caja.appendChild(lap);
     return caja;
   }
   function alternarFav(k){
@@ -7778,7 +8096,7 @@ function ejecutarPremove(){
   }
 
   /* ---------- editor del tablero personalizado ---------- */
-  var borrador={l:{r:237,g:232,b:213,a:1}, d:{r:122,g:98,b:72,a:1}};
+  var borrador={l:{r:237,g:232,b:213,a:1}, d:{r:122,g:98,b:72,a:1}, trama:''};
   var CANALES=[['r','R',255],['g','G',255],['b','B',255],['a','A',100]];
   function pistaDe(cara,canal){
     var c=borrador[cara], base;
@@ -7807,11 +8125,38 @@ function ejecutarPremove(){
           val.textContent = canal==='a' ? v+'%' : String(v);
           sl.style.setProperty('--pista', pistaDe(cara,canal));
         }
+        function fijarDesde(cx){
+          var r=sl.getBoundingClientRect();
+          if(!r.width) return;
+          var t=(cx-r.left)/r.width;
+          t = t<0?0:(t>1?1:t);
+          var v=Math.round(t*tope);
+          if(canal==='a') borrador[cara].a=v/100; else borrador[cara][canal]=v;
+          refrescarEditor(cara);
+        }
         sl.oninput=function(){
           var v=parseInt(sl.value,10)||0;
           if(canal==='a') borrador[cara].a=v/100; else borrador[cara][canal]=v;
           refrescarEditor(cara);
         };
+        /* Con un puntero propio: se agarra desde cualquier punto de la línea
+           y sigue el dedo aunque se salga del control. El comportamiento
+           nativo en el móvil exigía atinarle a la rueda. */
+        if(window.PointerEvent){
+          sl.addEventListener('pointerdown',function(ev){
+            ev.preventDefault();
+            try{ sl.setPointerCapture(ev.pointerId); }catch(err){}
+            fijarDesde(ev.clientX);
+          });
+          sl.addEventListener('pointermove',function(ev){
+            var agarrado=false;
+            try{ agarrado=sl.hasPointerCapture(ev.pointerId); }catch(err){}
+            if(agarrado) fijarDesde(ev.clientX);
+          });
+          var soltar=function(ev){ try{ sl.releasePointerCapture(ev.pointerId); }catch(err){} };
+          sl.addEventListener('pointerup',soltar);
+          sl.addEventListener('pointercancel',soltar);
+        }
         fila.appendChild(et); fila.appendChild(sl); fila.appendChild(val);
         cont.appendChild(fila);
         cont['ref_'+canal]=refrescar;
@@ -7832,7 +8177,11 @@ function ejecutarPremove(){
     var p=document.getElementById('pc-perso-previa');
     if(!p) return;
     if(!p.childNodes.length){
-      for(var i=0;i<16;i++) p.appendChild(document.createElement('span'));
+      for(var i=0;i<16;i++){
+        var celdaP=document.createElement('span');
+        celdaP.className = ((Math.floor(i/4)+i%4)%2===0)?'l':'d';
+        p.appendChild(celdaP);
+      }
       try{
         if(typeof PIECES!=='undefined'){
           p.childNodes[5].innerHTML=PIECES['wK'];
@@ -7840,19 +8189,67 @@ function ejecutarPremove(){
         }
       }catch(e){}
     }
+    if(borrador.trama){ p.setAttribute('data-trama',borrador.trama); } else { p.removeAttribute('data-trama'); }
+    p.style.setProperty('--light', aTexto(borrador.l));
+    p.style.setProperty('--dark', aTexto(borrador.d));
+    var papel = borrador.trama==='periodico';
     for(var j=0;j<16;j++){
       var fila=Math.floor(j/4), col=j%4, claro=((fila+col)%2===0);
-      p.childNodes[j].style.background = aTexto(claro? borrador.l : borrador.d);
+      p.childNodes[j].style.backgroundColor = aTexto((claro||papel)? borrador.l : borrador.d);
     }
   }
-  function abrirPerso(){
-    var base = tema==='personalizado' ? persoComoTema() : (temaPorClave(tema)||{l:'#EDE8D5',d:'#7A6248'});
+  var nombreOk=false;
+  function pista(msg,clase){
+    var p=document.getElementById('pc-perso-pista');
+    if(!p) return;
+    p.textContent=msg;
+    p.className='pc-pista'+(clase?' '+clase:'');
+  }
+  function nombreExiste(n){
+    var q=normaliza(n), L=todos();
+    for(var i=0;i<L.length;i++) if(normaliza(L[i].n)===q) return true;
+    return false;
+  }
+  function nombrePropuesto(){
+    var i=mios.length+1, n;
+    do{ n='Mi tablero '+i; i++; }while(nombreExiste(n) && i<400);
+    return n;
+  }
+  function bloquearColores(b){
+    var c=document.getElementById('pc-perso-colores');
+    if(c) c.classList.toggle('bloqueado',b);
+    var k=document.getElementById('pc-perso-check');
+    if(k) k.classList.toggle('listo',!b);
+    nombreOk=!b;
+  }
+  function confirmarNombre(){
+    var campo=document.getElementById('pc-perso-nombre');
+    if(!campo) return;
+    var n=String(campo.value||'').trim();
+    if(!n){ n=campo.placeholder||''; campo.value=n; }
+    if(!n){ pista('Escribe un nombre para el tablero.','mal'); campo.focus(); return; }
+    if(nombreExiste(n)){
+      pista('Ya existe un tablero llamado \u00ab'+n+'\u00bb. Elige otro nombre.','mal');
+      campo.focus();
+      return;
+    }
+    try{ campo.blur(); }catch(e){}
+    if(cajaPerso) cajaPerso.classList.remove('escribiendo');
+    pista('Nombre libre. Ya puedes elegir los colores.','bien');
+    bloquearColores(false);
+  }
+  function abrirPerso(origen){
+    var base = origen || (tema==='personalizado' ? persoComoTema() : (temaPorClave(tema)||{l:'#EDE8D5',d:'#7A6248'}));
     borrador.l = leerColor(base.l) || {r:237,g:232,b:213,a:1};
     borrador.d = leerColor(base.d) || {r:122,g:98,b:72,a:1};
+    borrador.trama = base.t || '';
     var campo=document.getElementById('pc-perso-nombre');
-    if(campo) campo.placeholder='Mi tablero '+(mios.length+1);
+    if(campo){ campo.value=''; campo.placeholder=nombrePropuesto(); }
+    pista('Escribe un nombre y toca el visto verde para seguir.','');
+    bloquearColores(true);
     construirSliders('l'); construirSliders('d');
     refrescarEditor('l'); refrescarEditor('d');
+    if(cajaPerso) cajaPerso.classList.remove('escribiendo');
     abrir(cajaPerso);
   }
   function conectarHex(cara){
@@ -7907,9 +8304,10 @@ function ejecutarPremove(){
   function guardarMio(comoFavorito){
     var campo=document.getElementById('pc-perso-nombre');
     var n=campo? String(campo.value||'').trim() : '';
-    if(!n) n='Mi tablero '+(mios.length+1);
-    var p=paqueteEfectivo(borrador.l,borrador.d).split('|');
-    var t={k:'mio'+Date.now().toString(36), n:n, l:p[0], d:p[1], cl:p[2], cd:p[3], hl:p[4], mio:true};
+    if(!n) n=nombrePropuesto();
+    var p=paqueteEfectivo(borrador.l,borrador.d,borrador.trama).split('|');
+    var t={k:'mio'+Date.now().toString(36), n:n, l:p[0], d:p[1], cl:p[2], cd:p[3], hl:p[4],
+           t:(p[5]||undefined), ac:p[6], ai:p[7], halo:p[8], mio:true};
     mios.push(t);
     guardar(K_MIOS, JSON.stringify(mios));
     if(comoFavorito && favs.indexOf(t.k)<0){ favs.push(t.k); guardar(K_FAV, favs.join(',')); }
@@ -7919,7 +8317,7 @@ function ejecutarPremove(){
     pedirTablero(t,true);
   }
 
-  var modos=document.querySelectorAll('#pc-modo button');
+  var modos=document.querySelectorAll('.pc-modo button');
   for(var k=0;k<modos.length;k++){
     modos[k].onclick=function(){ modo=this.getAttribute('data-modo'); guardar(K_MODO,modo); aplicarModo(); };
   }
@@ -7940,13 +8338,48 @@ function ejecutarPremove(){
   var pc2=document.getElementById('pc-perso-cerrar');
   if(pc2) pc2.onclick=function(){ cerrar(cajaPerso); };
   if(cajaPerso) cajaPerso.onclick=function(e){ if(e.target===cajaPerso) cerrar(cajaPerso); };
+  var chk=document.getElementById('pc-perso-check');
+  if(chk) chk.onclick=confirmarNombre;
+  var campoN=document.getElementById('pc-perso-nombre');
+  if(campoN){
+    campoN.onfocus=function(){ if(cajaPerso) cajaPerso.classList.add('escribiendo'); };
+    campoN.onblur=function(){ if(cajaPerso) cajaPerso.classList.remove('escribiendo'); };
+    campoN.oninput=function(){
+      if(nombreOk){ bloquearColores(true); pista('Toca el visto verde para confirmar el nombre nuevo.',''); }
+    };
+    campoN.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); confirmarNombre(); } };
+  }
+  var velo=document.getElementById('pc-velo-bloqueo');
+  var cajaAviso=document.getElementById('pc-aviso-bg');
+  if(velo) velo.onclick=function(){
+    var t=document.getElementById('pc-aviso-texto');
+    if(t) t.textContent='Escribe el nombre del tablero y toca el visto verde de la derecha. Despu\u00e9s podr\u00e1s elegir los colores.';
+    abrir(cajaAviso);
+  };
+  var aok=document.getElementById('pc-aviso-ok');
+  if(aok) aok.onclick=function(){ cerrar(cajaAviso); var c=document.getElementById('pc-perso-nombre'); if(c) c.focus(); };
+  if(cajaAviso) cajaAviso.onclick=function(e){ if(e.target===cajaAviso) cerrar(cajaAviso); };
+
+  /* sitio para el botón flotante del selector, solo si corremos dentro de él */
+  try{ if(window.parent && window.parent!==window) raiz.setAttribute('data-enmarcado','si'); }catch(e){}
+  var barraSup=document.querySelector('.topbar');
+  if(barraSup){
+    var mirarBarra=function(){
+      var oculta=false;
+      try{ oculta=getComputedStyle(barraSup).display==='none'; }catch(e){}
+      raiz.setAttribute('data-barra', oculta?'oculta':'visible');
+    };
+    mirarBarra();
+    if(window.MutationObserver) new MutationObserver(mirarBarra).observe(barraSup,{attributes:true,attributeFilter:['style','class']});
+  }
+
   var pg=document.getElementById('pc-perso-guardar');
   if(pg) pg.onclick=function(){ guardarMio(false); };
   var pf=document.getElementById('pc-perso-fav');
   if(pf) pf.onclick=function(){ guardarMio(true); };
   var pu=document.getElementById('pc-perso-usar');
   if(pu) pu.onclick=function(){
-    perso=paqueteEfectivo(borrador.l,borrador.d);
+    perso=paqueteEfectivo(borrador.l,borrador.d,borrador.trama);
     guardar(K_PER,perso);
     usarTablero('personalizado');
     cerrar(cajaPerso); cerrar(cajaFavs); cerrar(cajaTemas);
