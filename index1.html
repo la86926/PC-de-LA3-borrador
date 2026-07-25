@@ -325,11 +325,13 @@ to{opacity:1}
 .pc-io-help{margin:.7rem 0 0;color:var(--muted2);font-size:.73rem;line-height:1.45}
 
 /* ===== apariencia nueva ===== */
-/* ---------- 50 temas de tablero. Coordenadas y resaltado calculados y verificados. ---------- */
+/* ---------- 69 temas de tablero, sin repetidos.
+     Filtro automático: distancia mínima 24 entre cualquier par (pesa más la casilla oscura).
+     Coordenadas, resaltado y 6 pruebas de contraste calculados por tema. ---------- */
 html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46)}
 html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32)}
 html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46)}
-html[data-tablero="marmol"]{--light:#F1F2F1;--dark:#93A09A;--coord-l:#67706C;--coord-d:#303030;--hl:rgba(255,206,61,.46)}
+html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46)}
 html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46)}
 html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32)}
 html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46)}
@@ -349,34 +351,52 @@ html[data-tablero="miel"]{--light:#F8EFD5;--dark:#C39646;--coord-l:#886931;--coo
 html[data-tablero="marron"]{--light:#F0D9B5;--dark:#B58863;--coord-l:#7F5F45;--coord-d:#302B24;--hl:rgba(58,96,208,.32)}
 html[data-tablero="azul"]{--light:#DEE3E6;--dark:#8CA2AD;--coord-l:#627179;--coord-d:#2C2D2E;--hl:rgba(255,206,61,.46)}
 html[data-tablero="amarillo"]{--light:#FFFFDD;--dark:#86A666;--coord-l:#5E7447;--coord-d:#33332C;--hl:rgba(255,206,61,.46)}
-html[data-tablero="gris"]{--light:#F0F0F0;--dark:#A0A0A0;--coord-l:#707070;--coord-d:#303030;--hl:rgba(255,206,61,.46)}
 html[data-tablero="lima"]{--light:#F1F5D8;--dark:#8FA84E;--coord-l:#647637;--coord-d:#30312B;--hl:rgba(255,206,61,.46)}
 html[data-tablero="arce"]{--light:#F7E2C0;--dark:#C08552;--coord-l:#865D39;--coord-d:#312D26;--hl:rgba(58,96,208,.32)}
 html[data-tablero="roble"]{--light:#EFD9B4;--dark:#A97C50;--coord-l:#765738;--coord-d:#F8EEDD;--hl:rgba(58,96,208,.32)}
 html[data-tablero="caoba"]{--light:#EEDCC4;--dark:#96543B;--coord-l:#693B29;--coord-d:#F4E8D9;--hl:rgba(255,206,61,.46)}
-html[data-tablero="teca"]{--light:#F1E0C5;--dark:#A5764A;--coord-l:#745334;--coord-d:#F6EBD9;--hl:rgba(58,96,208,.32)}
-html[data-tablero="bambu"]{--light:#F5EBD0;--dark:#C2A661;--coord-l:#887444;--coord-d:#312F2A;--hl:rgba(58,96,208,.32)}
-html[data-tablero="indigo"]{--light:#E4E7F2;--dark:#6C74A8;--coord-l:#4C5176;--coord-d:#EDEFF7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="oceano"]{--light:#DDE9EE;--dark:#5F87A0;--coord-l:#425E70;--coord-d:#E9F1F4;--hl:rgba(255,206,61,.46)}
+html[data-tablero="bambu"]{--light:#F3EED2;--dark:#A6AB5E;--coord-l:#747842;--coord-d:#31302A;--hl:rgba(58,96,208,.32)}
+html[data-tablero="oceano"]{--light:#DBE9EF;--dark:#4E7A93;--coord-l:#375567;--coord-d:#E8F1F5;--hl:rgba(255,206,61,.46)}
 html[data-tablero="acero"]{--light:#E2E7EA;--dark:#7C8B99;--coord-l:#57616B;--coord-d:#F8F9FA;--hl:rgba(255,206,61,.46)}
 html[data-tablero="zafiro"]{--light:#E3E9F5;--dark:#56699E;--coord-l:#3C4A6F;--coord-d:#EDF1F8;--hl:rgba(255,206,61,.46)}
 html[data-tablero="jade"]{--light:#E6EFE2;--dark:#5E8C6A;--coord-l:#42624A;--coord-d:#EFF5EC;--hl:rgba(255,206,61,.46)}
-html[data-tablero="esmeralda"]{--light:#E4EFE4;--dark:#4E8A5F;--coord-l:#376142;--coord-d:#EDF5ED;--hl:rgba(255,206,61,.46)}
+html[data-tablero="esmeralda"]{--light:#E2EEE4;--dark:#2F7A50;--coord-l:#215538;--coord-d:#ECF4ED;--hl:rgba(255,206,61,.46)}
 html[data-tablero="salvia"]{--light:#EBEFE5;--dark:#8AA07C;--coord-l:#617057;--coord-d:#2F302E;--hl:rgba(255,206,61,.46)}
 html[data-tablero="pino"]{--light:#E7EDE2;--dark:#4F6E4A;--coord-l:#374D34;--coord-d:#EFF3EC;--hl:rgba(255,206,61,.46)}
-html[data-tablero="terracota"]{--light:#F4E5DA;--dark:#B4694C;--coord-l:#7E4A35;--coord-d:#F8EEE7;--hl:rgba(255,206,61,.46)}
-html[data-tablero="ladrillo"]{--light:#F2E2DC;--dark:#A65A4A;--coord-l:#743F34;--coord-d:#F7ECE8;--hl:rgba(255,206,61,.46)}
-html[data-tablero="granate"]{--light:#F0E2E3;--dark:#8E4A56;--coord-l:#63343C;--coord-d:#F5ECED;--hl:rgba(255,206,61,.46)}
+html[data-tablero="terracota"]{--light:#F5E3D6;--dark:#C2612F;--coord-l:#884421;--coord-d:#F8EDE4;--hl:rgba(58,96,208,.32)}
+html[data-tablero="granate"]{--light:#F2E2E0;--dark:#A63A3A;--coord-l:#742929;--coord-d:#F7ECEB;--hl:rgba(255,206,61,.46)}
 html[data-tablero="coral"]{--light:#F7E6E1;--dark:#C87A64;--coord-l:#8C5546;--coord-d:#312E2D;--hl:rgba(255,206,61,.46)}
-html[data-tablero="violeta"]{--light:#ECE7F4;--dark:#7C6BA0;--coord-l:#574B70;--coord-d:#F3EFF8;--hl:rgba(255,206,61,.46)}
+html[data-tablero="violeta"]{--light:#EAE4F5;--dark:#6A55A8;--coord-l:#4A3C76;--coord-d:#F1EDF8;--hl:rgba(255,206,61,.46)}
 html[data-tablero="ciruela"]{--light:#EEE6EF;--dark:#85618C;--coord-l:#5D4462;--coord-d:#F4EFF5;--hl:rgba(255,206,61,.46)}
 html[data-tablero="algodon"]{--light:#F7E7EE;--dark:#C98BA5;--coord-l:#8D6174;--coord-d:#312E30;--hl:rgba(255,206,61,.46)}
-html[data-tablero="cemento"]{--light:#E9E9E7;--dark:#8D8D88;--coord-l:#63635F;--coord-d:#2F2F2E;--hl:rgba(58,96,208,.32)}
-html[data-tablero="basalto"]{--light:#E4E5E6;--dark:#5F6467;--coord-l:#424648;--coord-d:#EDEEEF;--hl:rgba(255,206,61,.46)}
-html[data-tablero="perla"]{--light:#F3F1EE;--dark:#A89E93;--coord-l:#766F67;--coord-d:#313030;--hl:rgba(255,206,61,.46)}
+html[data-tablero="perla"]{--light:#F3F1EE;--dark:#A89E93;--coord-l:#766F67;--coord-d:#313030;--hl:rgba(58,96,208,.32)}
 html[data-tablero="aguamarina"]{--light:#E3F0EF;--dark:#6FA5A0;--coord-l:#4E7470;--coord-d:#2D3030;--hl:rgba(255,206,61,.46)}
 html[data-tablero="niebla"]{--light:#EDEFF0;--dark:#9DA8AE;--coord-l:#6E767A;--coord-d:#2F3030;--hl:rgba(255,206,61,.46)}
-
+html[data-tablero="turquesa"]{--light:#E2F0F0;--dark:#3F8F8F;--coord-l:#2C6464;--coord-d:#ECF5F5;--hl:rgba(255,206,61,.46)}
+html[data-tablero="petroleo"]{--light:#DBE7E8;--dark:#35646A;--coord-l:#25464A;--coord-d:#E8EFF0;--hl:rgba(255,206,61,.46)}
+html[data-tablero="verdeagua"]{--light:#E4F1EC;--dark:#4FA07E;--coord-l:#377058;--coord-d:#2E302F;--hl:rgba(255,206,61,.46)}
+html[data-tablero="cobalto"]{--light:#DEE6F4;--dark:#3F5FA8;--coord-l:#2C4276;--coord-d:#EAEFF8;--hl:rgba(255,206,61,.46)}
+html[data-tablero="lila"]{--light:#F1EBF7;--dark:#A78BD0;--coord-l:#756192;--coord-d:#302F31;--hl:rgba(255,206,61,.46)}
+html[data-tablero="espliego"]{--light:#EAE8F6;--dark:#4F4C95;--coord-l:#373568;--coord-d:#F1F0F9;--hl:rgba(255,206,61,.46)}
+html[data-tablero="berenjena"]{--light:#EDE6EE;--dark:#6B3A72;--coord-l:#4B2950;--coord-d:#A6A1A7;--hl:rgba(255,206,61,.46)}
+html[data-tablero="fucsia"]{--light:#F7E4EF;--dark:#B45A8E;--coord-l:#7E3F63;--coord-d:#FAEDF5;--hl:rgba(255,206,61,.46)}
+html[data-tablero="malva"]{--light:#F3EAEF;--dark:#B08FA4;--coord-l:#7B6473;--coord-d:#312F30;--hl:rgba(255,206,61,.46)}
+html[data-tablero="cereza"]{--light:#F6E2E4;--dark:#B03E5E;--coord-l:#7B2B42;--coord-d:#F9ECED;--hl:rgba(255,206,61,.46)}
+html[data-tablero="grana"]{--light:#F1DEDE;--dark:#8C2F2F;--coord-l:#622121;--coord-d:#F6EAEA;--hl:rgba(255,206,61,.46)}
+html[data-tablero="salmon"]{--light:#FAE9E1;--dark:#DE9174;--coord-l:#9B6651;--coord-d:#322F2D;--hl:rgba(255,206,61,.46)}
+html[data-tablero="oxido"]{--light:#F3E3D6;--dark:#9C5A2E;--coord-l:#6D3F20;--coord-d:#F7EDE4;--hl:rgba(58,96,208,.32)}
+html[data-tablero="ambar"]{--light:#FAEFD2;--dark:#D89A2E;--coord-l:#976C20;--coord-d:#32302A;--hl:rgba(58,96,208,.32)}
+html[data-tablero="calabaza"]{--light:#F9E9D4;--dark:#DE7B2A;--coord-l:#9B561D;--coord-d:#322F2A;--hl:rgba(58,96,208,.32)}
+html[data-tablero="mostaza"]{--light:#F7F0D2;--dark:#C0A32A;--coord-l:#86721D;--coord-d:#31302A;--hl:rgba(58,96,208,.32)}
+html[data-tablero="selva"]{--light:#E4EDDC;--dark:#3E6B36;--coord-l:#2B4B26;--coord-d:#EDF3E8;--hl:rgba(255,206,61,.46)}
+html[data-tablero="militar"]{--light:#EAEBDD;--dark:#6F7448;--coord-l:#4E5132;--coord-d:#F1F2E9;--hl:rgba(58,96,208,.32)}
+html[data-tablero="hierba"]{--light:#EBF2DD;--dark:#6F9A38;--coord-l:#4E6C27;--coord-d:#2F302C;--hl:rgba(255,206,61,.46)}
+html[data-tablero="helecho"]{--light:#E7F0E3;--dark:#4C8452;--coord-l:#355C39;--coord-d:#EFF5ED;--hl:rgba(255,206,61,.46)}
+html[data-tablero="lino"]{--light:#F4F0E4;--dark:#B4A583;--coord-l:#7E745C;--coord-d:#31302E;--hl:rgba(58,96,208,.32)}
+html[data-tablero="caqui"]{--light:#F0EEE0;--dark:#96925F;--coord-l:#696642;--coord-d:#30302D;--hl:rgba(58,96,208,.32)}
+html[data-tablero="cedro"]{--light:#F5E7CE;--dark:#A88238;--coord-l:#765B27;--coord-d:#FAF4E9;--hl:rgba(58,96,208,.32)}
+html[data-tablero="laguna"]{--light:#E0EEF2;--dark:#4E8CA8;--coord-l:#376276;--coord-d:#EBF4F7;--hl:rgba(255,206,61,.46)}
+html[data-tablero="bruma"]{--light:#EEF1F2;--dark:#8794A0;--coord-l:#5E6870;--coord-d:#303030;--hl:rgba(255,206,61,.46)}
 
 /* ---------- 1. escala de formas y elevación ---------- */
 :root{
@@ -433,6 +453,15 @@ html,html[data-modo="oscuro"]{
   --s4:0 34px 80px -30px rgba(0,0,0,.9);
   --s-acento:0 10px 24px -14px rgba(194,67,30,.9);
   --luz-interna:inset 0 1px 0 rgba(233,238,231,.06);
+  --hero-bg:linear-gradient(140deg,#151C18,#26332B);
+  --hero-borde:rgba(237,241,234,.10);
+  --hero-ink:#EDF1EA; --hero-ink2:#B9C3BB;
+  --hero-linea:rgba(237,241,234,.14); --hero-tinte:rgba(237,241,234,.09);
+  --hero-orbe:radial-gradient(circle at 34% 26%,#3A4A40,#141A17 70%);
+  --hero-orbe-fondo:#141A17; --hero-orbe-ink:#A9B3AB;
+  --hero-oro:#E9C97F; --hero-oro-tinte:rgba(226,182,95,.14); --hero-oro-linea:rgba(226,182,95,.34);
+  --hero-blob:rgba(226,182,95,.22);
+  --hero-btn:#F5F7F3; --hero-btn-ink:#151C18;
 }
 
 /* ---------- 3. modo claro (papel) ---------- */
@@ -454,6 +483,15 @@ html[data-modo="claro"]{
   --s4:0 36px 84px -34px rgba(24,31,26,.36);
   --s-acento:0 10px 24px -14px rgba(176,58,24,.45);
   --luz-interna:inset 0 1px 0 rgba(255,255,255,.9);
+  --hero-bg:linear-gradient(140deg,#E7EEE5,#FAFBF8);
+  --hero-borde:rgba(21,28,24,.10);
+  --hero-ink:#151C18; --hero-ink2:#556055;
+  --hero-linea:rgba(21,28,24,.13); --hero-tinte:rgba(21,28,24,.045);
+  --hero-orbe:radial-gradient(circle at 34% 26%,#FFFFFF,#E6ECE3 72%);
+  --hero-orbe-fondo:#FFFFFF; --hero-orbe-ink:#5C665D;
+  --hero-oro:#87621A; --hero-oro-tinte:rgba(135,98,26,.10); --hero-oro-linea:rgba(135,98,26,.32);
+  --hero-blob:rgba(135,98,26,.13);
+  --hero-btn:#B03A18; --hero-btn-ink:#FFF7F3;
 }
 
 /* ---------- 5. base ---------- */
@@ -802,27 +840,34 @@ footer a{color:var(--muted)}
 .workspace-close:hover{background:var(--tinte-acento);color:var(--crest);border-color:var(--crest);transform:none}
 
 .explanation-hero,.plan-hero-card{
-  background:linear-gradient(140deg,#151C18,#26332B);
-  color:#EDF1EA;border-radius:var(--r-box)
+  background:var(--hero-bg);border:1px solid var(--hero-borde);
+  color:var(--hero-ink);border-radius:var(--r-box)
 }
-.explanation-hero:after{background:radial-gradient(circle,rgba(226,182,95,.22),transparent 70%);border-radius:50%}
-.explanation-lead h3,.plan-hero-copy h3{font-family:var(--serif);color:#F3F6F1}
-.explanation-lead p,.plan-hero-copy p{color:#B9C3BB}
-.move-orb,.goal-ring{
-  border-radius:50%;background:radial-gradient(circle at 34% 26%,#3A4A40,#141A17 70%);
-  border:1px solid rgba(237,241,234,.12);box-shadow:var(--s3)
+.explanation-hero:after{background:radial-gradient(circle,var(--hero-blob),transparent 70%);border-radius:50%}
+.explanation-lead h3,.plan-hero-copy h3{font-family:var(--serif);color:var(--hero-ink)}
+.explanation-lead p,.plan-hero-copy p{color:var(--hero-ink2)}
+.move-orb{
+  border-radius:50%;background:var(--hero-orbe);
+  border:1px solid var(--hero-linea);box-shadow:var(--s3)
 }
-.goal-ring>div{background:#141A17;border:1px solid rgba(237,241,234,.1);border-radius:50%}
-.move-orb span,.goal-ring span{font-family:var(--mono);letter-spacing:.11em;color:#A9B3AB}
-.move-orb strong,.goal-ring strong{font-family:var(--serif);color:var(--gold)}
-html[data-modo="claro"] .move-orb strong,html[data-modo="claro"] .goal-ring strong{color:#E2B65F}
-.explain-chip,.plan-pill{
-  background:rgba(237,241,234,.09);border:1px solid rgba(237,241,234,.14);
-  color:#E2E8DF;border-radius:var(--r-cap);font-family:var(--mono);font-size:.63rem;letter-spacing:.07em
+.goal-ring{
+  border-radius:50%;
+  background:conic-gradient(var(--hero-oro) var(--goal),var(--hero-tinte) 0);
+  box-shadow:var(--s3)
 }
-.plan-pill{color:#E9C97F;border-color:rgba(226,182,95,.34);background:rgba(226,182,95,.14)}
-.plan-primary{background:var(--panel2);color:var(--ink);border-radius:var(--r-cap);box-shadow:var(--s2)}
-.plan-secondary{background:rgba(237,241,234,.1);color:#EDF1EA;border:1px solid rgba(237,241,234,.16);border-radius:var(--r-cap)}
+.goal-ring>div{background:var(--hero-orbe-fondo);border:1px solid var(--hero-linea);border-radius:50%}
+.move-orb span,.goal-ring span{font-family:var(--mono);letter-spacing:.11em;color:var(--hero-orbe-ink)}
+.move-orb strong,.goal-ring strong{font-family:var(--serif);color:var(--hero-oro)}
+.explain-chip{
+  background:var(--hero-tinte);border:1px solid var(--hero-linea);
+  color:var(--hero-ink2);border-radius:var(--r-cap);font-family:var(--mono);font-size:.63rem;letter-spacing:.07em
+}
+.plan-pill{
+  color:var(--hero-oro);border:1px solid var(--hero-oro-linea);background:var(--hero-oro-tinte);
+  border-radius:var(--r-cap);font-family:var(--mono);font-size:.66rem;letter-spacing:.06em
+}
+.plan-primary{background:var(--hero-btn);color:var(--hero-btn-ink);border:0;border-radius:var(--r-cap);box-shadow:var(--s2)}
+.plan-secondary{background:var(--hero-tinte);color:var(--hero-ink);border:1px solid var(--hero-linea);border-radius:var(--r-cap)}
 
 .explain-section,.explain-card,.error-book,.plan-stat{
   background:var(--ex-card);border:1px solid var(--ex-card-border);border-radius:var(--r-card);
@@ -866,26 +911,7 @@ html[data-modo="claro"] .move-orb strong,html[data-modo="claro"] .goal-ring stro
 .engine-banner-tools{color:var(--muted)}
 
 
-/* ---------- 16. encabezado que se puede ocultar ---------- */
-.pc-ocultar{
-  width:30px;height:30px;padding:0;display:grid;place-items:center;cursor:pointer;flex:0 0 auto;
-  border:1px solid var(--line);border-radius:var(--r-ico);background:var(--tinte-neutro);color:var(--muted2);
-  transition:color .2s,border-color .2s,background .2s
-}
-.pc-ocultar:hover{color:var(--ink);border-color:var(--line-viva)}
-.pc-ocultar svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-html[data-encabezado="oculto"] .topbar{display:none}
-.pc-ver-encabezado{
-  position:fixed;left:50%;top:calc(0px + env(safe-area-inset-top));transform:translateX(-50%);
-  z-index:40;display:none;width:68px;height:23px;padding:0;cursor:pointer;
-  border:1px solid var(--line);border-top:0;border-radius:0 0 13px 13px;
-  background:var(--barra);color:var(--muted2);
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  box-shadow:var(--s1);align-items:center;justify-content:center
-}
-html[data-encabezado="oculto"] .pc-ver-encabezado{display:flex}
-.pc-ver-encabezado:hover{color:var(--ink)}
-.pc-ver-encabezado svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* el mostrar/ocultar del encabezado es el original de la app (#b-banner) */
 .pc-temas-grid{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
 
 /* ---------- 15. ajustes por pantalla ---------- */
@@ -932,7 +958,6 @@ html[data-encabezado="oculto"] .pc-ver-encabezado{display:flex}
     var osc = m==='oscuro' || (m==='sistema' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     r.setAttribute('data-modo', osc?'oscuro':'claro');
     r.setAttribute('data-tablero', g('pc_tablero_1')||'cielo');
-    if(g('pc_encabezado')==='oculto') r.setAttribute('data-encabezado','oculto');
   }catch(e){
     r.setAttribute('data-modo','oscuro'); r.setAttribute('data-tablero','cielo');
   }
@@ -968,7 +993,6 @@ html[data-encabezado="oculto"] .pc-ver-encabezado{display:flex}
     <button class="pc-tablero" id="pc-tablero-btn" type="button" aria-haspopup="dialog" aria-label="Cambiar el tema del tablero">
       <i class="pc-muestra" aria-hidden="true"></i><span id="pc-tablero-nombre">Cielo</span>
     </button>
-    <button class="pc-ocultar" id="pc-ocultar" type="button" title="Ocultar el encabezado" aria-label="Ocultar el encabezado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 14.5 12 8.5l6 6"/></svg></button>
   </div>
   <button class="gift-btn" id="b-gift" type="button" aria-label="Un regalo"><img src="regalo1.png" alt="Regalo" style="width:1.5rem;height:1.5rem;object-fit:contain;display:block"></button>
   <nav class="tabs" id="tabs">
@@ -6652,14 +6676,13 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 </script>
 
 
-<button class="pc-ver-encabezado" id="pc-ver-encabezado" type="button" title="Mostrar el encabezado" aria-label="Mostrar el encabezado"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg></button>
 
 <div class="pc-temas-bg" id="pc-temas-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tema del tablero">
   <div class="pc-temas-box">
     <div class="pc-temas-head">
       <div>
         <h3>Tema del tablero</h3>
-        <p>Veinte tableros. Las piezas y las coordenadas se ajustan solas; nada más cambia.</p>
+        <p><span id="pc-temas-cuenta">69</span> tableros para elegir. Las piezas y las coordenadas se ajustan solas; nada más cambia.</p>
       </div>
       <button class="pc-io-close" id="pc-temas-x" type="button" aria-label="Cerrar">&#10005;</button>
     </div>
@@ -6676,9 +6699,9 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
   var raiz=document.documentElement;
   var PC_ID='1';
-  var K_MODO='pc_modo', K_TAB='pc_tablero_'+PC_ID, K_ENC='pc_encabezado';
+  var K_MODO='pc_modo', K_TAB='pc_tablero_'+PC_ID;
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
-  var TEMAS_TABLERO=[{"k":"cielo","n":"Cielo","l":"#E9F1F6","d":"#7AA4BB"},{"k":"nogal","n":"Nogal","l":"#EFE1C6","d":"#7A6248"},{"k":"bosque","n":"Bosque","l":"#EEEED2","d":"#769656"},{"k":"marmol","n":"Mármol","l":"#F1F2F1","d":"#93A09A"},{"k":"torneo","n":"Azul torneo","l":"#E7ECF4","d":"#6A85AC"},{"k":"cafe","n":"Café","l":"#F2E3CE","d":"#966742"},{"k":"pizarra","n":"Pizarra","l":"#E5E8E5","d":"#68766E"},{"k":"trigo","n":"Trigo","l":"#F6EAD0","d":"#BE9C5E"},{"k":"ebano","n":"Ébano","l":"#E2DFD7","d":"#474642"},{"k":"vino","n":"Vino","l":"#F1E3E1","d":"#8A4B4E"},{"k":"musgo","n":"Musgo","l":"#E9EFDF","d":"#6C8757"},{"k":"arena","n":"Arena","l":"#F3EBDB","d":"#AE8F6E"},{"k":"lavanda","n":"Lavanda","l":"#EEE9F3","d":"#8478A3"},{"k":"menta","n":"Menta","l":"#E6F1EB","d":"#6B9C88"},{"k":"cobre","n":"Cobre","l":"#F5E7D9","d":"#AC6D4A"},{"k":"tinta","n":"Tinta","l":"#DCE0E5","d":"#434D67"},{"k":"oliva","n":"Oliva","l":"#EDEDDB","d":"#858650"},{"k":"antiguo","n":"Rosa antiguo","l":"#F5E8E8","d":"#B27B7F"},{"k":"grafito","n":"Grafito","l":"#E8E8E8","d":"#565656"},{"k":"miel","n":"Miel","l":"#F8EFD5","d":"#C39646"},{"k":"marron","n":"Marrón clásico","l":"#F0D9B5","d":"#B58863"},{"k":"azul","n":"Azul clásico","l":"#DEE3E6","d":"#8CA2AD"},{"k":"amarillo","n":"Amarillo clásico","l":"#FFFFDD","d":"#86A666"},{"k":"gris","n":"Gris clásico","l":"#F0F0F0","d":"#A0A0A0"},{"k":"lima","n":"Lima","l":"#F1F5D8","d":"#8FA84E"},{"k":"arce","n":"Arce","l":"#F7E2C0","d":"#C08552"},{"k":"roble","n":"Roble","l":"#EFD9B4","d":"#A97C50"},{"k":"caoba","n":"Caoba","l":"#EEDCC4","d":"#96543B"},{"k":"teca","n":"Teca","l":"#F1E0C5","d":"#A5764A"},{"k":"bambu","n":"Bambú","l":"#F5EBD0","d":"#C2A661"},{"k":"indigo","n":"Índigo","l":"#E4E7F2","d":"#6C74A8"},{"k":"oceano","n":"Océano","l":"#DDE9EE","d":"#5F87A0"},{"k":"acero","n":"Acero","l":"#E2E7EA","d":"#7C8B99"},{"k":"zafiro","n":"Zafiro","l":"#E3E9F5","d":"#56699E"},{"k":"jade","n":"Jade","l":"#E6EFE2","d":"#5E8C6A"},{"k":"esmeralda","n":"Esmeralda","l":"#E4EFE4","d":"#4E8A5F"},{"k":"salvia","n":"Salvia","l":"#EBEFE5","d":"#8AA07C"},{"k":"pino","n":"Pino","l":"#E7EDE2","d":"#4F6E4A"},{"k":"terracota","n":"Terracota","l":"#F4E5DA","d":"#B4694C"},{"k":"ladrillo","n":"Ladrillo","l":"#F2E2DC","d":"#A65A4A"},{"k":"granate","n":"Granate","l":"#F0E2E3","d":"#8E4A56"},{"k":"coral","n":"Coral","l":"#F7E6E1","d":"#C87A64"},{"k":"violeta","n":"Violeta","l":"#ECE7F4","d":"#7C6BA0"},{"k":"ciruela","n":"Ciruela","l":"#EEE6EF","d":"#85618C"},{"k":"algodon","n":"Algodón","l":"#F7E7EE","d":"#C98BA5"},{"k":"cemento","n":"Cemento","l":"#E9E9E7","d":"#8D8D88"},{"k":"basalto","n":"Basalto","l":"#E4E5E6","d":"#5F6467"},{"k":"perla","n":"Perla","l":"#F3F1EE","d":"#A89E93"},{"k":"aguamarina","n":"Aguamarina","l":"#E3F0EF","d":"#6FA5A0"},{"k":"niebla","n":"Niebla","l":"#EDEFF0","d":"#9DA8AE"}];
+  var TEMAS_TABLERO=[{"k":"cielo","n":"Cielo","l":"#E9F1F6","d":"#7AA4BB"},{"k":"nogal","n":"Nogal","l":"#EFE1C6","d":"#7A6248"},{"k":"bosque","n":"Bosque","l":"#EEEED2","d":"#769656"},{"k":"marmol","n":"Mármol","l":"#EFF1EF","d":"#7F8C86"},{"k":"torneo","n":"Azul torneo","l":"#E7ECF4","d":"#6A85AC"},{"k":"cafe","n":"Café","l":"#F2E3CE","d":"#966742"},{"k":"pizarra","n":"Pizarra","l":"#E5E8E5","d":"#68766E"},{"k":"trigo","n":"Trigo","l":"#F6EAD0","d":"#BE9C5E"},{"k":"ebano","n":"Ébano","l":"#E2DFD7","d":"#474642"},{"k":"vino","n":"Vino","l":"#F1E3E1","d":"#8A4B4E"},{"k":"musgo","n":"Musgo","l":"#E9EFDF","d":"#6C8757"},{"k":"arena","n":"Arena","l":"#F3EBDB","d":"#AE8F6E"},{"k":"lavanda","n":"Lavanda","l":"#EEE9F3","d":"#8478A3"},{"k":"menta","n":"Menta","l":"#E6F1EB","d":"#6B9C88"},{"k":"cobre","n":"Cobre","l":"#F5E7D9","d":"#AC6D4A"},{"k":"tinta","n":"Tinta","l":"#DCE0E5","d":"#434D67"},{"k":"oliva","n":"Oliva","l":"#EDEDDB","d":"#858650"},{"k":"antiguo","n":"Rosa antiguo","l":"#F5E8E8","d":"#B27B7F"},{"k":"grafito","n":"Grafito","l":"#E8E8E8","d":"#565656"},{"k":"miel","n":"Miel","l":"#F8EFD5","d":"#C39646"},{"k":"marron","n":"Marrón clásico","l":"#F0D9B5","d":"#B58863"},{"k":"azul","n":"Azul clásico","l":"#DEE3E6","d":"#8CA2AD"},{"k":"amarillo","n":"Amarillo clásico","l":"#FFFFDD","d":"#86A666"},{"k":"lima","n":"Lima","l":"#F1F5D8","d":"#8FA84E"},{"k":"arce","n":"Arce","l":"#F7E2C0","d":"#C08552"},{"k":"roble","n":"Roble","l":"#EFD9B4","d":"#A97C50"},{"k":"caoba","n":"Caoba","l":"#EEDCC4","d":"#96543B"},{"k":"bambu","n":"Bambú","l":"#F3EED2","d":"#A6AB5E"},{"k":"oceano","n":"Océano","l":"#DBE9EF","d":"#4E7A93"},{"k":"acero","n":"Acero","l":"#E2E7EA","d":"#7C8B99"},{"k":"zafiro","n":"Zafiro","l":"#E3E9F5","d":"#56699E"},{"k":"jade","n":"Jade","l":"#E6EFE2","d":"#5E8C6A"},{"k":"esmeralda","n":"Esmeralda","l":"#E2EEE4","d":"#2F7A50"},{"k":"salvia","n":"Salvia","l":"#EBEFE5","d":"#8AA07C"},{"k":"pino","n":"Pino","l":"#E7EDE2","d":"#4F6E4A"},{"k":"terracota","n":"Terracota","l":"#F5E3D6","d":"#C2612F"},{"k":"granate","n":"Granate","l":"#F2E2E0","d":"#A63A3A"},{"k":"coral","n":"Coral","l":"#F7E6E1","d":"#C87A64"},{"k":"violeta","n":"Violeta","l":"#EAE4F5","d":"#6A55A8"},{"k":"ciruela","n":"Ciruela","l":"#EEE6EF","d":"#85618C"},{"k":"algodon","n":"Algodón","l":"#F7E7EE","d":"#C98BA5"},{"k":"perla","n":"Perla","l":"#F3F1EE","d":"#A89E93"},{"k":"aguamarina","n":"Aguamarina","l":"#E3F0EF","d":"#6FA5A0"},{"k":"niebla","n":"Niebla","l":"#EDEFF0","d":"#9DA8AE"},{"k":"turquesa","n":"Turquesa","l":"#E2F0F0","d":"#3F8F8F"},{"k":"petroleo","n":"Petróleo","l":"#DBE7E8","d":"#35646A"},{"k":"verdeagua","n":"Verde agua","l":"#E4F1EC","d":"#4FA07E"},{"k":"cobalto","n":"Cobalto","l":"#DEE6F4","d":"#3F5FA8"},{"k":"lila","n":"Lila","l":"#F1EBF7","d":"#A78BD0"},{"k":"espliego","n":"Espliego","l":"#EAE8F6","d":"#4F4C95"},{"k":"berenjena","n":"Berenjena","l":"#EDE6EE","d":"#6B3A72"},{"k":"fucsia","n":"Fucsia","l":"#F7E4EF","d":"#B45A8E"},{"k":"malva","n":"Malva","l":"#F3EAEF","d":"#B08FA4"},{"k":"cereza","n":"Cereza","l":"#F6E2E4","d":"#B03E5E"},{"k":"grana","n":"Grana","l":"#F1DEDE","d":"#8C2F2F"},{"k":"salmon","n":"Salmón","l":"#FAE9E1","d":"#DE9174"},{"k":"oxido","n":"Óxido","l":"#F3E3D6","d":"#9C5A2E"},{"k":"ambar","n":"Ámbar","l":"#FAEFD2","d":"#D89A2E"},{"k":"calabaza","n":"Calabaza","l":"#F9E9D4","d":"#DE7B2A"},{"k":"mostaza","n":"Mostaza","l":"#F7F0D2","d":"#C0A32A"},{"k":"selva","n":"Selva","l":"#E4EDDC","d":"#3E6B36"},{"k":"militar","n":"Militar","l":"#EAEBDD","d":"#6F7448"},{"k":"hierba","n":"Hierba","l":"#EBF2DD","d":"#6F9A38"},{"k":"helecho","n":"Helecho","l":"#E7F0E3","d":"#4C8452"},{"k":"lino","n":"Lino","l":"#F4F0E4","d":"#B4A583"},{"k":"caqui","n":"Caqui","l":"#F0EEE0","d":"#96925F"},{"k":"cedro","n":"Cedro","l":"#F5E7CE","d":"#A88238"},{"k":"laguna","n":"Laguna","l":"#E0EEF2","d":"#4E8CA8"},{"k":"bruma","n":"Bruma","l":"#EEF1F2","d":"#8794A0"}];
 
   /* ---- memoria terca: localStorage y cookie a la vez ---- */
   function galleta(k){
@@ -6699,7 +6722,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   if(['claro','oscuro','sistema'].indexOf(modo)<0) modo='sistema';
   var tema=leer(K_TAB,'cielo');
   if(!TEMAS_TABLERO.some(function(t){return t.k===tema})) tema='cielo';
-  var encabezado=leer(K_ENC,'visible')==='oculto'?'oculto':'visible';
 
   function aplicarModo(){
     var oscuro = modo==='oscuro' || (modo==='sistema' && mq.matches);
@@ -6723,10 +6745,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     if(n&&t) n.textContent=t.n;
     var bs=document.querySelectorAll('.pc-tema');
     for(i=0;i<bs.length;i++) bs[i].setAttribute('aria-pressed', String(bs[i].getAttribute('data-tema')===tema));
-  }
-  function aplicarEncabezado(){
-    if(encabezado==='oculto') raiz.setAttribute('data-encabezado','oculto');
-    else raiz.removeAttribute('data-encabezado');
   }
 
   var caja=document.getElementById('pc-temas-bg');
@@ -6761,10 +6779,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   if(caja) caja.onclick=function(e){ if(e.target===caja) cerrar(); };
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') cerrar(); });
 
-  var bOcultar=document.getElementById('pc-ocultar');
-  if(bOcultar) bOcultar.onclick=function(){ encabezado='oculto'; guardar(K_ENC,encabezado); aplicarEncabezado(); };
-  var bVer=document.getElementById('pc-ver-encabezado');
-  if(bVer) bVer.onclick=function(){ encabezado='visible'; guardar(K_ENC,encabezado); aplicarEncabezado(); };
 
   if(mq.addEventListener) mq.addEventListener('change',function(){ if(modo==='sistema') aplicarModo(); });
   else if(mq.addListener) mq.addListener(function(){ if(modo==='sistema') aplicarModo(); });
@@ -6773,11 +6787,13 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   window.addEventListener('storage',function(e){
     if(!e || !e.key) return;
     if(e.key===K_MODO){ modo=leer(K_MODO,'sistema'); aplicarModo(); }
-    if(e.key===K_ENC){ encabezado=leer(K_ENC,'visible')==='oculto'?'oculto':'visible'; aplicarEncabezado(); }
     if(e.key===K_TAB){ tema=leer(K_TAB,'cielo'); aplicarTema(); }
   });
 
-  aplicarModo(); aplicarTema(); aplicarEncabezado();
+  var cuenta=document.getElementById('pc-temas-cuenta');
+  if(cuenta) cuenta.textContent=String(TEMAS_TABLERO.length);
+
+  aplicarModo(); aplicarTema();
 })();
 </script>
 </body>
