@@ -1711,6 +1711,44 @@ html[data-modo="claro"],html[data-modo="oscuro"]{
 }
 
 
+
+
+/* ---------- 51. editor personalizado estable y nombre en primer plano ----------
+   La ventana solo se cierra mediante su X o los botones explícitos. Al escribir,
+   el editor de colores permanece detrás y desenfocado, sin desaparecer. */
+.pc-temas-box{position:relative}
+.pc-perso-cierre-flotante{
+  position:sticky;top:.55rem;z-index:40;
+  margin:.55rem .75rem -2.75rem auto;
+  display:grid
+}
+.pc-perso-fijo .pc-io-close{position:static}
+.pc-nombre-caja{margin-top:.9rem;position:relative}
+.pc-nombre-x{margin-left:auto;width:2rem;height:2rem;display:grid;place-items:center}
+
+@media (pointer:coarse){
+  .pc-perso-bg.escribiendo .pc-temas-box:before{
+    content:"";position:absolute;inset:0;z-index:14;pointer-events:none;
+    background:var(--velo);opacity:.32;
+    -webkit-backdrop-filter:blur(7px) saturate(105%);
+    backdrop-filter:blur(7px) saturate(105%)
+  }
+  .pc-perso-bg.escribiendo .pc-nombre-caja{
+    position:fixed;left:50%;top:max(calc(env(safe-area-inset-top) + 8.5rem),20dvh);
+    z-index:22;width:min(430px,calc(100vw - 2rem));margin:0;
+    transform:translateX(-50%);background:var(--panel);box-shadow:var(--s4),var(--luz-interna)
+  }
+  .pc-perso-bg.escribiendo .pc-perso-cab,
+  .pc-perso-bg.escribiendo .pc-perso-fijo,
+  .pc-perso-bg.escribiendo .pc-perso-colores{pointer-events:none}
+  .pc-perso-bg.escribiendo .pc-perso-cab .pc-modo{
+    position:relative;z-index:35;pointer-events:auto
+  }
+  .pc-perso-bg.escribiendo .pc-perso-previa{display:grid}
+  .pc-perso-bg.escribiendo .pc-perso-colores{display:block}
+  .pc-perso-bg.escribiendo .pc-perso-fijo{min-height:0;padding:.55rem 1.15rem .9rem}
+}
+
 /* ---------- 50. dibujos que ocupan el tablero entero ----------
    Una sola figura sobre las 64 casillas, por encima del color y por debajo de
    las piezas. Va trazada dos veces —contorno oscuro y núcleo claro— para que se
@@ -4651,17 +4689,24 @@ boardEl.addEventListener('pointerdown',e=>{
   
   
   if(canSelect(sq)){
-    /* jugada única: si la pieza tocada solo tiene un movimiento legal, se hace sola */
-    if(window.PC_JUGADA_UNICA && !state.busy){
-      var unica=state.game.moves({square:sq,verbose:true});
-      if(unica.length===1){
-        state.sel=null; clearMarks();
-        tryMove(sq,unica[0].to);
-        return;
-      }
+    var movimientosPieza=state.game.moves({square:sq,verbose:true});
+    var escritorio=window.matchMedia('(pointer:fine)').matches && e.pointerType!=='touch';
+
+    /* En escritorio se decide al soltar: un clic breve conserva la jugada única;
+       un movimiento o una pulsación sostenida levanta la pieza para arrastrarla. */
+    if(escritorio){
+      state.sel=sq; showDests(sq);
+      startDrag(e,sq,movimientosPieza);
+      return;
+    }
+
+    /* En móvil se mantiene el comportamiento táctil de jugada única. */
+    if(window.PC_JUGADA_UNICA && !state.busy && movimientosPieza.length===1){
+      state.sel=null; clearMarks();
+      tryMove(sq,movimientosPieza[0].to);
+      return;
     }
     state.sel=sq; showDests(sq);
-    if(window.matchMedia('(pointer:fine)').matches){ startDrag(e,sq); }   // % NUEVO: con mouse (PC) también permite arrastrar; en táctil no
   }
   else {
     /* casilla única: si solo una pieza puede ocupar esa casilla, va sola.
@@ -4719,54 +4764,107 @@ boardEl.addEventListener('pointerdown',e=>{
 
 
 
-function startDrag(e,sq){
-  const _dragCell=cellOf(sq); const pcEl=_dragCell ? _dragCell.querySelector('.pc') : null; if(!pcEl)return;
-  const ghost=pcEl.cloneNode(true);
-  ghost.style.position='fixed';ghost.style.zIndex='999';ghost.style.pointerEvents='none';
-  ghost.style.opacity='.92';ghost.classList.add('drag');
-  const rect=pcEl.getBoundingClientRect();
-  ghost.style.width=rect.width+'px';ghost.style.height=rect.height+'px';
-  document.body.appendChild(ghost);
-  pcEl.style.opacity='.25';
-  const move=ev=>{ghost.style.left=(ev.clientX-rect.width/2)+'px';ghost.style.top=(ev.clientY-rect.height/2)+'px';};
-  move(e);
-  const up=ev=>{
-    document.removeEventListener('pointermove',move);
-    document.removeEventListener('pointerup',up);
-    ghost.remove(); pcEl.style.opacity='';
-    const el=document.elementFromPoint(ev.clientX,ev.clientY);
-    const cell=el&&el.closest('.sq');
-    if(cell){const to=cell.dataset.sq;
-      if(to!==sq){
-        const legal=state.game.moves({square:sq,verbose:true}).some(m=>m.to===to);
-        if(legal){
-  state.sel=null;
+function startDrag(e,sq,movimientos){
+  if(!e || e.pointerType==='touch') return;
+  const celdaOrigen=cellOf(sq);
+  const pcEl=celdaOrigen ? celdaOrigen.querySelector('.pc') : null;
+  if(!pcEl) return;
 
-  // La pieza ya se desplazó visualmente con el mouse.
-  // Evita que animarUltimaJugada() repita el recorrido al soltarla.
-  state.sinAnimacion=true;
+  const inicioX=e.clientX, inicioY=e.clientY, pointerId=e.pointerId;
+  const umbral=6;
+  let activo=true, arrastrando=false, ghost=null, rect=null;
 
-  try{
-    tryMove(sq,to);
-  }finally{
-    state.sinAnimacion=false;
+  function moverFantasma(ev){
+    if(!ghost || !rect) return;
+    ghost.style.left=(ev.clientX-rect.width/2)+'px';
+    ghost.style.top=(ev.clientY-rect.height/2)+'px';
   }
 
-  return;
-}
+  function levantar(ev){
+    if(!activo || arrastrando) return;
+    arrastrando=true;
+    rect=pcEl.getBoundingClientRect();
+    ghost=pcEl.cloneNode(true);
+    ghost.style.position='fixed';
+    ghost.style.zIndex='999';
+    ghost.style.pointerEvents='none';
+    ghost.style.opacity='.92';
+    ghost.style.width=rect.width+'px';
+    ghost.style.height=rect.height+'px';
+    ghost.classList.add('drag');
+    document.body.appendChild(ghost);
+    pcEl.style.opacity='.25';
+    moverFantasma(ev || e);
+  }
 
+  const temporizador=setTimeout(function(){ levantar(e); },160);
 
+  function esMismoPuntero(ev){
+    return pointerId==null || ev.pointerId==null || ev.pointerId===pointerId;
+  }
 
+  function move(ev){
+    if(!activo || !esMismoPuntero(ev)) return;
+    const dx=ev.clientX-inicioX, dy=ev.clientY-inicioY;
+    if(!arrastrando && Math.hypot(dx,dy)>=umbral) levantar(ev);
+    if(arrastrando){ ev.preventDefault(); moverFantasma(ev); }
+  }
 
+  function limpiar(){
+    activo=false;
+    clearTimeout(temporizador);
+    document.removeEventListener('pointermove',move,true);
+    document.removeEventListener('pointerup',up,true);
+    document.removeEventListener('pointercancel',cancelar,true);
+    if(ghost){ ghost.remove(); ghost=null; }
+    pcEl.style.opacity='';
+  }
 
+  function up(ev){
+    if(!activo || !esMismoPuntero(ev)) return;
+    const fueArrastre=arrastrando;
+    limpiar();
 
-
-        
+    if(!fueArrastre){
+      if(window.PC_JUGADA_UNICA && !state.busy && movimientos && movimientos.length===1){
+        state.sel=null; clearMarks();
+        tryMove(sq,movimientos[0].to);
       }
+      return;
     }
-  };
-  document.addEventListener('pointermove',move);
-  document.addEventListener('pointerup',up);
+
+    const el=document.elementFromPoint(ev.clientX,ev.clientY);
+    const cell=el && el.closest('.sq');
+    const to=cell ? cell.dataset.sq : null;
+    const legal=to && to!==sq && (movimientos||[]).some(function(m){ return m.to===to; });
+
+    if(legal){
+      state.sel=null;
+      state.sinAnimacion=true;
+      try{
+        tryMove(sq,to);
+      }finally{
+        state.sinAnimacion=false;
+      }
+      return;
+    }
+
+    /* Al soltar fuera o sobre la misma casilla, la pieza queda seleccionada. */
+    state.sel=sq;
+    showDests(sq);
+  }
+
+  function cancelar(ev){
+    if(!activo || !esMismoPuntero(ev)) return;
+    limpiar();
+    state.sel=sq;
+    showDests(sq);
+  }
+
+  e.preventDefault();
+  document.addEventListener('pointermove',move,true);
+  document.addEventListener('pointerup',up,true);
+  document.addEventListener('pointercancel',cancelar,true);
 }
 
 /* ---------- realizar / validar jugada ---------- */
@@ -7549,6 +7647,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
 <div class="pc-perso-bg" id="pc-perso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tablero personalizado">
   <div class="pc-temas-box">
+    <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
     <div class="pc-perso-cab">
       <div class="pc-temas-head">
         <div>
@@ -7560,12 +7659,12 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     </div>
     <div class="pc-perso-fijo">
       <div class="pc-perso-previa" id="pc-perso-previa" role="img" aria-label="Vista previa del tablero"></div>
-      <button class="pc-io-close" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
     </div>
     <div class="pc-editor pc-nombre-caja">
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
+        <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre">&#10005;</button>
       </div>
       <div class="pc-nombre-fila">
         <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
@@ -8110,9 +8209,18 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     for(var i=0;i<L.length;i++) if(normaliza(L[i].n)===q) return true;
     return false;
   }
-  function nombrePropuesto(){
-    var i=mios.length+1, n;
-    do{ n='Mi tablero '+i; i++; }while(nombreExiste(n) && i<400);
+  function nombrePropuesto(origen){
+    var base='';
+    if(origen && typeof origen==='object' && origen.n) base=String(origen.n).trim();
+    if(!base && tema && tema!=='personalizado'){
+      var actual=temaPorClave(tema);
+      if(actual && actual.n) base=String(actual.n).trim();
+    }
+    /* Si se vuelve a editar «Café 1», continúa con Café 2 en vez de Café 1 1. */
+    base=base.replace(/\s+\d+\s*$/,'').trim();
+    if(!base || normaliza(base)==='personalizado') base='Mi tablero';
+    var i=1, n;
+    do{ n=base+' '+i; i++; }while(nombreExiste(n) && i<400);
     return n;
   }
   function bloquearColores(b){
@@ -8144,7 +8252,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     borrador.d = leerColor(base.d) || {r:122,g:98,b:72,a:1};
     borrador.trama = base.t || '';
     var campo=document.getElementById('pc-perso-nombre');
-    if(campo){ campo.value=''; campo.placeholder=nombrePropuesto(); }
+    if(campo){ var sugerido=nombrePropuesto(origen); campo.value=sugerido; campo.placeholder=sugerido; campo._nombreSugerido=true; }
     pista('Escribe un nombre y toca el visto verde para seguir.','');
     bloquearColores(true);
     construirSliders('l'); construirSliders('d');
@@ -8213,7 +8321,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     if(comoFavorito && favs.indexOf(t.k)<0){ favs.push(t.k); guardar(K_FAV, favs.join(',')); }
     pintarRejilla(); pintarCuenta();
     if(campo) campo.value='';
-    cerrar(cajaPerso);
+    cerrarPersoSeguro();
     pedirTablero(t,true);
   }
 
@@ -8242,14 +8350,24 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   if(fx) fx.onclick=function(){ cerrar(cajaFavs); };
   if(cajaFavs) cajaFavs.onclick=function(e){ if(e.target===cajaFavs) cerrar(cajaFavs); };
   var pa=document.getElementById('pc-perso-abrir');
-  if(pa) pa.onclick=abrirPerso;
+  if(pa) pa.onclick=function(){ abrirPerso(); };
+  function cerrarPersoSeguro(){
+    var campo=document.getElementById('pc-perso-nombre');
+    try{ if(campo) campo.blur(); }catch(e){}
+    if(cajaPerso) cajaPerso.classList.remove('escribiendo');
+    cerrar(cajaPerso);
+  }
   var px=document.getElementById('pc-perso-x');
-  if(px) px.onclick=function(){ cerrar(cajaPerso); };
-  var pc2=document.getElementById('pc-perso-cerrar');
-  if(pc2) pc2.onclick=function(){ cerrar(cajaPerso); };
-  if(cajaPerso) cajaPerso.onclick=function(e){
-    if(e.target===cajaPerso && !cajaPerso.classList.contains('escribiendo')) cerrar(cajaPerso);
+  if(px) px.onclick=cerrarPersoSeguro;
+  var nx=document.getElementById('pc-nombre-x');
+  if(nx) nx.onclick=function(){
+    var campo=document.getElementById('pc-perso-nombre');
+    try{ if(campo) campo.blur(); }catch(e){}
+    if(cajaPerso) cajaPerso.classList.remove('escribiendo');
   };
+  var pc2=document.getElementById('pc-perso-cerrar');
+  if(pc2) pc2.onclick=cerrarPersoSeguro;
+  if(cajaPerso) cajaPerso.onclick=function(e){ e.stopPropagation(); };
   var chk=document.getElementById('pc-perso-check');
   if(chk){
     /* En el móvil, el toque quitaba el foco del campo, la ventana se reacomodaba
@@ -8269,8 +8387,9 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   var campoN=document.getElementById('pc-perso-nombre');
   if(campoN){
     campoN.onfocus=function(){ if(cajaPerso) cajaPerso.classList.add('escribiendo'); };
-    campoN.onblur=function(){ if(cajaPerso) cajaPerso.classList.remove('escribiendo'); };
+    campoN.onblur=function(){ /* Ocultar el teclado no cierra la edición del nombre. */ };
     campoN.oninput=function(){
+      campoN._nombreSugerido=false;
       if(nombreOk){ bloquearColores(true); pista('Toca el visto verde para confirmar el nombre nuevo.',''); }
     };
     campoN.onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); confirmarNombre(); } };
@@ -8308,7 +8427,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     perso=paqueteEfectivo(borrador.l,borrador.d,borrador.trama);
     guardar(K_PER,perso);
     usarTablero('personalizado');
-    cerrar(cajaPerso); cerrar(cajaFavs); cerrar(cajaTemas);
+    cerrarPersoSeguro(); cerrar(cajaFavs); cerrar(cajaTemas);
   };
   var cs=document.getElementById('pc-conf-si');
   if(cs) cs.onclick=function(){
@@ -8329,7 +8448,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   document.addEventListener('keydown',function(e){
     if(e.key!=='Escape') return;
     if(cajaConf && cajaConf.classList.contains('open')){ pendiente=null; cerrar(cajaConf); return; }
-    if(cajaPerso && cajaPerso.classList.contains('open')){ cerrar(cajaPerso); return; }
+    if(cajaPerso && cajaPerso.classList.contains('open')){ return; }
     if(cajaFavs && cajaFavs.classList.contains('open')){ cerrar(cajaFavs); return; }
     cerrar(cajaTemas);
   });
