@@ -1819,6 +1819,44 @@ html[data-modo="claro"],html[data-modo="oscuro"]{
   .btn:hover,.pc-tema:hover,.error-item:hover{transform:none}
 }
 
+
+/* ---------- 52. ajustes finales: cabeceras independientes y arrastre de escritorio ---------- */
+.pc-perso-cierre-flotante,
+.pc-nombre-x{
+  padding:0;line-height:0;align-items:center;justify-content:center
+}
+.pc-perso-cierre-flotante svg,
+.pc-nombre-x svg{
+  display:block;width:17px;height:17px;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round
+}
+.pc-editor-cab .pc-nombre-modo{margin-left:auto;flex:0 0 auto}
+.pc-editor-cab .pc-nombre-x{margin-left:.35rem;flex:0 0 auto}
+.pc-nombre-caja .pc-editor-cab{gap:.45rem;min-height:32px}
+.pc-nombre-caja .pc-editor-cab>b{min-width:0}
+
+/* Separación visible entre el encabezado fijo y el contenido de Temas/Favoritos. */
+.pc-temas-fijo + .pc-temas-grid{margin-top:.85rem}
+.pc-temas-fijo + .pc-temas-grid + .pc-favs-vacio,
+.pc-temas-fijo + .pc-temas-grid + .pc-sin-resultado{margin-top:.85rem}
+
+/* Mientras se edita el nombre, solo su tarjeta recibe interacción. */
+.pc-perso-bg.escribiendo .pc-perso-cab,
+.pc-perso-bg.escribiendo .pc-perso-fijo,
+.pc-perso-bg.escribiendo .pc-perso-colores{pointer-events:none!important}
+.pc-perso-bg.escribiendo .pc-nombre-caja{pointer-events:auto!important}
+
+/* En escritorio el tablero captura el gesto para levantar o arrastrar piezas. */
+@media (pointer:fine), (min-width:881px){
+  .board{touch-action:none}
+  .sq,.sq .pc{touch-action:none}
+}
+@media(max-width:430px){
+  .pc-nombre-caja .pc-editor-cab{flex-wrap:wrap}
+  .pc-editor-cab .pc-nombre-modo{order:3;margin-left:calc(2.25rem + .1rem)}
+  .pc-editor-cab .pc-nombre-x{margin-left:auto}
+}
+
 </style>
 <script>
 /* Fija apariencia, tablero y encabezado antes del primer pintado.
@@ -4775,7 +4813,7 @@ boardEl.addEventListener('pointerdown',e=>{
   
   if(canSelect(sq)){
     var movimientosPieza=state.game.moves({square:sq,verbose:true});
-    var escritorio=window.matchMedia('(pointer:fine)').matches && e.pointerType!=='touch';
+    var escritorio=e.pointerType==='mouse' || e.pointerType==='pen' || (e.pointerType!=='touch' && window.innerWidth>=881);
 
     /* En escritorio se decide al soltar: un clic breve conserva la jugada única;
        un movimiento o una pulsación sostenida levanta la pieza para arrastrarla. */
@@ -7876,14 +7914,13 @@ function ejecutarPremove(){
 
 <div class="pc-perso-bg" id="pc-perso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tablero personalizado">
   <div class="pc-temas-box">
-    <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
+    <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <div class="pc-perso-cab">
       <div class="pc-temas-head">
         <div>
           <h3>Tablero personalizado</h3>
           <p>Elige los dos colores. La vista previa se actualiza mientras ajustas.</p>
         </div>
-        <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
       </div>
     </div>
     <div class="pc-perso-fijo">
@@ -7893,7 +7930,8 @@ function ejecutarPremove(){
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
-        <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre">&#10005;</button>
+        <div class="pc-modo pc-modo-mini pc-nombre-modo" role="group" aria-label="Apariencia del editor de nombre"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+        <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
       </div>
       <div class="pc-nombre-fila">
         <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
