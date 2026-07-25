@@ -1847,14 +1847,31 @@ html[data-modo="claro"],html[data-modo="oscuro"]{
 .pc-perso-bg.escribiendo .pc-nombre-caja{pointer-events:auto!important}
 
 /* En escritorio el tablero captura el gesto para levantar o arrastrar piezas. */
-@media (pointer:fine), (min-width:881px){
-  .board{touch-action:none}
-  .sq,.sq .pc{touch-action:none}
+@media (pointer:fine), (min-width:769px){
+  .board{touch-action:none;-webkit-user-drag:none}
+  .sq,.sq .pc,.sq .pc svg{touch-action:none;-webkit-user-drag:none;user-drag:none}
+  .sq .pc{cursor:grab}
+  .sq .pc.drag{cursor:grabbing}
 }
+/* Los controles del nombre forman una sola barra: modos primero y X al extremo derecho. */
+.pc-nombre-acciones{
+  margin-left:auto;display:flex;align-items:center;justify-content:flex-end;
+  gap:.42rem;flex:0 0 auto
+}
+.pc-nombre-acciones .pc-nombre-modo{margin:0;order:1}
+.pc-nombre-acciones .pc-nombre-x{margin:0;order:2}
+.pc-nombre-caja .pc-editor-cab{flex-wrap:nowrap}
 @media(max-width:430px){
-  .pc-nombre-caja .pc-editor-cab{flex-wrap:wrap}
-  .pc-editor-cab .pc-nombre-modo{order:3;margin-left:calc(2.25rem + .1rem)}
-  .pc-editor-cab .pc-nombre-x{margin-left:auto}
+  .pc-nombre-caja .pc-editor-cab{gap:.35rem}
+  .pc-nombre-caja .pc-editor-cab>b{font-size:clamp(.84rem,4vw,1rem);white-space:nowrap}
+  .pc-nombre-acciones{gap:.3rem}
+  .pc-modo-mini button{width:25px;height:23px}
+  .pc-nombre-x{width:2rem;height:2rem}
+}
+@media(max-width:360px){
+  .pc-nombre-caja .pc-editor-cab>b{font-size:.82rem}
+  .pc-etiqueta{width:24px;height:24px}
+  .pc-modo-mini button{width:23px}
 }
 
 </style>
@@ -4813,7 +4830,7 @@ boardEl.addEventListener('pointerdown',e=>{
   
   if(canSelect(sq)){
     var movimientosPieza=state.game.moves({square:sq,verbose:true});
-    var escritorio=e.pointerType==='mouse' || e.pointerType==='pen' || (e.pointerType!=='touch' && window.innerWidth>=881);
+    var escritorio=window.innerWidth>=769 && e.isPrimary!==false;
 
     /* En escritorio se decide al soltar: un clic breve conserva la jugada única;
        un movimiento o una pulsación sostenida levanta la pieza para arrastrarla. */
@@ -4888,13 +4905,13 @@ boardEl.addEventListener('pointerdown',e=>{
 
 
 function startDrag(e,sq,movimientos){
-  if(!e || e.pointerType==='touch') return;
+  if(!e || window.innerWidth<769) return;
   const celdaOrigen=cellOf(sq);
   const pcEl=celdaOrigen ? celdaOrigen.querySelector('.pc') : null;
   if(!pcEl) return;
 
   const inicioX=e.clientX, inicioY=e.clientY, pointerId=e.pointerId;
-  const umbral=6;
+  const umbral=3;
   let activo=true, arrastrando=false, ghost=null, rect=null;
 
   function moverFantasma(ev){
@@ -4920,7 +4937,7 @@ function startDrag(e,sq,movimientos){
     moverFantasma(ev || e);
   }
 
-  const temporizador=setTimeout(function(){ levantar(e); },160);
+  const temporizador=setTimeout(function(){ levantar(e); },110);
 
   function esMismoPuntero(ev){
     return pointerId==null || ev.pointerId==null || ev.pointerId===pointerId;
@@ -4939,6 +4956,7 @@ function startDrag(e,sq,movimientos){
     document.removeEventListener('pointermove',move,true);
     document.removeEventListener('pointerup',up,true);
     document.removeEventListener('pointercancel',cancelar,true);
+    try{ if(pointerId!=null && celdaOrigen.hasPointerCapture(pointerId)) celdaOrigen.releasePointerCapture(pointerId); }catch(err){}
     if(ghost){ ghost.remove(); ghost=null; }
     pcEl.style.opacity='';
   }
@@ -4985,6 +5003,7 @@ function startDrag(e,sq,movimientos){
   }
 
   e.preventDefault();
+  try{ celdaOrigen.setPointerCapture(e.pointerId); }catch(err){}
   document.addEventListener('pointermove',move,true);
   document.addEventListener('pointerup',up,true);
   document.addEventListener('pointercancel',cancelar,true);
@@ -7930,8 +7949,10 @@ function ejecutarPremove(){
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
-        <div class="pc-modo pc-modo-mini pc-nombre-modo" role="group" aria-label="Apariencia del editor de nombre"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
-        <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+        <div class="pc-nombre-acciones">
+          <div class="pc-modo pc-modo-mini pc-nombre-modo" role="group" aria-label="Apariencia del editor de nombre"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+          <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
+        </div>
       </div>
       <div class="pc-nombre-fila">
         <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
