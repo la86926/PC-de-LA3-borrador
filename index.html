@@ -6,32 +6,196 @@
 <title>PC de L3</title>
 <link rel="icon" type="image/png" href="torre.png">
 <style>
+  /* ============================================================
+     PC de L3 — piel visual "boj, ébano y latón"
+     El cajón es una planilla de anotación: número de jugada,
+     renglón con filete, y el método activo con la bandera arriba.
+     Solo estilos: marcado, IDs, clases y JavaScript sin tocar.
+     Sin fuentes externas, para que funcione sin conexión en el APK.
+     ============================================================ */
+  :root{
+    --ebano:#121714;
+    --nogal:#212A24;
+    --nogal-hondo:#151B17;
+    --boj:#EFE6D2;
+    --boj-medio:#B4BCB2;
+    --boj-tenue:#89928A;
+    --laton:#D9A441;
+    --laton-claro:#F0D59A;
+    --filete:rgba(239,230,210,.10);
+    --filete-vivo:rgba(239,230,210,.18);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --curva:cubic-bezier(.2,.8,.2,1);
+  }
+
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111713;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#1b211e;display:none}
+
+  /* Pantalla de espera: un tablero de 8 columnas, apenas insinuado. */
+  html,body{
+    margin:0;width:100%;height:100%;overflow:hidden;
+    background-color:var(--ebano);
+    background-image:
+      radial-gradient(130% 85% at 50% 0%, rgba(217,164,65,.06), rgba(217,164,65,0) 62%),
+      conic-gradient(rgba(239,230,210,.032) .25turn, transparent .25turn .5turn, rgba(239,230,210,.032) .5turn .75turn, transparent .75turn);
+    background-size:auto, 25vw 25vw;
+    font-family:var(--sans);
+    color:var(--boj);
+  }
+
+  /* Cambia transparent por #141A16 si tus métodos no traen fondo propio. */
+  .app-frame{position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#141A16;display:none}
   .app-frame.active{display:block}
-  .menu-button{position:fixed;left:10px;top:10px;z-index:10020;width:44px;height:44px;border:1px solid rgba(217,164,65,.72);border-radius:13px;background:rgba(27,33,30,.94);box-shadow:0 8px 24px rgba(0,0,0,.36);display:flex;align-items:center;justify-content:center;padding:0;color:#f0d59a;cursor:pointer}
-  .menu-button span,.menu-button:before,.menu-button:after{content:"";display:block;position:absolute;width:21px;height:2px;border-radius:4px;background:currentColor;transition:transform .18s,opacity .18s}
+
+  /* ---------- botón del menú: una pieza sobre su casilla ---------- */
+  .menu-button{
+    position:fixed;
+    left:calc(12px + env(safe-area-inset-left));
+    top:calc(12px + env(safe-area-inset-top));
+    z-index:10020;width:46px;height:46px;padding:0;cursor:pointer;
+    border:1px solid var(--filete-vivo);border-radius:9px;
+    background:linear-gradient(180deg,#242D27,#161C19);
+    box-shadow:0 10px 26px rgba(0,0,0,.5), inset 0 1px 0 rgba(239,230,210,.07);
+    color:var(--boj);
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s, background .2s, color .2s, transform .12s var(--curva);
+  }
+  .menu-button:active{transform:scale(.93)}
+  .menu-button span,.menu-button:before,.menu-button:after{
+    content:"";display:block;position:absolute;width:19px;height:1.6px;border-radius:2px;
+    background:currentColor;transition:transform .2s var(--curva), opacity .16s
+  }
   .menu-button span{transform:translateY(0)}
-  .menu-button:before{transform:translateY(-7px)}
-  .menu-button:after{transform:translateY(7px)}
+  .menu-button:before{transform:translateY(-6px)}
+  .menu-button:after{transform:translateY(6px)}
+  .menu-button.open{border-color:rgba(217,164,65,.55);background:linear-gradient(180deg,#2A2A1F,#1A1A14);color:var(--laton-claro)}
   .menu-button.open span{opacity:0}
   .menu-button.open:before{transform:rotate(45deg)}
   .menu-button.open:after{transform:rotate(-45deg)}
-  .drawer-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;background:rgba(0,0,0,.58);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+
+  /* ---------- telón ---------- */
+  .drawer-backdrop{
+    position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;
+    background:rgba(7,10,8,.62);
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+    opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s
+  }
   .drawer-backdrop.open{opacity:1;visibility:visible}
-  .drawer{position:absolute;left:0;top:0;bottom:0;width:min(82vw,320px);background:linear-gradient(180deg,#202923,#151b17);border-right:1px solid rgba(255,255,255,.08);box-shadow:18px 0 48px rgba(0,0,0,.38);transform:translateX(-102%);transition:transform .24s ease;padding:76px 18px 22px;color:#ece6d8}
+
+  /* ---------- la planilla ---------- */
+  .drawer{
+    position:absolute;left:0;top:0;bottom:0;width:min(84vw,340px);
+    display:flex;flex-direction:column;
+    background:
+      linear-gradient(180deg, rgba(239,230,210,.045), rgba(239,230,210,0) 24%),
+      linear-gradient(180deg, var(--nogal) 0%, var(--nogal-hondo) 100%);
+    border-right:1px solid rgba(217,164,65,.26);
+    box-shadow:26px 0 60px rgba(0,0,0,.55);
+    transform:translateX(-102%);
+    transition:transform .28s var(--curva);
+    padding:calc(78px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
+    color:var(--boj);
+  }
   .drawer-backdrop.open .drawer{transform:translateX(0)}
-  .drawer-brand{display:flex;align-items:center;gap:12px;padding:0 8px 20px;border-bottom:1px solid rgba(255,255,255,.09);margin-bottom:16px}
-  .drawer-brand img{width:46px;height:46px;object-fit:contain}
-  .drawer-brand strong{display:block;font-family:Georgia,serif;font-size:1.18rem}
-  .drawer-brand small{display:block;color:#98a39a;font-size:.72rem;margin-top:2px}
-  .app-choice{width:100%;border:1px solid rgba(255,255,255,.09);background:#252e29;color:#ece6d8;border-radius:14px;padding:15px 14px;margin:8px 0;text-align:left;font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-  .app-choice small{font-size:.68rem;color:#98a39a;font-weight:500}
-  .app-choice.active{border-color:#d9a441;background:rgba(217,164,65,.13);color:#f0d59a}
-  .app-choice.active:after{content:"✓";font-size:1rem}
-  .drawer-note{color:#727d74;font-size:.72rem;line-height:1.5;margin:20px 8px 0}
-  @media(max-width:480px){.menu-button{left:7px;top:7px;width:40px;height:40px;border-radius:11px}.drawer{padding-top:68px}}
+
+  /* ---------- cabecera ---------- */
+  .drawer-brand{
+    display:flex;align-items:center;gap:13px;
+    padding:0 4px 18px;margin-bottom:4px;
+    border-bottom:1px solid var(--filete);
+    opacity:0;transform:translateX(-8px);
+    transition:opacity .32s var(--curva), transform .32s var(--curva)
+  }
+  .drawer-backdrop.open .drawer-brand{opacity:1;transform:none}
+  .drawer-brand img{
+    width:44px;height:44px;object-fit:contain;padding:6px;border-radius:7px;
+    background:rgba(239,230,210,.06);
+    box-shadow:inset 0 0 0 1px rgba(239,230,210,.10), 0 6px 14px rgba(0,0,0,.35)
+  }
+  .drawer-brand strong{
+    display:block;font-family:var(--serif);font-size:1.36rem;font-weight:600;
+    letter-spacing:.005em;line-height:1.05;color:var(--boj)
+  }
+  .drawer-brand small{
+    display:block;margin-top:6px;font-family:var(--mono);font-size:.6rem;font-weight:400;
+    letter-spacing:.15em;text-transform:uppercase;line-height:1.5;color:var(--boj-tenue)
+  }
+
+  /* ---------- renglones de la planilla ---------- */
+  .app-choice{
+    position:relative;width:100%;margin:0;cursor:pointer;text-align:left;touch-action:manipulation;
+    display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:12px;
+    padding:17px 12px 17px 10px;
+    border:0;border-bottom:1px solid var(--filete);border-radius:0;
+    background:transparent;color:var(--boj);
+    font-family:var(--sans);font-size:1rem;font-weight:600;
+    opacity:0;transform:translateX(-10px);
+    transition:opacity .3s var(--curva) .05s, transform .3s var(--curva) .05s, background .18s, color .18s, box-shadow .18s
+  }
+  .app-choice[data-app="1"]{border-top:1px solid var(--filete)}
+  .drawer-backdrop.open .app-choice{opacity:1;transform:none}
+  .drawer-backdrop.open .app-choice[data-app="2"]{transition-delay:.11s}
+
+  /* El número de jugada lo escribe el propio data-app. */
+  .app-choice:before{
+    content:attr(data-app) ".";
+    font-family:var(--mono);font-size:.84rem;font-weight:400;letter-spacing:.02em;
+    color:var(--boj-tenue);text-align:right
+  }
+  .app-choice > span{display:block;min-width:0;font-family:var(--serif);font-size:1.1rem;font-weight:600;letter-spacing:.005em;line-height:1.15}
+  .app-choice br{display:none}
+  .app-choice small{
+    display:block;margin-top:6px;font-family:var(--mono);font-size:.62rem;font-weight:400;
+    letter-spacing:.1em;text-transform:uppercase;line-height:1.4;color:var(--boj-tenue)
+  }
+  .app-choice:not(.active):active{background:rgba(239,230,210,.055)}
+
+  /* método en juego: bandera de latón levantada */
+  .app-choice.active{
+    background:linear-gradient(90deg, rgba(217,164,65,.15), rgba(217,164,65,.035) 68%, rgba(217,164,65,0));
+    box-shadow:inset 3px 0 0 var(--laton);
+    color:var(--laton-claro)
+  }
+  .app-choice.active:before{color:var(--laton)}
+  .app-choice.active small{color:rgba(240,213,154,.6)}
+  .app-choice.active:after{
+    content:"activo";
+    font-family:var(--mono);font-size:.58rem;font-weight:400;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--laton)
+  }
+
+  /* ---------- pie ---------- */
+  .drawer-note{
+    margin:auto 4px 0;padding-top:20px;border-top:1px solid var(--filete);
+    color:var(--boj-tenue);font-family:var(--mono);font-size:.62rem;line-height:1.8;letter-spacing:.05em;
+    opacity:0;transform:translateX(-8px);
+    transition:opacity .32s var(--curva) .16s, transform .32s var(--curva) .16s
+  }
+  .drawer-backdrop.open .drawer-note{opacity:1;transform:none}
+  .drawer-note:before{
+    content:"";display:block;width:88px;height:10px;margin:0 0 15px;border-radius:1px;
+    background-image:repeating-linear-gradient(90deg, rgba(239,230,210,.19) 0 11px, transparent 11px 22px)
+  }
+
+  .menu-button:focus-visible,.app-choice:focus-visible{outline:2px solid var(--laton);outline-offset:2px}
+
+  @media(max-width:480px){
+    .menu-button{left:calc(9px + env(safe-area-inset-left));top:calc(9px + env(safe-area-inset-top));width:42px;height:42px;border-radius:8px}
+    .drawer{width:min(88vw,320px);padding-left:16px;padding-right:16px;padding-top:calc(68px + env(safe-area-inset-top))}
+    .drawer-brand strong{font-size:1.26rem}
+  }
+  @media(max-height:560px){
+    .drawer{padding-top:calc(64px + env(safe-area-inset-top))}
+    .drawer-brand{padding-bottom:13px}
+    .app-choice{padding-top:13px;padding-bottom:13px}
+    .drawer-note{padding-top:14px;line-height:1.6}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .drawer,.drawer-backdrop,.drawer-brand,.drawer-note,.app-choice,
+    .menu-button,.menu-button span,.menu-button:before,.menu-button:after{transition-duration:.01ms}
+    .menu-button:active{transform:none}
+  }
 </style>
 </head>
 <body>
