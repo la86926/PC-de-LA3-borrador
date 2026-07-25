@@ -1083,6 +1083,29 @@ html[data-coords="si"] .coord,html[data-coords="si"] .ex-coord{display:none}
 .sq .pc,.ex-pc{position:relative;z-index:2}
 .sq .mk,.sq .cap,.sq .coord,.mate-badge{z-index:3}
 
+/* ---------- 20. celdas del selector: todas exactamente iguales ----------
+   El problema no era el borde del elegido: `1fr` tiene como mínimo el ancho
+   del contenido, así que los nombres largos ensanchaban su columna. Con
+   `overflow-wrap:anywhere` el mínimo baja a un carácter y las columnas quedan
+   idénticas; y con la altura del nombre fijada en dos líneas, también las alturas. */
+.pc-temas-grid{grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:.55rem}
+.pc-tema-caja{position:relative;min-width:0;width:100%;height:100%}
+.pc-tema{
+  padding:.4rem .35rem 1.2rem;
+  width:100%;height:100%;min-width:0;box-sizing:border-box
+}
+.pc-tema b{
+  padding:0;margin:0;width:100%;min-width:0;
+  height:2.4em;line-height:1.2;font-size:.55rem;letter-spacing:.04em;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;overflow-wrap:anywhere
+}
+.pc-fav{right:2px;bottom:0;width:20px;height:20px}
+.pc-fav svg{width:14px;height:14px}
+
+/* la ventana de favoritos va encima de la de temas, no detrás */
+.pc-favs-bg{z-index:930}
+
 /* ---------- 15. ajustes por pantalla ---------- */
 @media(max-width:640px){
   .topbar{
