@@ -1187,6 +1187,41 @@ html[data-modo="claro"] .pc-fav.marcando:after{border-color:#E9A400}
   .pc-perso-previa{width:min(200px,60vw)}
 }
 
+/* ---------- 25. personalizado: la vista previa es lo único que flota ----------
+   La cabecera de esta ventana sí se va hacia arriba con el contenido, para que
+   el tablero no tenga que pelear por el alto disponible. */
+.pc-perso-cab{margin:0;padding:0}
+.pc-perso-cab .pc-temas-head{margin-bottom:.9rem}
+.pc-perso-fijo{
+  position:sticky;top:0;z-index:6;
+  margin:0 -1.15rem .2rem;
+  padding:.15rem 1.15rem .85rem;
+  background:var(--panel);
+  border-bottom:1px solid var(--line)
+}
+.pc-perso-fijo .pc-perso-previa{margin:0 auto}
+
+/* nombre del tablero creado */
+.pc-nombre-row{display:flex;align-items:center;gap:.5rem;margin:.1rem 0 .8rem}
+.pc-nombre-row span{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted2);flex:0 0 auto
+}
+.pc-nombre{
+  flex:1;min-width:0;padding:.5rem .65rem;
+  border:1px solid var(--line);border-radius:var(--r-campo);background:var(--hondo);color:var(--ink);
+  font-family:var(--sans);font-size:.85rem
+}
+.pc-nombre:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--tinte-oro)}
+
+/* cuatro acciones en dos filas */
+.pc-perso-acciones{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.9rem}
+.pc-perso-acciones .btn{width:100%;justify-content:center;padding:.68rem .5rem;font-size:.8rem}
+.pc-perso-acciones .btn svg{width:14px;height:14px;fill:currentColor;stroke:none;flex:0 0 auto}
+@media(max-width:360px){
+  .pc-perso-acciones{grid-template-columns:1fr}
+}
+
 /* ---------- 15. ajustes por pantalla ---------- */
 @media(max-width:640px){
   .topbar{
@@ -6961,7 +6996,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
 <div class="pc-perso-bg" id="pc-perso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tablero personalizado">
   <div class="pc-temas-box">
-    <div class="pc-temas-fijo">
+    <div class="pc-perso-cab">
       <div class="pc-temas-head">
         <div>
           <h3>Tablero personalizado</h3>
@@ -6970,7 +7005,10 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
         <button class="pc-io-close" id="pc-perso-x" type="button" aria-label="Cerrar">&#10005;</button>
       </div>
     </div>
-    <div class="pc-perso-previa" id="pc-perso-previa" role="img" aria-label="Vista previa del tablero"></div>
+    <div class="pc-perso-fijo">
+      <div class="pc-perso-previa" id="pc-perso-previa" role="img" aria-label="Vista previa del tablero"></div>
+    </div>
+    <label class="pc-nombre-row"><span>Nombre</span><input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1"></label>
     <div class="pc-editor">
       <div class="pc-editor-cab"><span class="pc-chip" id="pc-chip-l"></span><b>Casillas claras</b></div>
       <label class="pc-hexrow"><span>Hex</span><input class="pc-hex" id="pc-hex-l" type="text" spellcheck="false" autocomplete="off" maxlength="9" placeholder="EDE8D5"></label>
@@ -6982,7 +7020,15 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
       <div id="pc-sl-d"></div>
     </div>
     <div class="pc-perso-acciones">
-      <button class="btn primary" id="pc-perso-usar" type="button">Usar este tablero</button>
+      <button class="btn" id="pc-perso-guardar" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11l3 3v15H5zm3 1v6h8V4zm-1 11h10v5H7z"/></svg>
+        Guardar en mis tableros
+      </button>
+      <button class="btn" id="pc-perso-fav" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>
+        Guardar como favorito
+      </button>
+      <button class="btn primary" id="pc-perso-usar" type="button">Usar sin guardar</button>
       <button class="btn" id="pc-perso-cerrar" type="button">Cerrar</button>
     </div>
   </div>
@@ -6991,8 +7037,8 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 <div class="pc-conf-bg" id="pc-conf-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Confirmar tablero">
   <div class="pc-conf-box">
     <div class="pc-conf-mini" id="pc-conf-mini" aria-hidden="true"></div>
-    <h3>&iquest;Usar este tablero?</h3>
-    <p>Vas a cambiar el tablero a <b id="pc-conf-nombre">&mdash;</b>.</p>
+    <h3 id="pc-conf-titulo">&iquest;Usar este tablero?</h3>
+    <p id="pc-conf-texto">&mdash;</p>
     <div class="pc-conf-acts">
       <button class="btn" id="pc-conf-no" type="button">Cancelar</button>
       <button class="btn primary" id="pc-conf-si" type="button">S&iacute;, usarlo</button>
@@ -7054,7 +7100,7 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
   var raiz=document.documentElement;
   var PC_ID='1';
-  var K_MODO='pc_modo', K_TAB='pc_tablero_'+PC_ID, K_FAV='pc_favs', K_CO='pc_coords', K_PER='pc_perso';
+  var K_MODO='pc_modo', K_TAB='pc_tablero_'+PC_ID, K_FAV='pc_favs', K_CO='pc_coords', K_PER='pc_perso', K_MIOS='pc_mios';
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
   var TEMAS_TABLERO=[{"k":"cielo","n":"Cielo","l":"#E9F1F6","d":"#7AA4BB"},{"k":"nogal","n":"Nogal","l":"#EFE1C6","d":"#7A6248"},{"k":"bosque","n":"Bosque","l":"#EEEED2","d":"#769656"},{"k":"marmol","n":"Mármol","l":"#EFF1EF","d":"#7F8C86"},{"k":"torneo","n":"Azul torneo","l":"#E7ECF4","d":"#6A85AC"},{"k":"cafe","n":"Café","l":"#F2E3CE","d":"#966742"},{"k":"pizarra","n":"Pizarra","l":"#E5E8E5","d":"#68766E"},{"k":"trigo","n":"Trigo","l":"#F6EAD0","d":"#BE9C5E"},{"k":"ebano","n":"Ébano","l":"#E2DFD7","d":"#474642"},{"k":"vino","n":"Vino","l":"#F1E3E1","d":"#8A4B4E"},{"k":"musgo","n":"Musgo","l":"#E9EFDF","d":"#6C8757"},{"k":"arena","n":"Arena","l":"#F3EBDB","d":"#AE8F6E"},{"k":"lavanda","n":"Lavanda","l":"#EEE9F3","d":"#8478A3"},{"k":"menta","n":"Menta","l":"#E6F1EB","d":"#6B9C88"},{"k":"cobre","n":"Cobre","l":"#F5E7D9","d":"#AC6D4A"},{"k":"tinta","n":"Tinta","l":"#DCE0E5","d":"#434D67"},{"k":"oliva","n":"Oliva","l":"#EDEDDB","d":"#858650"},{"k":"antiguo","n":"Rosa antiguo","l":"#F5E8E8","d":"#B27B7F"},{"k":"grafito","n":"Grafito","l":"#E8E8E8","d":"#565656"},{"k":"miel","n":"Miel","l":"#F8EFD5","d":"#C39646"},{"k":"marron","n":"Marrón clásico","l":"#F0D9B5","d":"#B58863"},{"k":"azul","n":"Azul clásico","l":"#DEE3E6","d":"#8CA2AD"},{"k":"amarillo","n":"Amarillo clásico","l":"#FFFFDD","d":"#86A666"},{"k":"lima","n":"Lima","l":"#F1F5D8","d":"#8FA84E"},{"k":"arce","n":"Arce","l":"#F7E2C0","d":"#C08552"},{"k":"roble","n":"Roble","l":"#EFD9B4","d":"#A97C50"},{"k":"caoba","n":"Caoba","l":"#EEDCC4","d":"#96543B"},{"k":"bambu","n":"Bambú","l":"#F3EED2","d":"#A6AB5E"},{"k":"oceano","n":"Océano","l":"#DBE9EF","d":"#4E7A93"},{"k":"acero","n":"Acero","l":"#E2E7EA","d":"#7C8B99"},{"k":"zafiro","n":"Zafiro","l":"#E3E9F5","d":"#56699E"},{"k":"jade","n":"Jade","l":"#E6EFE2","d":"#5E8C6A"},{"k":"esmeralda","n":"Esmeralda","l":"#E2EEE4","d":"#2F7A50"},{"k":"salvia","n":"Salvia","l":"#EBEFE5","d":"#8AA07C"},{"k":"pino","n":"Pino","l":"#E7EDE2","d":"#4F6E4A"},{"k":"terracota","n":"Terracota","l":"#F5E3D6","d":"#C2612F"},{"k":"granate","n":"Granate","l":"#F2E2E0","d":"#A63A3A"},{"k":"coral","n":"Coral","l":"#F7E6E1","d":"#C87A64"},{"k":"violeta","n":"Violeta","l":"#EAE4F5","d":"#6A55A8"},{"k":"ciruela","n":"Ciruela","l":"#EEE6EF","d":"#85618C"},{"k":"algodon","n":"Algodón","l":"#F7E7EE","d":"#C98BA5"},{"k":"perla","n":"Perla","l":"#F3F1EE","d":"#A89E93"},{"k":"aguamarina","n":"Aguamarina","l":"#E3F0EF","d":"#6FA5A0"},{"k":"niebla","n":"Niebla","l":"#EDEFF0","d":"#9DA8AE"},{"k":"turquesa","n":"Turquesa","l":"#E2F0F0","d":"#3F8F8F"},{"k":"petroleo","n":"Petróleo","l":"#DBE7E8","d":"#35646A"},{"k":"verdeagua","n":"Verde agua","l":"#E4F1EC","d":"#4FA07E"},{"k":"cobalto","n":"Cobalto","l":"#DEE6F4","d":"#3F5FA8"},{"k":"lila","n":"Lila","l":"#F1EBF7","d":"#A78BD0"},{"k":"espliego","n":"Espliego","l":"#EAE8F6","d":"#4F4C95"},{"k":"berenjena","n":"Berenjena","l":"#EDE6EE","d":"#6B3A72"},{"k":"fucsia","n":"Fucsia","l":"#F7E4EF","d":"#B45A8E"},{"k":"malva","n":"Malva","l":"#F3EAEF","d":"#B08FA4"},{"k":"cereza","n":"Cereza","l":"#F6E2E4","d":"#B03E5E"},{"k":"grana","n":"Grana","l":"#F1DEDE","d":"#8C2F2F"},{"k":"salmon","n":"Salmón","l":"#FAE9E1","d":"#DE9174"},{"k":"oxido","n":"Óxido","l":"#F3E3D6","d":"#9C5A2E"},{"k":"ambar","n":"Ámbar","l":"#FAEFD2","d":"#D89A2E"},{"k":"calabaza","n":"Calabaza","l":"#F9E9D4","d":"#DE7B2A"},{"k":"mostaza","n":"Mostaza","l":"#F7F0D2","d":"#C0A32A"},{"k":"selva","n":"Selva","l":"#E4EDDC","d":"#3E6B36"},{"k":"militar","n":"Militar","l":"#EAEBDD","d":"#6F7448"},{"k":"hierba","n":"Hierba","l":"#EBF2DD","d":"#6F9A38"},{"k":"helecho","n":"Helecho","l":"#E7F0E3","d":"#4C8452"},{"k":"lino","n":"Lino","l":"#F4F0E4","d":"#B4A583"},{"k":"caqui","n":"Caqui","l":"#F0EEE0","d":"#96925F"},{"k":"cedro","n":"Cedro","l":"#F5E7CE","d":"#A88238"},{"k":"laguna","n":"Laguna","l":"#E0EEF2","d":"#4E8CA8"},{"k":"bruma","n":"Bruma","l":"#EEF1F2","d":"#8794A0"},{"k":"camelia","n":"Camelia","l":"#F7E9E9","d":"#D09F9F"},{"k":"rosaceniza","n":"Rosa ceniza","l":"#F0E5E5","d":"#BA9797"},{"k":"rosapolvo","n":"Rosa polvo","l":"#F6E4E4","d":"#D08B8B"},{"k":"chicle","n":"Chicle","l":"#FDF3F3","d":"#EEB5B5"},{"k":"durazno","n":"Durazno","l":"#F7EEE9","d":"#D0B39F"},{"k":"arcillaclara","n":"Arcilla clara","l":"#F6EBE4","d":"#D0A78B"},{"k":"mango","n":"Mango","l":"#FDF7F3","d":"#EECBB5"},{"k":"vainilla","n":"Vainilla","l":"#F7F4E9","d":"#D0C69F"},{"k":"mostazaclara","n":"Mostaza clara","l":"#F6F3E4","d":"#D0C28B"},{"k":"limon","n":"Limón","l":"#F4F7E9","d":"#C6D09F"},{"k":"jazmin","n":"Jazmín","l":"#F9FBEF","d":"#D8E3AB"},{"k":"caquiclaro","n":"Caqui claro","l":"#EEF0E5","d":"#B3BA97"},{"k":"limapalida","n":"Lima pálida","l":"#F3F6E4","d":"#C2D08B"},{"k":"pistacho","n":"Pistacho","l":"#EEF7E9","d":"#B3D09F"},{"k":"apio","n":"Apio","l":"#F4FBEF","d":"#C1E3AB"},{"k":"musgoclaro","n":"Musgo claro","l":"#EBF6E4","d":"#A7D08B"},{"k":"mentaclara","n":"Menta clara","l":"#E9F7E9","d":"#9FD09F"},{"k":"espuma","n":"Espuma","l":"#EFFBEF","d":"#ABE3AB"},{"k":"salviaclara","n":"Salvia clara","l":"#E5F0E5","d":"#97BA97"},{"k":"mentapolvo","n":"Menta polvo","l":"#E4F6E4","d":"#8BD08B"},{"k":"verdeaguaclaro","n":"Verde agua claro","l":"#E9F7EE","d":"#9FD0B3"},{"k":"rocio","n":"Rocío","l":"#EFFBF4","d":"#ABE3C1"},{"k":"jadeclaro","n":"Jade claro","l":"#E5F0E9","d":"#97BAA5"},{"k":"verdepiscina","n":"Verde piscina","l":"#E4F6EB","d":"#8BD0A7"},{"k":"aguamarinaclara","n":"Aguamarina clara","l":"#E9F7F4","d":"#9FD0C6"},{"k":"petroleoclaro","n":"Petróleo claro","l":"#E5F0EE","d":"#97BAB3"},{"k":"celeste","n":"Celeste","l":"#E9F4F7","d":"#9FC6D0"},{"k":"celestenube","n":"Celeste nube","l":"#F3FBFD","d":"#B5E2EE"},{"k":"cielopalido","n":"Cielo pálido","l":"#E9EEF7","d":"#9FB3D0"},{"k":"denimclaro","n":"Denim claro","l":"#E4EBF6","d":"#8BA7D0"},{"k":"zafiroclaro","n":"Zafiro claro","l":"#F3F7FD","d":"#B5CBEE"},{"k":"hortensia","n":"Hortensia","l":"#E9E9F7","d":"#9F9FD0"},{"k":"pizarraclara","n":"Pizarra clara","l":"#E5E5F0","d":"#9797BA"},{"k":"lavandaazul","n":"Lavanda azul","l":"#E4E4F6","d":"#8B8BD0"},{"k":"azulbebe","n":"Azul bebé","l":"#F3F3FD","d":"#B5B5EE"},{"k":"espliegoclaro","n":"Espliego claro","l":"#F4EFFB","d":"#C1ABE3"},{"k":"glicina","n":"Glicina","l":"#F4E9F7","d":"#C69FD0"},{"k":"ciruelaclara","n":"Ciruela clara","l":"#EEE5F0","d":"#B397BA"},{"k":"lilapolvo","n":"Lila polvo","l":"#F3E4F6","d":"#C28BD0"},{"k":"lilanube","n":"Lila nube","l":"#FBF3FD","d":"#E2B5EE"},{"k":"lilapalido","n":"Lila pálido","l":"#FBEFF9","d":"#E3ABD8"},{"k":"ciclamenclaro","n":"Ciclamen claro","l":"#F6E4F3","d":"#D08BC2"},{"k":"cuarzorosa","n":"Cuarzo rosa","l":"#F7E9EE","d":"#D09FB3"},{"k":"fresaclara","n":"Fresa clara","l":"#FDF3F7","d":"#EEB5CB"},{"k":"marfil","n":"Marfil","l":"#F6F6F3","d":"#CDCAC1"},{"k":"humoclaro","n":"Humo claro","l":"#D4D5D9","d":"#A5A6AC"}];
 
@@ -7143,18 +7189,30 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   if(['claro','oscuro','sistema'].indexOf(modo)<0) modo='sistema';
   var tema=leer(K_TAB,'cielo');
   var perso=leer(K_PER,'');
-  if(tema!=='personalizado' && !TEMAS_TABLERO.some(function(t){return t.k===tema})) tema='cielo';
   if(tema==='personalizado' && perso.split('|').length!==5) tema='cielo';
   var coords=leer(K_CO,'no')==='si';
-  var favs=[];
-  var crudo=leer(K_FAV,'');
-  if(crudo) favs=crudo.split(',').filter(function(k){ return TEMAS_TABLERO.some(function(t){return t.k===k}); });
 
-  function esFav(k){ return favs.indexOf(k)>=0; }
+  /* tableros que el propio usuario guarda; van primero en la rejilla */
+  var mios=[];
+  try{
+    var jm=JSON.parse(leer(K_MIOS,'[]'));
+    if(jm && jm.length) mios=jm.filter(function(t){ return t && t.k && t.l && t.d; });
+  }catch(e){ mios=[]; }
+  function todos(){ return mios.concat(TEMAS_TABLERO); }
   function temaPorClave(k){
-    for(var i=0;i<TEMAS_TABLERO.length;i++) if(TEMAS_TABLERO[i].k===k) return TEMAS_TABLERO[i];
+    var L=todos();
+    for(var i=0;i<L.length;i++) if(L[i].k===k) return L[i];
     return null;
   }
+
+  var favs=[];
+  var crudo=leer(K_FAV,'');
+  if(crudo) favs=crudo.split(',').filter(function(k){ return !!temaPorClave(k); });
+
+  /* la clave guardada se valida contra la lista completa: propios + los 115 */
+  if(tema!=='personalizado' && !temaPorClave(tema)) tema='cielo';
+
+  function esFav(k){ return favs.indexOf(k)>=0; }
   function persoComoTema(){
     var a=perso.split('|');
     return {k:'personalizado', n:'Personalizado', l:(a[0]||'#EDE8D5'), d:(a[1]||'#7A6248')};
@@ -7177,13 +7235,18 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   var VARS=['--light','--dark','--coord-l','--coord-d','--hl'];
   function aplicarTema(){
     var i, nombre='';
+    var t=temaPorClave(tema);
     if(tema==='personalizado'){
       var a=perso.split('|');
       for(i=0;i<VARS.length;i++) raiz.style.setProperty(VARS[i], a[i]);
       nombre='Personalizado';
+    }else if(t && t.mio){
+      var b=[t.l,t.d,t.cl,t.cd,t.hl];
+      for(i=0;i<VARS.length;i++) raiz.style.setProperty(VARS[i], b[i]);
+      nombre=t.n;
     }else{
       for(i=0;i<VARS.length;i++) raiz.style.removeProperty(VARS[i]);
-      var t=temaPorClave(tema); nombre = t? t.n : '';
+      nombre = t? t.n : '';
     }
     raiz.setAttribute('data-tablero',tema);
     var n=document.getElementById('pc-tablero-nombre');
@@ -7206,12 +7269,21 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
   /* ---------- confirmación antes de cambiar de tablero ---------- */
   var pendiente=null;
-  function pedirTablero(t){
+  function pedirTablero(t,recienGuardado){
     pendiente=t;
     var mini=document.getElementById('pc-conf-mini');
     if(mini){ mini.style.setProperty('--l',t.l); mini.style.setProperty('--d',t.d); }
-    var n=document.getElementById('pc-conf-nombre');
-    if(n) n.textContent=t.n;
+    var tit=document.getElementById('pc-conf-titulo');
+    var txt=document.getElementById('pc-conf-texto');
+    var no=document.getElementById('pc-conf-no');
+    if(tit) tit.textContent = recienGuardado? 'Tablero guardado' : '\u00bfUsar este tablero?';
+    if(no) no.textContent = recienGuardado? 'Solo guardarlo' : 'Cancelar';
+    if(txt){
+      while(txt.firstChild) txt.removeChild(txt.firstChild);
+      txt.appendChild(document.createTextNode(recienGuardado? 'Guard\u00e9 ':'Vas a cambiar el tablero a '));
+      var b=document.createElement('b'); b.textContent=t.n; txt.appendChild(b);
+      txt.appendChild(document.createTextNode(recienGuardado? '. \u00bfQuieres usarlo ahora?' : '.'));
+    }
     abrir(cajaConf);
   }
   function usarTablero(k){
@@ -7262,7 +7334,8 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     var g=document.getElementById('pc-favs-grid'), vacio=document.getElementById('pc-favs-vacio');
     if(!g) return;
     while(g.firstChild) g.removeChild(g.firstChild);
-    for(var i=0;i<TEMAS_TABLERO.length;i++) if(esFav(TEMAS_TABLERO[i].k)) g.appendChild(celda(TEMAS_TABLERO[i]));
+    var L=todos();
+    for(var i=0;i<L.length;i++) if(esFav(L[i].k)) g.appendChild(celda(L[i]));
     if(vacio) vacio.style.display = favs.length? 'none':'block';
   }
 
@@ -7338,6 +7411,8 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     var base = tema==='personalizado' ? persoComoTema() : (temaPorClave(tema)||{l:'#EDE8D5',d:'#7A6248'});
     borrador.l = leerColor(base.l) || {r:237,g:232,b:213,a:1};
     borrador.d = leerColor(base.d) || {r:122,g:98,b:72,a:1};
+    var campo=document.getElementById('pc-perso-nombre');
+    if(campo) campo.placeholder='Mi tablero '+(mios.length+1);
     construirSliders('l'); construirSliders('d');
     refrescarEditor('l'); refrescarEditor('d');
     abrir(cajaPerso);
@@ -7364,8 +7439,32 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   }
 
   /* ---------- rejilla y conexiones ---------- */
-  var rejilla=document.getElementById('pc-temas-grid');
-  if(rejilla) for(var i=0;i<TEMAS_TABLERO.length;i++) rejilla.appendChild(celda(TEMAS_TABLERO[i]));
+  function pintarRejilla(){
+    var g=document.getElementById('pc-temas-grid');
+    if(!g) return;
+    while(g.firstChild) g.removeChild(g.firstChild);
+    var L=todos();
+    for(var i=0;i<L.length;i++) g.appendChild(celda(L[i]));
+    var cn=document.getElementById('pc-temas-cuenta');
+    if(cn) cn.textContent=String(L.length);
+  }
+  pintarRejilla();
+
+  /* guardar el tablero creado: en mis tableros y, si toca, también como favorito */
+  function guardarMio(comoFavorito){
+    var campo=document.getElementById('pc-perso-nombre');
+    var n=campo? String(campo.value||'').trim() : '';
+    if(!n) n='Mi tablero '+(mios.length+1);
+    var p=paqueteEfectivo(borrador.l,borrador.d).split('|');
+    var t={k:'mio'+Date.now().toString(36), n:n, l:p[0], d:p[1], cl:p[2], cd:p[3], hl:p[4], mio:true};
+    mios.push(t);
+    guardar(K_MIOS, JSON.stringify(mios));
+    if(comoFavorito && favs.indexOf(t.k)<0){ favs.push(t.k); guardar(K_FAV, favs.join(',')); }
+    pintarRejilla(); pintarCuenta();
+    if(campo) campo.value='';
+    cerrar(cajaPerso);
+    pedirTablero(t,true);
+  }
 
   var modos=document.querySelectorAll('#pc-modo button');
   for(var k=0;k<modos.length;k++){
@@ -7388,6 +7487,10 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
   var pc2=document.getElementById('pc-perso-cerrar');
   if(pc2) pc2.onclick=function(){ cerrar(cajaPerso); };
   if(cajaPerso) cajaPerso.onclick=function(e){ if(e.target===cajaPerso) cerrar(cajaPerso); };
+  var pg=document.getElementById('pc-perso-guardar');
+  if(pg) pg.onclick=function(){ guardarMio(false); };
+  var pf=document.getElementById('pc-perso-fav');
+  if(pf) pf.onclick=function(){ guardarMio(true); };
   var pu=document.getElementById('pc-perso-usar');
   if(pu) pu.onclick=function(){
     perso=paqueteEfectivo(borrador.l,borrador.d);
@@ -7424,6 +7527,10 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     if(e.key===K_MODO){ modo=leer(K_MODO,'sistema'); aplicarModo(); }
     if(e.key===K_TAB){ tema=leer(K_TAB,'cielo'); aplicarTema(); }
     if(e.key===K_PER){ perso=leer(K_PER,''); if(tema==='personalizado') aplicarTema(); }
+    if(e.key===K_MIOS){
+      try{ var jm2=JSON.parse(leer(K_MIOS,'[]')); mios = (jm2&&jm2.length)? jm2.filter(function(t){return t&&t.k&&t.l&&t.d}) : []; }catch(e2){ mios=[]; }
+      pintarRejilla(); aplicarTema();
+    }
     if(e.key===K_CO){ coords=leer(K_CO,'no')==='si'; aplicarCoords(); }
     if(e.key===K_FAV){
       var c=leer(K_FAV,'');
@@ -7434,8 +7541,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
     }
   });
 
-  var cuenta=document.getElementById('pc-temas-cuenta');
-  if(cuenta) cuenta.textContent=String(TEMAS_TABLERO.length);
   pintarCuenta();
   aplicarModo(); aplicarTema(); aplicarCoords();
 })();
