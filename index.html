@@ -7,12 +7,19 @@
 <title>PC de L3</title>
 <link rel="icon" type="image/png" href="torre.png">
 <script>
-/* Fija la apariencia antes del primer pintado: sin destello al abrir. */
-(function(){try{
-  var m=localStorage.getItem('pc_modo')||'sistema';
-  var osc = m==='oscuro' || (m==='sistema' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  document.documentElement.setAttribute('data-modo', osc?'oscuro':'claro');
-}catch(e){document.documentElement.setAttribute('data-modo','oscuro');}})();
+/* Fija la apariencia antes del primer pintado. Lee localStorage y, si no hay, cookie. */
+(function(){
+  function g(k){
+    try{var v=localStorage.getItem(k); if(v)return v;}catch(e){}
+    try{var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)'); if(m)return decodeURIComponent(m[1]);}catch(e){}
+    return null;
+  }
+  try{
+    var m=g('pc_modo')||'sistema';
+    var osc = m==='oscuro' || (m==='sistema' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-modo', osc?'oscuro':'claro');
+  }catch(e){document.documentElement.setAttribute('data-modo','oscuro');}
+})();
 </script>
 <style>
 /* ==================================================================
@@ -41,15 +48,15 @@ html,html[data-modo="oscuro"]{
 }
 html[data-modo="claro"]{
   color-scheme:light;
-  --bg:#ECEFE9; --hondo:#E3E7E0; --panel:#F8FAF6; --panel2:#FFFFFF;
-  --line:rgba(21,28,24,.12); --line-viva:rgba(21,28,24,.26);
-  --ink:#151C18; --muted:#586258; --muted2:#768076;
-  --crest:#B24019; --gold:#8A6416;
-  --tinte-oro:rgba(138,100,22,.10); --tinte-neutro:rgba(21,28,24,.04);
-  --velo:rgba(28,34,30,.42);
-  --s1:0 1px 2px rgba(24,31,26,.06);
-  --s2:0 8px 20px -10px rgba(24,31,26,.16);
-  --s4:0 34px 80px -32px rgba(24,31,26,.34);
+  --bg:#EEF1EB; --hondo:#E6EAE3; --panel:#FDFEFB; --panel2:#FFFFFF;
+  --line:rgba(21,28,24,.11); --line-viva:rgba(21,28,24,.24);
+  --ink:#151C18; --muted:#556055; --muted2:#737D73;
+  --crest:#B24019; --gold:#87621A;
+  --tinte-oro:rgba(135,98,26,.09); --tinte-neutro:rgba(21,28,24,.035);
+  --velo:rgba(26,32,28,.4);
+  --s1:0 1px 2px rgba(24,31,26,.07);
+  --s2:0 10px 24px -12px rgba(24,31,26,.18);
+  --s4:0 36px 84px -34px rgba(24,31,26,.36);
   --luz-interna:inset 0 1px 0 rgba(255,255,255,.9);
 }
 
@@ -225,18 +232,32 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
     var choices=document.querySelectorAll('.app-choice');
     for(var j=0;j<choices.length;j++) choices[j].classList.toggle('active',choices[j].getAttribute('data-app')===activeApp);
     try{localStorage.setItem('pc_l3_active_app',activeApp);}catch(e){}
+    try{document.cookie='pc_l3_active_app='+activeApp+';path=/;max-age=63072000;SameSite=Lax';}catch(e){}
     setDrawer(false);
   }
   menuButton.onclick=function(){setDrawer(!backdrop.classList.contains('open'));};
   backdrop.onclick=function(e){if(e.target===backdrop)setDrawer(false);};
   var choices=document.querySelectorAll('.app-choice');
   for(var i=0;i<choices.length;i++) choices[i].onclick=function(){selectApp(this.getAttribute('data-app'));};
-  try{var saved=localStorage.getItem('pc_l3_active_app');if(saved==='2')selectApp('2');}catch(e){}
+  var guardado=null;
+  try{guardado=localStorage.getItem('pc_l3_active_app');}catch(e){}
+  if(!guardado) guardado=galleta('pc_l3_active_app');
+  if(guardado==='2') selectApp('2');
 
   /* ---- apariencia: misma clave que los métodos, así los tres van a una ---- */
   var raiz=document.documentElement, K='pc_modo';
   var mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function leerModo(){try{return localStorage.getItem(K)||'sistema'}catch(e){return 'sistema'}}
+  function galleta(k){try{var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):null}catch(e){return null}}
+  function leerModo(){
+    var v=null;
+    try{ v=localStorage.getItem(K); }catch(e){}
+    if(!v) v=galleta(K);
+    return v||'sistema';
+  }
+  function guardarModo(v){
+    try{ localStorage.setItem(K,v); }catch(e){}
+    try{ document.cookie=K+'='+encodeURIComponent(v)+';path=/;max-age=63072000;SameSite=Lax'; }catch(e){}
+  }
   var modo=leerModo();
   function aplicarModo(){
     modo=leerModo();
@@ -251,7 +272,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
   var bt=document.querySelectorAll('#tema button');
   for(var t=0;t<bt.length;t++){
     bt[t].onclick=function(){
-      try{localStorage.setItem(K,this.getAttribute('data-modo'));}catch(e){}
+      guardarModo(this.getAttribute('data-modo'));
       aplicarModo();
       /* avisa a los métodos ya cargados */
       var frames=document.querySelectorAll('.app-frame');
