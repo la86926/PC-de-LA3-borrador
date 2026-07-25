@@ -1847,6 +1847,29 @@ html[data-modo="claro"],html[data-modo="oscuro"]{
   .pc-modo-mini button{width:23px}
 }
 
+
+/* ---------- 53. encabezado final del tablero personalizado ---------- */
+.pc-perso-cab .pc-temas-head{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:.75rem;margin-bottom:.9rem
+}
+.pc-perso-titulo{min-width:0}
+.pc-perso-head-acciones{display:flex;align-items:center;gap:.55rem;justify-self:end;white-space:nowrap}
+.pc-perso-head-acciones .pc-perso-cierre-flotante{
+  position:static;margin:0;display:grid;flex:0 0 auto
+}
+.pc-perso-head-acciones .pc-perso-modo{margin:0;flex:0 0 auto}
+.pc-nombre-caja .pc-editor-cab{justify-content:flex-start}
+@media(max-width:430px){
+  .pc-perso-cab .pc-temas-head{grid-template-columns:minmax(0,1fr) auto;gap:.45rem}
+  .pc-perso-head-acciones{gap:.35rem}
+  .pc-perso-head-acciones .pc-modo-mini button{width:25px;height:23px}
+}
+@media(max-width:360px){
+  .pc-perso-cab .pc-temas-head{align-items:start}
+  .pc-perso-head-acciones{gap:.25rem}
+  .pc-perso-head-acciones .pc-modo-mini button{width:23px}
+}
+
 </style>
 <script>
 /* Fija apariencia, tablero y encabezado antes del primer pintado.
@@ -7704,12 +7727,15 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
 
 <div class="pc-perso-bg" id="pc-perso-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tablero personalizado">
   <div class="pc-temas-box">
-    <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
     <div class="pc-perso-cab">
       <div class="pc-temas-head">
-        <div>
+        <div class="pc-perso-titulo">
           <h3>Tablero personalizado</h3>
           <p>Elige los dos colores. La vista previa se actualiza mientras ajustas.</p>
+        </div>
+        <div class="pc-perso-head-acciones">
+          <div class="pc-modo pc-modo-mini pc-perso-modo" role="group" aria-label="Apariencia del tablero personalizado"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+          <button class="pc-io-close pc-perso-cierre-flotante" id="pc-perso-x" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
         </div>
       </div>
     </div>
@@ -7720,10 +7746,6 @@ $('b-banner').onclick=()=>{bannerOculto=!bannerOculto;localStorage.setItem('wp_b
       <div class="pc-editor-cab">
         <span class="pc-etiqueta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 12.5l-8 8-9-9V3.5H11zM7.5 7.5h.01"/></svg></span>
         <b>Nombre del tablero</b>
-        <div class="pc-nombre-acciones">
-          <div class="pc-modo pc-modo-mini pc-nombre-modo" role="group" aria-label="Apariencia del editor de nombre"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
-          <button class="pc-io-close pc-nombre-x" id="pc-nombre-x" type="button" aria-label="Cerrar la edición del nombre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
-        </div>
       </div>
       <div class="pc-nombre-fila">
         <input class="pc-nombre" id="pc-perso-nombre" type="text" maxlength="24" autocomplete="off" placeholder="Mi tablero 1">
