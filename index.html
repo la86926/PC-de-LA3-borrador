@@ -351,14 +351,29 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
   function fijarTamanoBotonDroidfish(frame){
     requestAnimationFrame(function(){
       try{
-        var boton=frame&&frame.contentDocument&&frame.contentDocument.getElementById('b-edit');
+        var doc=frame&&frame.contentDocument;
+        var boton=doc&&doc.getElementById('b-edit');
         if(!boton||boton.dataset.tamanoDroidfishFijo)return;
+        var fila=boton.parentElement;
+        var ids=['b-reset','b-edit','b-anotar'];
+        if(fila) fila.style.gap='.35rem';
+        for(var i=0;i<ids.length;i++){
+          var b=doc.getElementById(ids[i]);
+          if(!b)continue;
+          b.style.flex='1 1 0';
+          b.style.width='0';
+          b.style.minWidth='0';
+          b.style.maxWidth='none';
+          b.style.padding='.6rem .22rem';
+          b.style.fontSize='clamp(.72rem,3.25vw,.95rem)';
+          b.style.whiteSpace='nowrap';
+          b.style.overflow='hidden';
+          b.style.justifyContent='center';
+        }
         var r=boton.getBoundingClientRect();
-        if(!r.width||!r.height)return;
-        var w=r.width+'px',h=r.height+'px';
-        boton.style.width=boton.style.minWidth=boton.style.maxWidth=w;
+        if(!r.height)return;
+        var h=r.height+'px';
         boton.style.height=boton.style.minHeight=boton.style.maxHeight=h;
-        boton.style.flex='0 0 '+w;
         boton.dataset.tamanoDroidfishFijo='1';
       }catch(e){}
     });
