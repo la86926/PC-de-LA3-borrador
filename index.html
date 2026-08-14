@@ -216,6 +216,12 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
   var backdrop=document.getElementById('drawer-backdrop');
   var activeApp='1';
 
+  function impedirZoom(e){e.preventDefault();}
+  document.addEventListener('gesturestart',impedirZoom,{passive:false});
+  document.addEventListener('gesturechange',impedirZoom,{passive:false});
+  document.addEventListener('gestureend',impedirZoom,{passive:false});
+  document.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
+
   function setDrawer(open){
     backdrop.classList.toggle('open',open);
     menuButton.classList.toggle('open',open);
@@ -308,6 +314,20 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
     return true;
   };
 
+  function bloquearZoomFrame(frame){
+    try{
+      var doc=frame&&frame.contentDocument;
+      if(!doc||!doc.documentElement||doc.documentElement.dataset.zoomBloqueado)return;
+      var meta=doc.querySelector('meta[name="viewport"]');
+      if(meta) meta.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+      doc.addEventListener('gesturestart',impedirZoom,{passive:false});
+      doc.addEventListener('gesturechange',impedirZoom,{passive:false});
+      doc.addEventListener('gestureend',impedirZoom,{passive:false});
+      doc.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
+      doc.documentElement.dataset.zoomBloqueado='1';
+    }catch(e){}
+  }
+
   function fijarTamanoBotonDroidfish(frame){
     requestAnimationFrame(function(){
       try{
@@ -324,9 +344,10 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
     });
   }
   var appFrames=document.querySelectorAll('.app-frame');
-  for(var f=0;f<appFrames.length;f++) appFrames[f].addEventListener('load',function(){fijarTamanoBotonDroidfish(this);});
+  for(var f=0;f<appFrames.length;f++) appFrames[f].addEventListener('load',function(){bloquearZoomFrame(this);fijarTamanoBotonDroidfish(this);});
   var appChoices=document.querySelectorAll('.app-choice');
-  for(var c=0;c<appChoices.length;c++) appChoices[c].addEventListener('click',function(){fijarTamanoBotonDroidfish(document.getElementById('app-frame-'+this.getAttribute('data-app')));});
+  for(var c=0;c<appChoices.length;c++) appChoices[c].addEventListener('click',function(){var frame=document.getElementById('app-frame-'+this.getAttribute('data-app'));bloquearZoomFrame(frame);fijarTamanoBotonDroidfish(frame);});
+  bloquearZoomFrame(document.getElementById('app-frame-1'));
   fijarTamanoBotonDroidfish(document.getElementById('app-frame-1'));
 })();
 </script>
