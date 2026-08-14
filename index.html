@@ -328,6 +328,26 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
     }catch(e){}
   }
 
+  function bloquearScrollHorizontalFrame(frame){
+    try{
+      var doc=frame&&frame.contentDocument;
+      var win=frame&&frame.contentWindow;
+      if(!doc||!doc.documentElement||doc.documentElement.dataset.scrollHorizontalBloqueado)return;
+      doc.documentElement.style.overflowX='hidden';
+      doc.documentElement.style.maxWidth='100%';
+      doc.documentElement.style.overscrollBehaviorX='none';
+      doc.documentElement.style.touchAction='pan-y';
+      if(doc.body){
+        doc.body.style.overflowX='hidden';
+        doc.body.style.maxWidth='100%';
+        doc.body.style.overscrollBehaviorX='none';
+        doc.body.style.touchAction='pan-y';
+      }
+      if(win) win.addEventListener('scroll',function(){if(win.scrollX!==0)win.scrollTo(0,win.scrollY);},{passive:true});
+      doc.documentElement.dataset.scrollHorizontalBloqueado='1';
+    }catch(e){}
+  }
+
   function fijarTamanoBotonDroidfish(frame){
     requestAnimationFrame(function(){
       try{
@@ -344,10 +364,11 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
     });
   }
   var appFrames=document.querySelectorAll('.app-frame');
-  for(var f=0;f<appFrames.length;f++) appFrames[f].addEventListener('load',function(){bloquearZoomFrame(this);fijarTamanoBotonDroidfish(this);});
+  for(var f=0;f<appFrames.length;f++) appFrames[f].addEventListener('load',function(){bloquearZoomFrame(this);bloquearScrollHorizontalFrame(this);fijarTamanoBotonDroidfish(this);});
   var appChoices=document.querySelectorAll('.app-choice');
-  for(var c=0;c<appChoices.length;c++) appChoices[c].addEventListener('click',function(){var frame=document.getElementById('app-frame-'+this.getAttribute('data-app'));bloquearZoomFrame(frame);fijarTamanoBotonDroidfish(frame);});
+  for(var c=0;c<appChoices.length;c++) appChoices[c].addEventListener('click',function(){var frame=document.getElementById('app-frame-'+this.getAttribute('data-app'));bloquearZoomFrame(frame);bloquearScrollHorizontalFrame(frame);fijarTamanoBotonDroidfish(frame);});
   bloquearZoomFrame(document.getElementById('app-frame-1'));
+  bloquearScrollHorizontalFrame(document.getElementById('app-frame-1'));
   fijarTamanoBotonDroidfish(document.getElementById('app-frame-1'));
 })();
 </script>
