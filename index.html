@@ -351,10 +351,12 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
   function mostrarControlesAnalisisSiempre(frame){
     try{
       var doc=frame&&frame.contentDocument;
-      if(!doc||!doc.head)return;
+      var win=frame&&frame.contentWindow;
+      if(!doc||!doc.head||!win)return;
       var anterior=doc.getElementById('b-ana-prev');
       var siguiente=doc.getElementById('b-ana-next');
       var droidfish=doc.getElementById('b-edit');
+      var tablero=doc.getElementById('board');
       if(!anterior||!siguiente||!droidfish)return;
       if(!doc.getElementById('controles-analisis-siempre-visibles')){
         var estilo=doc.createElement('style');
@@ -362,21 +364,67 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
         estilo.textContent='#b-ana-prev,#b-ana-next{display:flex!important;visibility:visible!important;transition:opacity .22s ease,filter .22s ease!important;}#b-ana-prev[data-historial-apagado="1"],#b-ana-next[data-historial-apagado="1"]{opacity:.34!important;filter:saturate(.35);cursor:default;}#b-ana-prev[data-historial-apagado="0"],#b-ana-next[data-historial-apagado="0"]{opacity:1!important;filter:none;}';
         doc.head.appendChild(estilo);
       }
-      function activarFlechas(){
-        doc.documentElement.dataset.droidfishIniciado='1';
-        anterior.setAttribute('data-historial-apagado','0');
-        siguiente.setAttribute('data-historial-apagado','0');
+      if(typeof win.__pcEstadoHistorialFlechas!=='function'){
+        var puente=doc.createElement('script');
+        puente.textContent='window.__pcEstadoHistorialFlechas=function(){try{return{ejercicio:String(state.filter)+"|"+String(state.i)+"|"+String(state.fen),historial:Array.isArray(state.anaMoves),ptr:Number(state.anaPtr)||0,total:Array.isArray(state.anaMoves)?state.anaMoves.length:0};}catch(e){return null;}};';
+        doc.documentElement.appendChild(puente);
+        puente.remove();
       }
-      if(doc.documentElement.dataset.droidfishIniciado==='1'){
-        activarFlechas();
-      }else{
-        anterior.setAttribute('data-historial-apagado','1');
-        siguiente.setAttribute('data-historial-apagado','1');
+      function estadoHistorial(){
+        try{return typeof win.__pcEstadoHistorialFlechas==='function'?win.__pcEstadoHistorialFlechas():null;}catch(e){return null;}
+      }
+      function prepararEjercicio(estado){
+        var raiz=doc.documentElement;
+        if(raiz.dataset.historialEjercicio!==estado.ejercicio){
+          raiz.dataset.historialEjercicio=estado.ejercicio;
+          raiz.dataset.droidfishIniciado='0';
+        }
+        return raiz;
+      }
+      function pintar(boton,activo){
+        boton.setAttribute('data-historial-apagado',activo?'0':'1');
+        boton.setAttribute('aria-disabled',activo?'false':'true');
+      }
+      function sincronizarFlechas(){
+        var estado=estadoHistorial();
+        if(!estado)return;
+        var raiz=prepararEjercicio(estado);
+        var disponible=raiz.dataset.droidfishIniciado==='1'&&estado.historial;
+        pintar(anterior,disponible&&estado.ptr>0);
+        pintar(siguiente,disponible&&estado.ptr<estado.total);
+      }
+      function programarSincronizacion(){win.requestAnimationFrame(sincronizarFlechas);}
+      function bloquearSiApagado(e){
+        if(this.getAttribute('data-historial-apagado')==='1'){
+          e.preventDefault();
+          e.stopImmediatePropagation();
+        }
+      }
+      if(!anterior.dataset.controlHistorialFlechas){
+        anterior.addEventListener('click',bloquearSiApagado,true);
+        siguiente.addEventListener('click',bloquearSiApagado,true);
+        anterior.addEventListener('click',programarSincronizacion);
+        siguiente.addEventListener('click',programarSincronizacion);
+        anterior.dataset.controlHistorialFlechas='1';
+        siguiente.dataset.controlHistorialFlechas='1';
       }
       if(!droidfish.dataset.activacionVisualFlechas){
-        droidfish.addEventListener('click',activarFlechas);
+        droidfish.addEventListener('click',function(){
+          win.requestAnimationFrame(function(){
+            var estado=estadoHistorial();
+            if(!estado)return;
+            var raiz=prepararEjercicio(estado);
+            if(estado.historial)raiz.dataset.droidfishIniciado='1';
+            sincronizarFlechas();
+          });
+        });
         droidfish.dataset.activacionVisualFlechas='1';
       }
+      if(tablero&&!tablero.dataset.observaHistorialFlechas){
+        new win.MutationObserver(programarSincronizacion).observe(tablero,{childList:true,subtree:true});
+        tablero.dataset.observaHistorialFlechas='1';
+      }
+      sincronizarFlechas();
     }catch(e){}
   }
 
