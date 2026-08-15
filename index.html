@@ -386,6 +386,22 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
             b.querySelector('svg').style.height='1.55rem';
           }
         }
+        function ajustarContenidoDroidfish(){
+          var esDroidfish=!!boton.querySelector('svg');
+          boton.style.fontSize=esDroidfish?'clamp(.62rem,2.6vw,.82rem)':'clamp(.66rem,2.85vw,.88rem)';
+          boton.style.gap=esDroidfish?'.16rem':'.22rem';
+          var icono=boton.querySelector('svg');
+          if(icono){
+            icono.style.width='.88rem';
+            icono.style.height='.88rem';
+            icono.style.flex='0 0 .88rem';
+          }
+        }
+        ajustarContenidoDroidfish();
+        if(!boton.dataset.ajusteVisualDroidfish){
+          new MutationObserver(ajustarContenidoDroidfish).observe(boton,{childList:true});
+          boton.dataset.ajusteVisualDroidfish='1';
+        }
         boton.dataset.tamanoDroidfishFijo='1';
       }catch(e){}
     });
