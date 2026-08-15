@@ -351,11 +351,32 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);c
   function mostrarControlesAnalisisSiempre(frame){
     try{
       var doc=frame&&frame.contentDocument;
-      if(!doc||!doc.head||doc.getElementById('controles-analisis-siempre-visibles'))return;
-      var estilo=doc.createElement('style');
-      estilo.id='controles-analisis-siempre-visibles';
-      estilo.textContent='#b-ana-prev,#b-ana-next{display:flex!important;visibility:visible!important;opacity:1!important;}';
-      doc.head.appendChild(estilo);
+      if(!doc||!doc.head)return;
+      var anterior=doc.getElementById('b-ana-prev');
+      var siguiente=doc.getElementById('b-ana-next');
+      var droidfish=doc.getElementById('b-edit');
+      if(!anterior||!siguiente||!droidfish)return;
+      if(!doc.getElementById('controles-analisis-siempre-visibles')){
+        var estilo=doc.createElement('style');
+        estilo.id='controles-analisis-siempre-visibles';
+        estilo.textContent='#b-ana-prev,#b-ana-next{display:flex!important;visibility:visible!important;transition:opacity .22s ease,filter .22s ease!important;}#b-ana-prev[data-historial-apagado="1"],#b-ana-next[data-historial-apagado="1"]{opacity:.34!important;filter:saturate(.35);cursor:default;}#b-ana-prev[data-historial-apagado="0"],#b-ana-next[data-historial-apagado="0"]{opacity:1!important;filter:none;}';
+        doc.head.appendChild(estilo);
+      }
+      function activarFlechas(){
+        doc.documentElement.dataset.droidfishIniciado='1';
+        anterior.setAttribute('data-historial-apagado','0');
+        siguiente.setAttribute('data-historial-apagado','0');
+      }
+      if(doc.documentElement.dataset.droidfishIniciado==='1'){
+        activarFlechas();
+      }else{
+        anterior.setAttribute('data-historial-apagado','1');
+        siguiente.setAttribute('data-historial-apagado','1');
+      }
+      if(!droidfish.dataset.activacionVisualFlechas){
+        droidfish.addEventListener('click',activarFlechas);
+        droidfish.dataset.activacionVisualFlechas='1';
+      }
     }catch(e){}
   }
 
