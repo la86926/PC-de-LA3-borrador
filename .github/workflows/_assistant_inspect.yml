@@ -1,0 +1,33 @@
+name: Assistant inspect chess controls
+on:
+  push:
+    paths:
+      - '.github/workflows/_assistant_inspect.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect control markup
+        shell: python
+        run: |
+          from pathlib import Path
+          terms = ['Ant','Sig','Droidfish','DroidFish','Reiniciar','Editar','b-reset','b-edit','b-anotar','b-ana-prev','b-ana-next']
+          for fn in ['index1.html','index2.html']:
+              p=Path(fn)
+              s=p.read_text(encoding='utf-8', errors='replace')
+              print(f'===== {fn} =====')
+              for term in terms:
+                  start=0
+                  n=0
+                  while True:
+                      i=s.find(term,start)
+                      if i<0: break
+                      n+=1
+                      a=max(0,i-350); b=min(len(s),i+500)
+                      print(f'--- {term} occurrence {n} @ {i} ---')
+                      print(s[a:b].replace('\n','\\n'))
+                      start=i+len(term)
+                      if n>=6: break
