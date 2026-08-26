@@ -13,9 +13,7 @@ repls=[
 ("not (k.startswith('wp_') or k.startswith('pc_') or k.startswith('__pc_backup_'))",
  "not (k.startswith('wp_') or k.startswith('wp2_') or k.startswith('pc_') or k.startswith('__pc_backup_'))"),
 ("\"PAGE_PREFIX='pc_backup_page_state_v2:'\" in text and \"localStorage.setItem('wp_ultimo'\" in text",
- "\"PAGE_PREFIX='pc_backup_page_state_v2:'\" in text and \"wp_ultimo\" in text and \"wp2_ultimo\" in text"),
-("sample='{" + "\\\"storage\\\":{\\\"local\\\":{\\\"wp_ultimo\\\":\\\"17\\\",\\\"pc_modo\\\":\\\"oscuro\\\"},\\\"session\\\":{}},\\\"cookies\\\":{},\\\"page\\\":{\\\"file\\\":\\\"index1.html\\\"}}'",
- "sample='{" + "\\\"storage\\\":{\\\"local\\\":{\\\"wp_ultimo\\\":\\\"17\\\",\\\"wp2_ultimo\\\":\\\"317\\\",\\\"pc_modo\\\":\\\"oscuro\\\"},\\\"session\\\":{}},\\\"cookies\\\":{},\\\"page\\\":{\\\"file\\\":\\\"index1.html\\\"}}'")
+ "\"PAGE_PREFIX='pc_backup_page_state_v2:'\" in text and \"wp_ultimo\" in text and \"wp2_ultimo\" in text")
 ]
 
 for old,new in repls:
