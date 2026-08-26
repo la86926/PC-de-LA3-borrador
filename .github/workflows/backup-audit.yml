@@ -1,19 +1,23 @@
 name: Backup audit
 
 on:
-  push:
+  pull_request:
     branches: [main]
     paths:
-      - '.github/workflows/backup-audit.yml'
+      - '.backup-audit-trigger'
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
   audit:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       - name: Audit persistence and controls
         shell: bash
         run: |
@@ -22,58 +26,54 @@ jobs:
           import re
 
           files = [Path('index1.html'), Path('index2.html')]
-          terms = [
-              'localStorage','sessionStorage','indexedDB','databases()',
-              'Ver solución','Explicación','Silencio','Girar tablero','Girar',
-              'favorite','favorito','favorites','favoritos','history','historial',
-              'progress','avance','theme','tema','dark','oscuro','sound','sonido','mute','silencio',
-              'exercise','ejercicio','board','tablero','current','actual','state'
-          ]
           out=[]
           for p in files:
               text=p.read_text(encoding='utf-8', errors='replace')
               lines=text.splitlines()
               out.append(f'===== {p} =====')
               out.append(f'bytes={len(text.encode("utf-8"))} lines={len(lines)}')
-              # Storage calls and literal keys
-              call_re = re.compile(r'(?:localStorage|sessionStorage)\s*\.\s*(?:getItem|setItem|removeItem)\s*\(([^\n;)]{0,240})', re.I)
+
+              call_re = re.compile(r'(?:localStorage|sessionStorage)\s*\.\s*(?:getItem|setItem|removeItem)\s*\(([^\n;)]{0,260})', re.I)
               calls=[]
               for m in call_re.finditer(text):
                   s=' '.join(m.group(0).split())
                   if s not in calls: calls.append(s)
               out.append('-- Web Storage calls --')
-              out.extend(calls[:250] or ['(none)'])
+              out.extend(calls[:300] or ['(none)'])
 
-              out.append('-- Exact/control-relevant contexts --')
-              selected = ['localStorage','sessionStorage','indexedDB','Ver solución','Explicación','Silencio','Girar tablero','favorit','historial','history','avance','progress','theme','dark','sound','mute','ejercicio','exercise','currentExercise','currentIndex']
-              for term in selected:
+              for term in ['indexedDB','Ver solución','Silencio','Explicación','Girar tablero','favorit','historial','history','avance','progress','theme','tema','dark','oscuro','sound','sonido','mute','currentExercise','currentIndex','exerciseIndex','ejercicioActual']:
                   hits=[]
                   tl=term.lower()
+                  total=0
                   for i,line in enumerate(lines):
                       if tl in line.lower():
-                          lo=max(0,i-2); hi=min(len(lines),i+3)
-                          snippet='\n'.join(f'{j+1}: {lines[j][:1500]}' for j in range(lo,hi))
-                          hits.append(snippet)
-                          if len(hits)>=12: break
+                          total += 1
+                          if len(hits)<16:
+                              lo=max(0,i-3); hi=min(len(lines),i+4)
+                              hits.append('\n'.join(f'{j+1}: {lines[j][:1800]}' for j in range(lo,hi)))
                   if hits:
-                      out.append(f'### TERM {term!r} ({sum(1 for line in lines if tl in line.lower())} line hits; showing {len(hits)})')
+                      out.append(f'### TERM {term!r} ({total} line hits; showing {len(hits)})')
                       out.extend(hits)
 
-              # IDs/classes around the three-button row
               for label in ['Ver solución','Silencio','Explicación','Girar tablero']:
-                  idx=text.lower().find(label.lower())
-                  if idx>=0:
-                      out.append(f'-- RAW AROUND {label!r} --')
-                      out.append(text[max(0,idx-2500):idx+3500])
+                  start=0
+                  count=0
+                  while count < 8:
+                      idx=text.lower().find(label.lower(), start)
+                      if idx<0: break
+                      out.append(f'-- RAW AROUND {label!r} occurrence {count+1} --')
+                      out.append(text[max(0,idx-3500):idx+5000])
+                      start=idx+len(label)
+                      count += 1
               out.append('')
 
           Path('backup-audit-report.txt').write_text('\n'.join(out), encoding='utf-8')
           PY
-      - name: Commit audit report
+      - name: Commit audit report to PR branch
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add backup-audit-report.txt
-          git diff --cached --quiet || git commit -m "Audit backup state and controls"
-          git push
+          git diff --cached --quiet || git commit -m "Generate backup audit report"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
