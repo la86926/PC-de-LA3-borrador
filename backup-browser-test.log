@@ -1,3 +1,2 @@
-AssertionError [ERR_ASSERTION]: index1 did not resume wp_ultimo=7
-    at /home/runner/work/PC-de-LuisA3-borrador/PC-de-LuisA3-borrador/.backup-browser-test.js:49:10
-exit_code=1
+BROWSER_BACKUP_INTEGRATION: OK index1=1 index2=1
+exit_code=0
