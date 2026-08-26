@@ -1,0 +1,2255 @@
+===== index1.html =====
+bytes=1140543 lines=7273
+-- Web Storage calls --
+localStorage.getItem(k
+localStorage.getItem('wp_hist_log'
+localStorage.setItem('wp_hist_log',JSON.stringify(histLog
+localStorage.getItem('wp_solved'
+localStorage.setItem('wp_solved',JSON.stringify([...solved]
+localStorage.getItem('wp_solved_at'
+localStorage.setItem('wp_solved_at',JSON.stringify(solvedAt
+localStorage.setItem('wp_ultimo', p.n
+localStorage.setItem('wp_solved_at_backup', JSON.stringify(solvedAt
+localStorage.setItem('wp_hist_log_backup', JSON.stringify(histLog
+localStorage.getItem('wp_hist_log_backup'
+localStorage.getItem('wp_sound'
+localStorage.setItem('wp_sound', soundOn?'1':'0'
+localStorage.getItem('wp_ultimo'
+localStorage.getItem('wp_explain_theme'
+localStorage.setItem('wp_explain_theme',exThemeMode
+localStorage.getItem('wp_banner'
+localStorage.setItem('wp_banner',bannerOculto?'1':'0'
+localStorage.setItem(k,v
+-- Exact/control-relevant contexts --
+### TERM 'localStorage' (20 line hits; showing 12)
+1747: (function(){
+1748:   function g(k){
+1749:     try{var v=localStorage.getItem(k); if(v)return v;}catch(e){}
+1750:     try{var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)'); if(m)return decodeURIComponent(m[1]);}catch(e){}
+1751:     return null;
+3918: let histLog=loadHistLog();
+3919: function loadHistLog(){
+3920:   try{const r=localStorage.getItem('wp_hist_log');return r?JSON.parse(r):[];}
+3921:   catch(e){return [];}
+3922: }
+3922: }
+3923: function saveHistLog(){
+3924:   try{localStorage.setItem('wp_hist_log',JSON.stringify(histLog));}catch(e){}
+3925: }
+3926: 
+3928: 
+3929: function loadSolved(){
+3930:   try{const r=localStorage.getItem('wp_solved');return r?new Set(JSON.parse(r)):new Set();}
+3931:   catch(e){return new Set();}
+3932: }
+3933: 
+3934: function saveSolved(){
+3935:   try{localStorage.setItem('wp_solved',JSON.stringify([...solved]));}catch(e){}
+3936: }
+3937: function loadSolvedAt(){
+3936: }
+3937: function loadSolvedAt(){
+3938:   try{const r=localStorage.getItem('wp_solved_at');return r?JSON.parse(r):{};}
+3939:   catch(e){return {};}
+3940: }
+3940: }
+3941: function saveSolvedAt(){
+3942:   try{localStorage.setItem('wp_solved_at',JSON.stringify(solvedAt));}catch(e){}
+3943: }
+3944: 
+3957: 
+3958: mostrarBarraAnalisis(false);
+3959:   try{ localStorage.setItem('wp_ultimo', p.n); }catch(e){}
+3960:   anot().lista=[];
+3961:   renderHead(p); renderBoard(); renderMoves(); renderRef(p);
+5332:   else if(b.id==='b-hist-reset'){
+5333:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5334:       try{ localStorage.setItem('wp_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5335:       try{ localStorage.setItem('wp_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5336:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5333:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5334:       try{ localStorage.setItem('wp_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5335:       try{ localStorage.setItem('wp_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5336:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5337: 
+5340:   else if(b.id==='b-hist-recover'){
+5341:     let backup=null;
+5342:     try{ const r=localStorage.getItem('wp_hist_log_backup'); backup=r?JSON.parse(r):null; }catch(err){}
+5343:     if(!backup || !Object.keys(backup).length){ setStatus('no','No hay ninguna copia de historial para recuperar.'); return; }
+5344:     pedirConfirmacion('¿Recuperar el historial desde la última copia guardada?', ()=>{
+5440: });
+5441: 
+5442: let soundOn = localStorage.getItem('wp_sound')!=='0';
+5443: let audioCtx=null;
+5444: function beep(freq,dur,vol,tipo){
+### TERM 'Ver solución' (4 line hits; showing 4)
+1869:     </div>
+1870:     <div class="actions" style="justify-content:center">
+1871:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1872:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1873:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1937: 
+1938:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1939:   <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial para que lo intentes de nuevo. <strong>Girar</strong> cambia la orientación del tablero.</p>
+1940: 
+1941:   <h2><span class="k">03</span> Navega y filtra</h2>
+4672:   boton.innerHTML=reproduciendo
+4673:     ? '|| Pausar'
+4674:     : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución';
+4675: }
+4676: 
+4689:   if(reproduciendoSolucion){
+4690:     detenerSolucion();
+4691:     setStatus('idle','Solución pausada. Puedes continuarla con Ver solución.');
+4692:     return;
+4693:   }
+### TERM 'Explicación' (7 line hits; showing 7)
+1871:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1872:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1873:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1874:     </div>
+1875: 
+1919:         <div class="tags" id="ref-tags"></div>
+1920:         <div class="note" id="ref-note" style="display:none"></div>
+1921:         <details class="expl" id="expl"><summary>Explicación del libro</summary>
+1922:           <div class="body" id="ref-full"></div>
+1923:         </details>
+2090:       <div class="explanation-topbar-actions">
+2091:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2092:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2093:           <button type="button" data-explain-theme="light">Claro</button>
+2094:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2095:           <button type="button" data-explain-theme="system">Sistema</button>
+2096:         </div>
+2097:         <button class="workspace-close" id="b-explain-close" type="button" aria-label="Cerrar explicación">✕</button>
+2098:       </div>
+2099:     </header>
+2105:           <div class="explain-chips" id="explain-chips"></div>
+2106:           <h3 id="explain-objective">Idea principal</h3>
+2107:           <p id="explain-summary">La explicación aparecerá aquí.</p>
+2108:         </div>
+2109:       </section>
+2133:       </section>
+2134: 
+2135:       <p class="local-note">Esta explicación se construye dentro del navegador mediante reglas de ajedrez, el FEN y la línea principal. No envía información a Internet ni utiliza inteligencia artificial.</p>
+2136:     </main>
+2137:   </article>
+4368: 
+4369: function traducirExplicacionLibro(texto) {
+4370:   if (!texto) return '(sin texto de explicación)';
+4371:   let t = texto;
+4372:   const diccionario = {
+### TERM 'Silencio' (2 line hits; showing 2)
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5495:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5496:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5497: };
+5498: $('ico-sound-on').style.display = soundOn?'block':'none';
+5498: $('ico-sound-on').style.display = soundOn?'block':'none';
+5499: $('ico-sound-off').style.display = soundOn?'none':'block';
+5500: $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5501: 
+5502: $('b-random').onclick=()=>{ $('random-modal').classList.add('open'); };
+### TERM 'Girar tablero' (1 line hits; showing 1)
+1865:     <div class="actions" style="justify-content:center">
+1866:       <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+1867:       <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+1868:       <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+1869:     </div>
+### TERM 'favorit' (8 line hits; showing 8)
+6431:       <button class="btn" id="pc-perso-fav" type="button">
+6432:         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>
+6433:         Guardar como favorito
+6434:       </button>
+6435:       <button class="btn primary" id="pc-perso-usar" type="button">Usar sin guardar</button>
+6463: </div>
+6464: 
+6465: <div class="pc-favs-bg pc-temas-bg" id="pc-favs-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tableros favoritos">
+6466:   <div class="pc-temas-box">
+6467:     <div class="pc-temas-fijo">
+6468:     <div class="pc-temas-head">
+6469:       <div>
+6470:         <h3>Tus favoritos</h3>
+6471:         <p>Los tableros que marcaste con la estrella. Toca uno para usarlo.</p>
+6472:     </div>
+6492:       <button class="pc-barra-btn" id="pc-favs-abrir" type="button" aria-haspopup="dialog">
+6493:         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>
+6494:         Favoritos <span class="pc-cuenta" id="pc-favs-n">0</span>
+6495:       </button>
+6496:         <button class="pc-barra-btn" id="pc-perso-abrir" type="button" aria-haspopup="dialog">
+6785:     est.setAttribute('data-fav',t.k);
+6786:     est.setAttribute('aria-pressed', String(esFav(t.k)));
+6787:     est.setAttribute('aria-label','Marcar '+t.n+' como favorito');
+6788:     est.setAttribute('title','Favorito');
+6789:     est.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>';
+6786:     est.setAttribute('aria-pressed', String(esFav(t.k)));
+6787:     est.setAttribute('aria-label','Marcar '+t.n+' como favorito');
+6788:     est.setAttribute('title','Favorito');
+6789:     est.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>';
+6790:     est.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); alternarFav(t.k); };
+7031:   pintarRejilla();
+7032: 
+7033:   function guardarMio(comoFavorito){
+7034:     var campo=document.getElementById('pc-perso-nombre');
+7035:     var n=campo? String(campo.value||'').trim() : '';
+7040:     mios.push(t);
+7041:     guardar(K_MIOS, JSON.stringify(mios));
+7042:     if(comoFavorito && favs.indexOf(t.k)<0){ favs.push(t.k); guardar(K_FAV, favs.join(',')); }
+7043:     pintarRejilla(); pintarCuenta();
+7044:     if(campo) campo.value='';
+### TERM 'historial' (16 line hits; showing 12)
+1908:   <button class="btn" id="b-export-fen">Exportar FEN</button>
+1909:   <button class="btn" id="b-import">Importar PGN/FEN</button>
+1910:   <button class="btn" id="b-hist-open">Historial</button>
+1911: </div>
+1912:     </div>
+2006:   <div class="modal-box">
+2007:     <div class="modal-head">
+2008:       <h3>Historial de resueltos</h3>
+2009:       <button class="modal-x" id="b-hist-close" aria-label="Cerrar">✕</button>
+2010:     </div>
+2021:     <div class="prog-actions" style="margin-top:.8rem">
+2022: 
+2023:       <button class="btn" id="b-hist-reset" style="flex:1">Resetear historial</button>
+2024:       <button class="btn" id="b-hist-recover" style="flex:1">Recuperar historial</button>
+2025:     </div>
+2022: 
+2023:       <button class="btn" id="b-hist-reset" style="flex:1">Resetear historial</button>
+2024:       <button class="btn" id="b-hist-recover" style="flex:1">Recuperar historial</button>
+2025:     </div>
+2026:   </div>
+4416: }
+4417: 
+4418: function renderHistorial(){
+4419:   const cont=$('hist-list'); if(!cont)return;
+4420:   const ns=histLog;
+4428:     const fecha=f.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'})
+4429:               +' · '+f.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+4430:     html+='<div class="hist-row" data-n="'+n+'" data-t="'+e.t+'"><span class="hist-n">N.º '+n+'</span><span class="hist-d">'+fecha+'</span><button class="hist-x" data-del="'+e.t+'" title="Borrar del historial">✕</button></div>';
+4431:   }
+4432:   if(!state.histTodo && ns.length>20){
+4432:   if(!state.histTodo && ns.length>20){
+4433:     html+='<button class="btn" id="b-hist-todo" style="justify-content:center;margin-top:.3rem">Mostrar todas ('+ns.length+')</button>';
+4434:     html+='<span class="hist-empty" style="text-align:center;padding:.2rem 0">Se muestran las 20 más recientes para mantener la ventana ágil. Tu historial completo está guardado.</span>';
+4435:   }
+4436:   cont.innerHTML=html;
+4445: 
+4446:   $('p-bar').style.width=pct+'%';
+4447:   renderHistorial();
+4448: }
+4449: 
+5327:   else if(b.id==='b-hist-todo'){
+5328:     state.histTodo=true;
+5329:     renderHistorial();
+5330:   }
+5331: 
+5331: 
+5332:   else if(b.id==='b-hist-reset'){
+5333:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5334:       try{ localStorage.setItem('wp_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5335:       try{ localStorage.setItem('wp_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5334:       try{ localStorage.setItem('wp_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5335:       try{ localStorage.setItem('wp_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5336:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5337: 
+5338:     });
+5341:     let backup=null;
+5342:     try{ const r=localStorage.getItem('wp_hist_log_backup'); backup=r?JSON.parse(r):null; }catch(err){}
+5343:     if(!backup || !Object.keys(backup).length){ setStatus('no','No hay ninguna copia de historial para recuperar.'); return; }
+5344:     pedirConfirmacion('¿Recuperar el historial desde la última copia guardada?', ()=>{
+5345:       histLog=backup; saveHistLog(); renderHistorial();
+### TERM 'history' (48 line hits; showing 12)
+2417:   var half_moves = 0
+2418:   var move_number = 1
+2419:   var history = []
+2420:   var header = {}
+2421:   var comments = {}
+2439:     half_moves = 0
+2440:     move_number = 1
+2441:     history = []
+2442:     if (!keep_headers) header = {}
+2443:     comments = {}
+2446: 
+2447:   function prune_comments() {
+2448:     var reversed_history = []
+2449:     var current_comments = {}
+2450:     var copy_comment = function (fen) {
+2453:       }
+2454:     }
+2455:     while (history.length > 0) {
+2456:       reversed_history.push(undo_move())
+2457:     }
+2454:     }
+2455:     while (history.length > 0) {
+2456:       reversed_history.push(undo_move())
+2457:     }
+2458:     copy_comment(generate_fen())
+2457:     }
+2458:     copy_comment(generate_fen())
+2459:     while (reversed_history.length > 0) {
+2460:       make_move(reversed_history.pop())
+2461:       copy_comment(generate_fen())
+2458:     copy_comment(generate_fen())
+2459:     while (reversed_history.length > 0) {
+2460:       make_move(reversed_history.pop())
+2461:       copy_comment(generate_fen())
+2462:     }
+2663: 
+2664:   function update_setup(fen) {
+2665:     if (history.length > 0) return
+2666: 
+2667:     if (fen !== DEFAULT_POSITION) {
+3069: 
+3070:   function push(move) {
+3071:     history.push({
+3072:       move: move,
+3073:       kings: { b: kings.b, w: kings.w },
+3167: 
+3168:   function undo_move() {
+3169:     var old = history.pop()
+3170:     if (old == null) {
+3171:       return null
+3458:       }
+3459: 
+3460:       if (header_exists && history.length) {
+3461:         result.push(newline)
+3462:       }
+3471:       }
+3472: 
+3473:       var reversed_history = []
+3474:       while (history.length > 0) {
+3475:         reversed_history.push(undo_move())
+### TERM 'avance' (1 line hits; showing 1)
+3903: </script>
+3904: <script>
+3905: const PUZZLES = [{"n":1,"lv":"F","fen":"r6r/1pp3k1/1b6/p2P1p2/P1N1pn2/2P2PP1/BP5P/4RR1K b - - 0 1","o":"b","ln":["Txh2+","Rxh2","Th8#"],"u":["h8h2","h1h2","a8h8"],"w":"Carl Hamppe","b":"Wilhelm Steinitz","ev":"Viena 1860","tg":["Mate en 2","Ganancia de material"],"v":1,"full":"30...Txh2+! 31.Rxh2 Th8 mate Las negras habrían estado perdidas sin este recurso."},{"n":2,"lv":"F","fen":"rnb3kr/ppp4p/3b3B/3Pp2n/2BP4/3K1Rp1/PPP3q1/RN1Q4 w - - 0 1","o":"w","ln":["Tf8+","Axf8","d6+","Ae6","Axe6#"],"u":["f3f8","d6f8","d5d6","c8e6","c4e6"],"w":"Wilhelm Steinitz","b":"J. Wilson","ev":"Londres 1862","tg":["Mate en 3","Ganancia de material"],"v":1,"full":"18.Tf8+! Axf8 19.d6+ Ae6 20.Axe6 mate"},{"n":3,"lv":"F","fen":"r2q1rk1/pppb1ppp/3b4/4p1P1/4Pn2/2N1B2P/PPPQBP2/2KR3R w - - 0 1","o":"w","ln":["Axf4","exf4","e5"],"u":["e3f4","e5f4","e4e5"],"w":"Wilhelm Steinitz","b":"Serafino Dubois","ev":"Londres (6) 1862","tg":["Ganancia de material"],"v":1,"full":"El alfil de d6 está clavado y Steinitz aprovechó esto con 14.Axf4! exf4 15.e5 con lo que ganó una pieza."},{"n":4,"lv":"F","fen":"2kr4/1pp4p/1p1r4/5Pp1/1P2q3/2P1R2P/P3KP2/1Q1R4 b - - 0 1","o":"b","ln":["Td2+"],"u":["d6d2"],"w":"Valentine Green","b":"Wilhelm Steinitz","ev":"Londres 1864","tg":["Ventaja decisiva","Ataque con jaques"],"v":1,"full":"31...Td2+! –+ La dama pierde a su defensora."},{"n":5,"lv":"F","fen":"rn1qk2r/ppp2ppp/5n2/2b1p3/2B1P1b1/3P1N2/PPP3PP/RNBQK2R w - - 0 1","o":"w","ln":["Axf7+","Rxf7","Cxe5+"],"u":["c4f7","e8f7","f3e5"],
+3906: const LV={F:'Fácil',I:'Intermedio',A:'Avanzado'};
+3907: const PIECES={"bB":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 45 45\"><g fill=\"none\" fill-rule=\"evenodd\" stroke=\"#000\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.5\"><g fill=\"#000\" stroke-linecap=\"butt\"><path d=\"M9 36c3.4-1 10.1.4 13.5-2 3.4 2.4 10.1 1 13.5 2 0 0 1.6.5 3 2-.7 1-1.6 1-3 .5-3.4-1-10.1.5-13.5-1-3.4 1.5-10.1 0-13.5 1-1.4.5-2.3.5-3-.5 1.4-2 3-2 3-2z\"/><path d=\"M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z\"/><path d=\"M25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z\"/></g><path stroke=\"#ececec\" stroke-linejoin=\"miter\" d=\"M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5\"/></g></svg>","bK":"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 45 45\"><g fill=\"none\" fill-rule=\"evenodd\" stroke=\"#000\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.5\"><path stroke-linejoin=\"miter\" d=\"M22.5 11.6V6\"/><path fill=\"#000\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" d=\"M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5\"/><path fill=\"#000\" d=\"M11.5 37a22.3 22.3 0 0 0 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10z\"/><path stroke-linejoin=\"miter\" d=\"M20 8h5\"/><path stroke=\"#ececec\" d=\"M32 29.5s8.5-4 6-9.7C34.1 14 25 18 22.5 24.6v2.1-2.1C20 18 9.9 14 7 19.9c-2.5 5.6 4.8 9 4.8 9\"/><path stroke=\"#ececec\" d=\"M11.5 30c5.5-3 15.5-3 
+### TERM 'progress' (4 line hits; showing 4)
+4320: 
+4321:   setStatus('done','¡Resuelto! Ahora puedes mover libremente para analizar. Pulsa Reiniciar para volver al ejercicio.');
+4322:   renderProgress();
+4323: }
+4324: 
+4437: }
+4438: 
+4439: function renderProgress(){
+4440: 
+4441:   const n=solved.size, pct=Math.round(n/PUZZLES.length*100);
+5256:   arr.forEach(n=>solved.add(n));
+5257:   saveSolved();
+5258:   renderProgress();
+5259: 
+5260:   setStatus('ok','Progreso importado correctamente.');
+5524: load(curr());
+5525: 
+5526: renderProgress();
+5527: 
+5528: if (typeof window !== 'undefined') { window.Chess = Chess; }
+### TERM 'theme' (18 line hits; showing 12)
+4: <meta charset="UTF-8">
+5: <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+6: <meta name="theme-color" content="#0F1411">
+7: <title>PC de L1</title>
+8: <link rel="icon" type="image/png" href="torre.png">
+257: .explanation-topbar{align-items:center}
+258: .explanation-topbar-actions{display:flex;align-items:center;gap:.65rem;flex:0 0 auto}
+259: .explain-theme-switch{display:flex;gap:3px;padding:3px;border:1px solid var(--line)}
+260: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+261: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+258: .explanation-topbar-actions{display:flex;align-items:center;gap:.65rem;flex:0 0 auto}
+259: .explain-theme-switch{display:flex;gap:3px;padding:3px;border:1px solid var(--line)}
+260: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+261: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+262: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+260: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+261: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+262: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+263: .explanation-bg .explanation-shell{background:var(--ex-shell);color:var(--ex-ink)}
+264: .explanation-bg .explanation-topbar{background:var(--ex-topbar)}
+302: .section-heading{align-items:flex-start}
+303: }
+304: @media(max-width:540px){.explain-theme-switch button{padding:.45rem .48rem;font-size:.64rem}
+305: .explanation-topbar-actions{gap:.45rem}
+306: .snapshot-board-wrap{padding:7px}
+966: .pc-tema[aria-pressed="true"] b{color:var(--gold)}
+967: 
+968: .explanation-bg,.explanation-bg[data-resolved-theme="dark"],.explanation-bg[data-resolved-theme="light"]{
+969:   --ex-shell:var(--panel);
+970:   --ex-topbar:var(--barra);
+980:   --ex-board-frame:var(--panel2);
+981: }
+982: .explain-theme-switch{display:none}
+983: .workspace-shell{
+984:   background:var(--panel);color:var(--ink);
+2080: </div>
+2081: 
+2082: <div id="explain-modal" class="workspace-bg explanation-bg" aria-hidden="true" data-theme-mode="system" data-resolved-theme="light">
+2083:   <article class="workspace-shell explanation-shell" role="dialog" aria-modal="true" aria-labelledby="explain-title">
+2084:     <header class="workspace-topbar explanation-topbar">
+2090:       <div class="explanation-topbar-actions">
+2091:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2092:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2093:           <button type="button" data-explain-theme="light">Claro</button>
+2094:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2091:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2092:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2093:           <button type="button" data-explain-theme="light">Claro</button>
+2094:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2095:           <button type="button" data-explain-theme="system">Sistema</button>
+2092:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2093:           <button type="button" data-explain-theme="light">Claro</button>
+2094:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2095:           <button type="button" data-explain-theme="system">Sistema</button>
+2096:         </div>
+2093:           <button type="button" data-explain-theme="light">Claro</button>
+2094:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2095:           <button type="button" data-explain-theme="system">Sistema</button>
+2096:         </div>
+2097:         <button class="workspace-close" id="b-explain-close" type="button" aria-label="Cerrar explicación">✕</button>
+### TERM 'dark' (242 line hits; showing 12)
+79: .sq{position:relative;display:flex;align-items:center;justify-content:center;user-select:none;min-width: 0;min-height: 0;overflow: hidden}
+80: .sq.l{background:var(--light)}
+81: .sq.d{background:var(--dark)}
+82: .sq .pc{width:92%;height:92%;display:flex;align-items:center;justify-content:center;cursor:grab;transition:transform .07s;will-change:transform}
+83: .sq .pc svg{width:100%;height:100%;display:block;pointer-events:none}
+260: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+261: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+262: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+263: .explanation-bg .explanation-shell{background:var(--ex-shell);color:var(--ex-ink)}
+264: .explanation-bg .explanation-topbar{background:var(--ex-topbar)}
+275: .ex-sq{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;overflow:hidden}
+276: .ex-sq.l{background:var(--light)}
+277: .ex-sq.d{background:var(--dark)}
+278: .ex-pc{width:91%;height:91%;display:block}
+279: .ex-pc svg{width:100%;height:100%;display:block}
+323: .pc-io-help{margin:.7rem 0 0;color:var(--muted2);font-size:.73rem;line-height:1.45}
+324: 
+325: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+326: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+327: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+324: 
+325: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+326: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+327: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+328: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+325: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+326: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+327: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+328: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+329: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+326: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+327: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+328: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+329: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+330: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+327: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+328: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+329: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+330: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+331: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+328: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+329: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+330: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+331: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+332: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+329: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+330: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+331: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+332: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+333: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+330: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+331: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+332: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+333: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+334: html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46);--acento-tema:#8A4B4E;--acento-ink:#F1E3E1;--acento-txt-cla:#8A4B4E;--acento-txt-osc:#B99395;--marco-tema:#E3CECC}
+331: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+332: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+333: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+334: html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46);--acento-tema:#8A4B4E;--acento-ink:#F1E3E1;--acento-txt-cla:#8A4B4E;--acento-txt-osc:#B99395;--marco-tema:#E3CECC}
+335: html[data-tablero="musgo"]{--light:#E9EFDF;--dark:#6C8757;--coord-l:#4C5E3D;--coord-d:#F1F5EA;--hl:rgba(255,206,61,.46);--acento-tema:#526742;--acento-ink:#E9EFDF;--acento-txt-cla:#617A4E;--acento-txt-osc:#899F79;--marco-tema:#D8E0CC}
+### TERM 'sound' (14 line hits; showing 12)
+1870:     <div class="actions" style="justify-content:center">
+1871:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1872:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1873:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1874:     </div>
+4387:     "Obviously not": "Obviamente no",
+4388:     "White has a perpetual on f6 and f7.": "Las blancas tienen jaque perpetuo en f6 y f7.",
+4389:     "A win by an unsound combination, however showy, fills me with artistic horror.": "Una victoria por una combinación incorrecta, por muy vistosa que sea, me llena de horror artístico.",
+4390:     "wins a piece": "gana una pieza",
+4391:     "traps the queen": "atrapa la dama",
+5440: });
+5441: 
+5442: let soundOn = localStorage.getItem('wp_sound')!=='0';
+5443: let audioCtx=null;
+5444: function beep(freq,dur,vol,tipo){
+5443: let audioCtx=null;
+5444: function beep(freq,dur,vol,tipo){
+5445:   if(!soundOn) return;
+5446:   try{
+5447:     if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+5461: };
+5462: function play(nombre){
+5463:   if(!soundOn) return;
+5464:   try{
+5465:     const a=AUDIOS[nombre];
+5489: }
+5490: 
+5491: $('b-sound').onclick=()=>{
+5492:   soundOn=!soundOn;
+5493:   localStorage.setItem('wp_sound', soundOn?'1':'0');
+5490: 
+5491: $('b-sound').onclick=()=>{
+5492:   soundOn=!soundOn;
+5493:   localStorage.setItem('wp_sound', soundOn?'1':'0');
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5491: $('b-sound').onclick=()=>{
+5492:   soundOn=!soundOn;
+5493:   localStorage.setItem('wp_sound', soundOn?'1':'0');
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5495:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5492:   soundOn=!soundOn;
+5493:   localStorage.setItem('wp_sound', soundOn?'1':'0');
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5495:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5496:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5493:   localStorage.setItem('wp_sound', soundOn?'1':'0');
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5495:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5496:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5497: };
+5494:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5495:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5496:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5497: };
+5498: $('ico-sound-on').style.display = soundOn?'block':'none';
+5496:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5497: };
+5498: $('ico-sound-on').style.display = soundOn?'block':'none';
+5499: $('ico-sound-off').style.display = soundOn?'none':'block';
+5500: $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+### TERM 'mute' (95 line hits; showing 12)
+14: button{font-family:inherit;cursor:pointer;color:inherit}
+15: ::selection{background:var(--crest)}
+16: .texto-amigo{font-size: var(--txt-amigo-size);color: var(--muted);display: block;margin-top: 2px;font-weight: 400}
+17: .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem clamp(.8rem,3vw,1.6rem);border-bottom:1px solid var(--line);position:static;top:0;backdrop-filter:blur(8px);z-index:30;max-width:1180px;margin-left:auto;margin-right:auto}
+18: .gift-btn{border:1px solid var(--gold);width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;font-size:1.25rem;line-height:1;flex:0 0 auto;transition:.2s;animation:giftPulse 2.4s ease-in-out infinite}
+44: .home-icon:hover .crest{transform:scale(1.08)}
+45: .home-icon .crest{transition:transform .15s ease}
+46: .wordmark small{display:block;font-family:var(--sans);font-weight:400;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+47: .tabs{display:flex;gap:.15rem;background:var(--panel);border:1px solid var(--line);padding:3px}
+48: .tab{border:0;background:transparent;color:var(--muted);padding:.4rem .8rem;font-size:.85rem;font-weight:500;transition:.15s}
+46: .wordmark small{display:block;font-family:var(--sans);font-weight:400;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+47: .tabs{display:flex;gap:.15rem;background:var(--panel);border:1px solid var(--line);padding:3px}
+48: .tab{border:0;background:transparent;color:var(--muted);padding:.4rem .8rem;font-size:.85rem;font-weight:500;transition:.15s}
+49: .tab:hover{color:var(--ink)}
+50: .tab.active{background:var(--panel2);color:var(--ink)}
+49: .tab:hover{color:var(--ink)}
+50: .tab.active{background:var(--panel2);color:var(--ink)}
+51: .gtab{border:0;background:transparent;color:var(--muted);padding:.28rem .6rem;font-size:.76rem;font-weight:500;transition:.15s}
+52: .gtab.active{background:var(--panel2);color:var(--ink)}
+53: .view{display:none;animation:fade .25s ease}
+70: .exno{font-family:var(--serif);font-size:1.5rem;font-weight:600}
+71: .exno span{color:var(--crest)}
+72: .chip{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:.2rem .55rem;border:1px solid var(--line);color:var(--muted)}
+73: .chip.I{color:var(--gold)}
+74: .chip.A{color:var(--crest)}
+73: .chip.I{color:var(--gold)}
+74: .chip.A{color:var(--crest)}
+75: .toplay{font-size:.92rem;color:var(--muted)}
+76: .toplay b{color:var(--ink)}
+77: .frame{position:relative;padding:clamp(10px,2.2vw,16px);max-width:620px;margin:0 auto;width:100%}
+108: .moves .ply{padding:.05rem .3rem}
+109: .moves .ply.u{color:var(--ink)}
+110: .moves .ply.o{color:var(--muted)}
+111: .moves .ply.now{background:var(--gold);font-weight:700}
+112: .moves .num{color:var(--muted2);margin-right:.15rem}
+110: .moves .ply.o{color:var(--muted)}
+111: .moves .ply.now{background:var(--gold);font-weight:700}
+112: .moves .num{color:var(--muted2);margin-right:.15rem}
+113: .moves .hidden{color:var(--muted2);opacity:.45}
+114: .fig{display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.18em}
+111: .moves .ply.now{background:var(--gold);font-weight:700}
+112: .moves .num{color:var(--muted2);margin-right:.15rem}
+113: .moves .hidden{color:var(--muted2);opacity:.45}
+114: .fig{display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.18em}
+115: .fig svg{width:100%;height:100%;display:block}
+123: .jump input:focus{outline:none}
+124: .filters{display:flex;gap:.4rem;margin-top:.7rem;flex-wrap:wrap}
+125: .fbtn{flex:1;min-width:72px;border:1px solid var(--line);background:var(--bg);padding:.5rem .3rem;font-size:.78rem;font-weight:600;color:var(--muted);transition:.15s;text-align:center}
+126: .fbtn.active{color:var(--ink)}
+127: .fbtn small{display:block;font-weight:400;font-size:.68rem;color:var(--muted2);margin-top:1px}
+125: .fbtn{flex:1;min-width:72px;border:1px solid var(--line);background:var(--bg);padding:.5rem .3rem;font-size:.78rem;font-weight:600;color:var(--muted);transition:.15s;text-align:center}
+126: .fbtn.active{color:var(--ink)}
+127: .fbtn small{display:block;font-weight:400;font-size:.68rem;color:var(--muted2);margin-top:1px}
+128: .prog{display:flex;gap:.5rem;text-align:center}
+129: .prog .cell{flex:1;background:var(--bg);border:1px solid var(--line);padding:.55rem .2rem}
+129: .prog .cell{flex:1;background:var(--bg);border:1px solid var(--line);padding:.55rem .2rem}
+130: .prog .big{font-family:var(--serif);font-size:1.25rem;font-weight:600}
+131: .prog .lbl{font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted2);margin-top:1px}
+132: .bar{height:6px;background:var(--bg);overflow:hidden;margin-top:.7rem;border:1px solid var(--line)}
+133: .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--crest));width:0;transition:width .4s}
+### TERM 'ejercicio' (33 line hits; showing 12)
+1793:   <div class="hdr-marca">
+1794:     <button class="home-icon" id="b-home" type="button" aria-label="Ir al inicio"> <img class="crest" src="torre.png" alt="Pieza de ajedrez" > </button>
+1795:     <span class="titulo"><b>El Método PC 1</b><small>1128 ejercicios tácticos</small></span>
+1796:   </div>
+1797:   <div class="hdr-centro">
+1820:   <div class="boardhead">
+1821:       <div class="boardhead-left">
+1822:         <div class="exno">Ejercicio <span id="exno">1</span></div>
+1823:         <div style="display:flex;gap:.5rem;align-items:center;white-space:nowrap;">
+1824:           <span class="chip" id="chip">Fácil</span>
+1881:    <div class="panel-card">
+1882:       <h3>Navegación</h3>
+1883:       <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+1884: 
+1885:       <div class="jump">
+1931:  <div class="reading">
+1932:   <h1>Cómo usar este entrenador</h1>
+1933:   <p class="lead">Mil ciento veintiocho ejercicios tácticos del libro de AS y nss, listos para resolver sobre un tablero interactivo y en español.</p>
+1934: 
+1935:   <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+1934: 
+1935:   <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+1936:   <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para jugar. Si tu jugada coincide con la línea principal del libro, la posición avanza y el rival responde solo. Si fallas, la pieza vuelve a su sitio y te avisa.</p>
+1937: 
+1938:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1937: 
+1938:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1939:   <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial para que lo intentes de nuevo. <strong>Girar</strong> cambia la orientación del tablero.</p>
+1940: 
+1941:   <h2><span class="k">03</span> Navega y filtra</h2>
+1940: 
+1941:   <h2><span class="k">03</span> Navega y filtra</h2>
+1942:   <p>Avanza con <span class="kbd">◂</span> y <span class="kbd">▸</span>, salta a cualquier número, o filtra por nivel: <strong>Fácil</strong> (1–222), <strong>Intermedio</strong> (223–984) y <strong>Avanzado</strong> (985–1128). También puedes usar el teclado: flechas <span class="kbd">←</span> <span class="kbd">→</span> para cambiar de ejercicio, <span class="kbd">H</span> para pista, <span class="kbd">S</span> solución, <span class="kbd">R</span> reiniciar, <span class="kbd">F</span> girar.</p>
+1943: 
+1944:   <h2><span class="k">04</span> Tu progreso se guarda</h2>
+1943: 
+1944:   <h2><span class="k">04</span> Tu progreso se guarda</h2>
+1945:   <p>Cada ejercicio resuelto queda marcado en tu navegador. Puedes <strong>exportar</strong> tu progreso a un archivo y volver a <strong>importarlo</strong> en otro equipo. Lo ideal del método es repetir el mismo bloque varias veces: el progreso te ayuda a llevar la cuenta, pero el verdadero objetivo es la velocidad y la automatización (lee la pestaña <strong>Método</strong>).</p>
+1946: 
+1947:   <div class="callout">Consejo: no muevas las piezas para «tantear». Calcula primero en tu cabeza la secuencia completa y solo entonces ejecútala. Así entrenas la visualización, que es lo que de verdad mejora tu táctica.</div>
+1952:  <div class="reading">
+1953:   <h1>El Método PC 1</h1>
+1954:   <p class="lead">La idea es sencilla y exigente: resolver un mismo conjunto de ejercicios una y otra vez, cada vez más rápido, hasta que el reconocimiento de patrones se vuelva automático.</p>
+1955: 
+1956:   <p>El nombre viene del PC (<em>wp</em>): golpe tras golpe sobre el mismo punto. En táctica, ese «mismo punto» son los motivos que se repiten —clavadas, horquillas, desviaciones, mates de la última fila— y la repetición deliberada es lo que los graba en la memoria.</p>
+1958:   <h2><span class="k">›</span> El ciclo de repetición</h2>
+1959:   <ol class="steps">
+1960:     <li><strong>Elige un bloque.</strong> Por ejemplo todo el nivel Fácil, o un tramo de 100–200 ejercicios. Debe ser un conjunto fijo que repetirás entero.</li>
+1961:     <li><strong>Primera vuelta.</strong> Resuélvelos todos con calma, calculando de verdad. Anota cuánto tardas y cuántos aciertas. No importa si es lento.</li>
+1962:     <li><strong>Repite el mismo bloque.</strong> En la segunda vuelta reconocerás posiciones; irás más rápido y fallarás menos.</li>
+1969: 
+1970:   <h2><span class="k">›</span> Recomendaciones prácticas</h2>
+1971:   <p>Resuelve en tu cabeza la línea completa antes de mover. Sé honesto: solo cuenta como acertado si viste la idea principal, no solo el primer golpe. Repite el bloque con días de descanso entre ciclos. La constancia —pocos ejercicios al día, pero todos los días— rinde más que sesiones largas y esporádicas.</p>
+1972: 
+1973:   <div class="callout">Los autores diseñaron el libro precisamente para esto: un conjunto cerrado de ejercicios pensado para repetirse. Este entrenador te da el mismo material con validación interactiva; el método lo pones tú.</div>
+1971:   <p>Resuelve en tu cabeza la línea completa antes de mover. Sé honesto: solo cuenta como acertado si viste la idea principal, no solo el primer golpe. Repite el bloque con días de descanso entre ciclos. La constancia —pocos ejercicios al día, pero todos los días— rinde más que sesiones largas y esporádicas.</p>
+1972: 
+1973:   <div class="callout">Los autores diseñaron el libro precisamente para esto: un conjunto cerrado de ejercicios pensado para repetirse. Este entrenador te da el mismo material con validación interactiva; el método lo pones tú.</div>
+1974:  </div>
+1975: </section>
+### TERM 'exercise' (3 line hits; showing 3)
+7225: 
+7226:     if(mq.matches){
+7227:       var fila=document.getElementById('pc-mobile-exercise-nav');
+7228:       if(!fila){
+7229:         fila=document.createElement('div');
+7228:       if(!fila){
+7229:         fila=document.createElement('div');
+7230:         fila.id='pc-mobile-exercise-nav';
+7231:         fila.style.cssText='display:flex;align-items:center;justify-content:flex-end;gap:.55rem;width:100%;max-width:620px;margin:.7rem auto 0;';
+7232:         filaInferior.parentNode.insertBefore(fila,filaInferior);
+7252:       });
+7253:     }else{
+7254:       var fila=document.getElementById('pc-mobile-exercise-nav');
+7255:       var destino=document.querySelector('.boardhead-right');
+7256:       if(destino){
+-- RAW AROUND 'Ver solución' --
+eight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Editar</button>
+      <button class="btn" id="b-ana-prev" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M16 4L6 12l10 8z"/></svg></button>
+      <button class="btn" id="b-ana-next" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M8 4l10 8-10 8z"/></svg></button>    </div>    
+
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1128)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1128</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>222</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>762</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>144</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="reading">
+  <h1>Cómo usar este entrenador</h1>
+  <p class="lead">Mil ciento veintiocho ejercicios tácticos del libro de AS y nss, listos para resolver sobre un tablero interactivo y en español.</p>
+
+  <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+  <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para jugar. Si tu jugada coincide co
+-- RAW AROUND 'Silencio' --
+$('v-train').classList.contains('active')) return;
+
+  const k=e.key.toLowerCase();
+
+  if(e.key==='ArrowRight'){
+    if(state.freemode){
+      e.preventDefault();
+      if(state.anaMoves) irAJugada(state.anaPtr+1);
+    }else{
+      go(1);
+    }
+  }
+
+  else if(e.key==='ArrowLeft'){
+    if(state.freemode){
+      e.preventDefault();
+      if(state.anaMoves) irAJugada(state.anaPtr-1);
+    }else{
+      go(-1);
+    }
+  }
+
+  else if(k==='h'){$('b-hint').click();}
+  else if(k==='s'){$('b-sol').click();}
+  else if(k==='r'){$('b-reset').click();}
+  else if(k==='f'){$('b-flip').click();}
+});
+
+let soundOn = localStorage.getItem('wp_sound')!=='0';
+let audioCtx=null;
+function beep(freq,dur,vol,tipo){
+  if(!soundOn) return;
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=tipo||'sine'; o.frequency.value=freq;
+    g.gain.setValueAtTime(vol,audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+
+const AUDIOS={
+  move:    new Audio('Move.mp3'),
+  capture: new Audio('Capture.mp3'),
+  error:   new Audio('Error.mp3')
+};
+function play(nombre){
+  if(!soundOn) return;
+  try{
+    const a=AUDIOS[nombre];
+    a.currentTime=0;
+    a.play();
+  }catch(e){}
+}
+function sndMove(){ play('move'); }
+function sndCapture(){ play('capture'); }
+function sndError(){ play('error'); }
+function sndSolved(){ play('move'); setTimeout(()=>play('capture'),140); }
+
+function lanzarConfeti(cantidad){
+  const colores=['#cf4d2e','#d9a441','#77a268','#efe1c6','#a9713f'];
+  for(let i=0;i<cantidad;i++){
+    const c=document.createElement('div');
+    c.className='confeti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colores[Math.floor(Math.random()*colores.length)];
+    c.style.animationDuration=(1.6+Math.random()*1.4)+'s';
+    c.style.animationDelay=(Math.random()*.4)+'s';
+    c.style.transform='rotate('+Math.random()*360+'deg)';
+    if(Math.random()<.4)c.style.borderRadius='50%';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3600);
+  }
+}
+
+$('b-sound').onclick=()=>{
+  soundOn=!soundOn;
+  localStorage.setItem('wp_sound', soundOn?'1':'0');
+  $('ico-sound-on').style.display = soundOn?'block':'none';
+  $('ico-sound-off').style.display = soundOn?'none':'block';
+  $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+};
+$('ico-sound-on').style.display = soundOn?'block':'none';
+$('ico-sound-off').style.display = soundOn?'none':'block';
+$('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+
+$('b-random').onclick=()=>{ $('random-modal').classList.add('open'); };
+$('random-modal').addEventListener('click',e=>{
+  if(e.target.id==='random-modal' || e.target.id==='b-random-close'){
+    $('random-modal').classList.remove('open'); return;
+  }
+  const b=e.target.closest('button[data-rl]');
+  if(!b) return;
+  const nivel=b.dataset.rl;
+  $('random-modal').classList.remove('open');
+  const grupo = nivel==='all' ? PUZZLES : PUZZLES.filter(p=>p.lv===nivel);
+  const elegido = grupo[Math.floor(Math.random()*grupo.length)];
+  jumpToNumber(elegido.n);
+});
+
+buildList();
+if(navigator.storage && navigator.storage.persist){ navigator.storage.persist(); }
+document.addEventListener('gesturestart', e=>e.preventDefault());
+document.addEventListener('dblclick', e=>e.preventDefault());
+$('c-all').textContent = PUZZLES.length;
+const ultimo=parseInt(localStorage.getItem('wp_ultimo'),10);
+const idxU=ultimo?state.list.findIndex(p=>p.n===ultimo):-1;
+if(idxU>=0){ state.i=idxU; }
+load(curr());
+
+renderProgress();
+
+if (typeof window !== 'undefined') { window.Chess = Chess; }
+
+function limpiarPremoveVisual() {
+  boardEl.querySelectorAll('.sq').forEach(el => {
+    el.style.outline = '';
+    el.style.outlineOffset = '';
+    el.style.boxShadow = '';
+  });
+}
+
+function mostrarBarraAnalisis(visible){
+  $('b-ana-prev').style.display = visible ? 'flex' : 'none';
+  $('b-ana-next').style.display = visible ? 'flex' : 'none';
+  $('engine-box').style.display = visible ? 'block' : 'none';
+}
+
+var motor=null, motorOn=false, motorPausado=false, fenAnalizado='';
+var motorFallbackUsado=false, motorJsBlobUrl='', motorWasmBlobUrl='';
+
+function baseRecursoLocal(){
+  return location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/,'');
+}
+
+function configurarWorkerStockfish(w){
+  motor=w;
+  var recibioUci=false;
+  motor.onmessage=function(e){
+    var txt=String(e.data);
+    if(txt.indexOf('uciok')!==-1){
+      recibioUci=true;
+      if(motorOn){$('eng-line').textContent='Analizando posición…';analizarPosicion();}
+    }
+    leerMotor(txt);
+  };
+  motor.onerror=function(ev){
+    if(!recibioUci && !motorFallbackUsado){
+      motorFallbackUsado=true;
+      try{motor.terminate();}catch(e){}
+      motor=null;
+      $('eng-line').textContent='Preparando Stockfish para Android…';
+      iniciarMotorDesdeBlob();
+      return;
+    }
+    motorOn=false;motor=null;
+    actualizarBotonEditar(false);actualizarBotonMotor(false);
+    $('eng-eval').textContent='—';
+    $('eng-line').textContent='No se pudo cargar Stockfish. Revisa que Android System WebView esté actualizado.';
+  };
+  motor.postMessage('uci');
+  return true;
+}
+
+function cargarRecursoMotor(url,tipo){
+  return new Promise(function(resolve,reject){
+    try{
+      var x=new XMLHttpRequest();x.open('GET',url,true);x.responseType=tipo;
+      x.onload=function(){
+        if(x.status===0||(x.status>=200&&x.status<300))resolve(x.response);
+        else reject(new Error('HTTP '+x.status));
+      };
+      x.onerror=function(){reject(new Error('No se pudo leer '+url));};
+      x.send(null);
+    }catch(e){reject(e);}
+  });
+}
+
+function iniciarMotorDesdeBlob(){
+  var base=baseRecursoLocal();
+  Promise.all([
+    cargarRecursoMotor(base+'stockfish-18-lite-single.js','text'),
+    cargarRecursoMotor(base+'stockfish-18-lite-single.wasm','arraybuffer')
+  ]).then(funct
+-- RAW AROUND 'Explicación' --
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1128)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1128</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>222</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>762</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>144</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="reading">
+  <h1>Cómo usar este entrenador</h1>
+  <p class="lead">Mil ciento veintiocho ejercicios tácticos del libro de AS y nss, listos para resolver sobre un tablero interactivo y en español.</p>
+
+  <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+  <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para jugar. Si tu jugada coincide con la línea principal del libro, la posición avanza y el rival responde solo. Si fallas, la pieza vuelve a su sitio y te avisa.</p>
+
+  <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+  <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial para que lo intentes de nuevo. <strong>Girar</strong> cambia la orientación del tablero.</p>
+
+  <h2><span class="k">03</span> Navega y filtra</h2>
+  <p>Avanza con <span class="kbd">◂</span> y <span class="kbd">▸</span>, salta a cualquier número, o filtra por nivel: <strong>Fácil</strong> (1–222), <strong>Intermedio</strong> (223–984) y <strong>Avanzado</strong> (985–1128). También puedes u
+-- RAW AROUND 'Girar tablero' --
+>Reiniciar</button>
+      <button class="btn" id="b-edit" style="flex:1; justify-content:center; padding:.6rem .4rem; font-size:0.95rem; font-weight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>Stockfish</button>
+      <button class="btn" id="b-anotar" type="button" aria-pressed="false" style="flex:1; justify-content:center; padding:.6rem .4rem; font-size:0.95rem; font-weight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Editar</button>
+      <button class="btn" id="b-ana-prev" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M16 4L6 12l10 8z"/></svg></button>
+      <button class="btn" id="b-ana-next" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M8 4l10 8-10 8z"/></svg></button>    </div>    
+
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1128)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1128</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>222</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>762</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>144</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="reading">
+
+
+===== index2.html =====
+bytes=811310 lines=7483
+-- Web Storage calls --
+localStorage.getItem(k
+localStorage.getItem('wp2_hist_log'
+localStorage.setItem('wp2_hist_log',JSON.stringify(histLog
+localStorage.getItem('wp2_solved'
+localStorage.setItem('wp2_solved',JSON.stringify([...solved]
+localStorage.getItem('wp2_solved_at'
+localStorage.setItem('wp2_solved_at',JSON.stringify(solvedAt
+localStorage.setItem('wp2_ultimo', p.n
+localStorage.setItem('wp2_solved_at_backup', JSON.stringify(solvedAt
+localStorage.setItem('wp2_hist_log_backup', JSON.stringify(histLog
+localStorage.getItem('wp2_hist_log_backup'
+localStorage.getItem('wp2_daily_goal'
+localStorage.getItem('wp2_error_book'
+localStorage.setItem('wp2_error_book',JSON.stringify(errorBook
+localStorage.getItem('wp2_ultimo'
+localStorage.setItem('wp2_daily_goal',trainingGoal
+localStorage.getItem('wp2_explain_theme'
+localStorage.setItem('wp2_explain_theme',explainThemeMode
+localStorage.getItem('wp_banner'
+localStorage.setItem('wp_banner',bannerOculto?'1':'0'
+localStorage.getItem('wp2_sound'
+localStorage.setItem('wp2_sound', soundOn?'1':'0'
+localStorage.setItem(k,v
+-- Exact/control-relevant contexts --
+### TERM 'localStorage' (26 line hits; showing 12)
+1774: (function(){
+1775:   function g(k){
+1776:     try{var v=localStorage.getItem(k); if(v)return v;}catch(e){}
+1777:     try{var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)'); if(m)return decodeURIComponent(m[1]);}catch(e){}
+1778:     return null;
+4010: let histLog=loadHistLog();
+4011: function loadHistLog(){
+4012:   try{const r=localStorage.getItem('wp2_hist_log');return r?JSON.parse(r):[];}
+4013:   catch(e){return [];}
+4014: }
+4014: }
+4015: function saveHistLog(){
+4016:   try{localStorage.setItem('wp2_hist_log',JSON.stringify(histLog));}catch(e){}
+4017: }
+4018: 
+4020: 
+4021: function loadSolved(){
+4022:   try{const r=localStorage.getItem('wp2_solved');return r?new Set(JSON.parse(r)):new Set();}
+4023:   catch(e){return new Set();}
+4024: }
+4025: 
+4026: function saveSolved(){
+4027:   try{localStorage.setItem('wp2_solved',JSON.stringify([...solved]));}catch(e){}
+4028: }
+4029: function loadSolvedAt(){
+4028: }
+4029: function loadSolvedAt(){
+4030:   try{const r=localStorage.getItem('wp2_solved_at');return r?JSON.parse(r):{};}
+4031:   catch(e){return {};}
+4032: }
+4032: }
+4033: function saveSolvedAt(){
+4034:   try{localStorage.setItem('wp2_solved_at',JSON.stringify(solvedAt));}catch(e){}
+4035: }
+4036: 
+4050: 
+4051: mostrarBarraAnalisis(false);
+4052:   try{ localStorage.setItem('wp2_ultimo', p.n); }catch(e){}
+4053:   anot().lista=[];
+4054:   renderHead(p); renderBoard(); renderMoves(); renderRef(p);
+5419:   else if(b.id==='b-hist-reset'){
+5420:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5421:       try{ localStorage.setItem('wp2_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5422:       try{ localStorage.setItem('wp2_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5423:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5420:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5421:       try{ localStorage.setItem('wp2_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5422:       try{ localStorage.setItem('wp2_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5423:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5424: 
+5427:   else if(b.id==='b-hist-recover'){
+5428:     let backup=null;
+5429:     try{ const r=localStorage.getItem('wp2_hist_log_backup'); backup=r?JSON.parse(r):null; }catch(err){}
+5430:     if(!backup || !Object.keys(backup).length){ setStatus('no','No hay ninguna copia de historial para recuperar.'); return; }
+5431:     pedirConfirmacion('¿Recuperar el historial desde la última copia guardada?', ()=>{
+5469: $('b-hist-open').onclick=()=>{ renderHistorial(); renderGrafica(); $('hist-modal').classList.add('open'); };
+5470: 
+5471: let trainingGoal=(()=>{const n=parseInt(localStorage.getItem('wp2_daily_goal'),10);return n>=5&&n<=50?n:10;})();
+5472: let errorBook=loadErrorBook();
+5473: 
+### TERM 'Ver solución' (4 line hits; showing 4)
+1922:     </div>
+1923:     <div class="actions" style="justify-content:center">
+1924:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1925:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1926:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1990: 
+1991:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1992:   <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Explicación</strong> abre una lectura posicional construida localmente desde el FEN y la línea del ejercicio, sin perder el estado del tablero. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial y <strong>Girar</strong> cambia la orientación.</p>
+1993: 
+1994:   <h2><span class="k">03</span> Navega y filtra</h2>
+4769:   boton.innerHTML=reproduciendo
+4770:     ? '|| Pausar'
+4771:     : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución';
+4772: }
+4773: 
+4786:   if(reproduciendoSolucion){
+4787:     detenerSolucion();
+4788:     setStatus('idle','Solución pausada. Puedes continuarla con Ver solución.');
+4789:     return;
+4790:   }
+### TERM 'Explicación' (8 line hits; showing 8)
+1924:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1925:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1926:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1927:     </div>
+1928: 
+1972:         <div class="tags" id="ref-tags"></div>
+1973:         <div class="note" id="ref-note" style="display:none"></div>
+1974:         <details class="expl" id="expl"><summary>Explicación del libro 1.1.2</summary>
+1975:           <div class="body" id="ref-full"></div>
+1976:         </details>
+1990: 
+1991:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1992:   <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Explicación</strong> abre una lectura posicional construida localmente desde el FEN y la línea del ejercicio, sin perder el estado del tablero. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial y <strong>Girar</strong> cambia la orientación.</p>
+1993: 
+1994:   <h2><span class="k">03</span> Navega y filtra</h2>
+2180:       <div class="explanation-topbar-actions">
+2181:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2182:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2183:           <button type="button" data-explain-theme="light">Claro</button>
+2184:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2185:           <button type="button" data-explain-theme="system">Sistema</button>
+2186:         </div>
+2187:         <button class="workspace-close" id="b-explain-close" type="button" aria-label="Cerrar explicación">✕</button>
+2188:       </div>
+2189:     </header>
+2195:           <div class="explain-chips" id="explain-chips"></div>
+2196:           <h3 id="explain-objective">Idea principal</h3>
+2197:           <p id="explain-summary">La explicación aparecerá aquí.</p>
+2198:         </div>
+2199:       </section>
+2223:       </section>
+2224: 
+2225:       <p class="local-note">Esta explicación se construye dentro del navegador mediante reglas de ajedrez, el FEN y la línea principal. No envía información a Internet ni utiliza inteligencia artificial.</p>
+2226:     </main>
+2227:   </article>
+4464: 
+4465: function traducirExplicacionLibro(texto) {
+4466:   if (!texto) return '(sin texto de explicación)';
+4467:   let t = texto;
+4468:   const diccionario = {
+### TERM 'Silencio' (2 line hits; showing 2)
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5968:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5969:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5970: };
+5971: $('ico-sound-on').style.display = soundOn?'block':'none';
+5971: $('ico-sound-on').style.display = soundOn?'block':'none';
+5972: $('ico-sound-off').style.display = soundOn?'none':'block';
+5973: $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5974: 
+5975: $('b-random').onclick=()=>{ $('random-modal').classList.add('open'); };
+### TERM 'Girar tablero' (1 line hits; showing 1)
+1918:     <div class="actions" style="justify-content:center">
+1919:       <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+1920:       <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+1921:       <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+1922:     </div>
+### TERM 'favorit' (8 line hits; showing 8)
+6641:       <button class="btn" id="pc-perso-fav" type="button">
+6642:         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>
+6643:         Guardar como favorito
+6644:       </button>
+6645:       <button class="btn primary" id="pc-perso-usar" type="button">Usar sin guardar</button>
+6673: </div>
+6674: 
+6675: <div class="pc-favs-bg pc-temas-bg" id="pc-favs-bg" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Tableros favoritos">
+6676:   <div class="pc-temas-box">
+6677:     <div class="pc-temas-fijo">
+6678:     <div class="pc-temas-head">
+6679:       <div>
+6680:         <h3>Tus favoritos</h3>
+6681:         <p>Los tableros que marcaste con la estrella. Toca uno para usarlo.</p>
+6682:     </div>
+6702:       <button class="pc-barra-btn" id="pc-favs-abrir" type="button" aria-haspopup="dialog">
+6703:         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>
+6704:         Favoritos <span class="pc-cuenta" id="pc-favs-n">0</span>
+6705:       </button>
+6706:         <button class="pc-barra-btn" id="pc-perso-abrir" type="button" aria-haspopup="dialog">
+6995:     est.setAttribute('data-fav',t.k);
+6996:     est.setAttribute('aria-pressed', String(esFav(t.k)));
+6997:     est.setAttribute('aria-label','Marcar '+t.n+' como favorito');
+6998:     est.setAttribute('title','Favorito');
+6999:     est.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>';
+6996:     est.setAttribute('aria-pressed', String(esFav(t.k)));
+6997:     est.setAttribute('aria-label','Marcar '+t.n+' como favorito');
+6998:     est.setAttribute('title','Favorito');
+6999:     est.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/></svg>';
+7000:     est.onclick=function(ev){ ev.preventDefault(); ev.stopPropagation(); alternarFav(t.k); };
+7241:   pintarRejilla();
+7242: 
+7243:   function guardarMio(comoFavorito){
+7244:     var campo=document.getElementById('pc-perso-nombre');
+7245:     var n=campo? String(campo.value||'').trim() : '';
+7250:     mios.push(t);
+7251:     guardar(K_MIOS, JSON.stringify(mios));
+7252:     if(comoFavorito && favs.indexOf(t.k)<0){ favs.push(t.k); guardar(K_FAV, favs.join(',')); }
+7253:     pintarRejilla(); pintarCuenta();
+7254:     if(campo) campo.value='';
+### TERM 'historial' (16 line hits; showing 12)
+1961:   <button class="btn" id="b-export-fen">Exportar FEN</button>
+1962:   <button class="btn" id="b-import">Importar PGN/FEN</button>
+1963:   <button class="btn" id="b-hist-open">Historial</button>
+1964: </div>
+1965:     </div>
+2059:   <div class="modal-box">
+2060:     <div class="modal-head">
+2061:       <h3>Historial de resueltos</h3>
+2062:       <button class="modal-x" id="b-hist-close" aria-label="Cerrar">✕</button>
+2063:     </div>
+2074:     <div class="prog-actions" style="margin-top:.8rem">
+2075: 
+2076:       <button class="btn" id="b-hist-reset" style="flex:1">Resetear historial</button>
+2077:       <button class="btn" id="b-hist-recover" style="flex:1">Recuperar historial</button>
+2078:     </div>
+2075: 
+2076:       <button class="btn" id="b-hist-reset" style="flex:1">Resetear historial</button>
+2077:       <button class="btn" id="b-hist-recover" style="flex:1">Recuperar historial</button>
+2078:     </div>
+2079:   </div>
+4509: }
+4510: 
+4511: function renderHistorial(){
+4512:   const cont=$('hist-list'); if(!cont)return;
+4513:   const ns=histLog;
+4521:     const fecha=f.toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'})
+4522:               +' · '+f.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+4523:     html+='<div class="hist-row" data-n="'+n+'" data-t="'+e.t+'"><span class="hist-n">N.º '+n+'</span><span class="hist-d">'+fecha+'</span><button class="hist-x" data-del="'+e.t+'" title="Borrar del historial">✕</button></div>';
+4524:   }
+4525:   if(!state.histTodo && ns.length>20){
+4525:   if(!state.histTodo && ns.length>20){
+4526:     html+='<button class="btn" id="b-hist-todo" style="justify-content:center;margin-top:.3rem">Mostrar todas ('+ns.length+')</button>';
+4527:     html+='<span class="hist-empty" style="text-align:center;padding:.2rem 0">Se muestran las 20 más recientes para mantener la ventana ágil. Tu historial completo está guardado.</span>';
+4528:   }
+4529:   cont.innerHTML=html;
+4538: 
+4539:   $('p-bar').style.width=pct+'%';
+4540:   renderHistorial();
+4541: }
+4542: 
+5414:   else if(b.id==='b-hist-todo'){
+5415:     state.histTodo=true;
+5416:     renderHistorial();
+5417:   }
+5418: 
+5418: 
+5419:   else if(b.id==='b-hist-reset'){
+5420:     pedirConfirmacion('¿Resetear el historial de fechas? Tu conteo de resueltos se mantiene.', ()=>{
+5421:       try{ localStorage.setItem('wp2_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5422:       try{ localStorage.setItem('wp2_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5421:       try{ localStorage.setItem('wp2_solved_at_backup', JSON.stringify(solvedAt)); }catch(err){}
+5422:       try{ localStorage.setItem('wp2_hist_log_backup', JSON.stringify(histLog)); }catch(err){}
+5423:       solvedAt={}; saveSolvedAt(); histLog=[]; saveHistLog(); renderHistorial();
+5424: 
+5425:     });
+5428:     let backup=null;
+5429:     try{ const r=localStorage.getItem('wp2_hist_log_backup'); backup=r?JSON.parse(r):null; }catch(err){}
+5430:     if(!backup || !Object.keys(backup).length){ setStatus('no','No hay ninguna copia de historial para recuperar.'); return; }
+5431:     pedirConfirmacion('¿Recuperar el historial desde la última copia guardada?', ()=>{
+5432:       histLog=backup; saveHistLog(); renderHistorial();
+### TERM 'history' (52 line hits; showing 12)
+2507:   var half_moves = 0
+2508:   var move_number = 1
+2509:   var history = []
+2510:   var header = {}
+2511:   var comments = {}
+2529:     half_moves = 0
+2530:     move_number = 1
+2531:     history = []
+2532:     if (!keep_headers) header = {}
+2533:     comments = {}
+2536: 
+2537:   function prune_comments() {
+2538:     var reversed_history = []
+2539:     var current_comments = {}
+2540:     var copy_comment = function (fen) {
+2543:       }
+2544:     }
+2545:     while (history.length > 0) {
+2546:       reversed_history.push(undo_move())
+2547:     }
+2544:     }
+2545:     while (history.length > 0) {
+2546:       reversed_history.push(undo_move())
+2547:     }
+2548:     copy_comment(generate_fen())
+2547:     }
+2548:     copy_comment(generate_fen())
+2549:     while (reversed_history.length > 0) {
+2550:       make_move(reversed_history.pop())
+2551:       copy_comment(generate_fen())
+2548:     copy_comment(generate_fen())
+2549:     while (reversed_history.length > 0) {
+2550:       make_move(reversed_history.pop())
+2551:       copy_comment(generate_fen())
+2552:     }
+2753: 
+2754:   function update_setup(fen) {
+2755:     if (history.length > 0) return
+2756: 
+2757:     if (fen !== DEFAULT_POSITION) {
+3159: 
+3160:   function push(move) {
+3161:     history.push({
+3162:       move: move,
+3163:       kings: { b: kings.b, w: kings.w },
+3257: 
+3258:   function undo_move() {
+3259:     var old = history.pop()
+3260:     if (old == null) {
+3261:       return null
+3548:       }
+3549: 
+3550:       if (header_exists && history.length) {
+3551:         result.push(newline)
+3552:       }
+3561:       }
+3562: 
+3563:       var reversed_history = []
+3564:       while (history.length > 0) {
+3565:         reversed_history.push(undo_move())
+### TERM 'avance' (4 line hits; showing 4)
+2035:     <div class="motif"><h4>Mejorar la peor pieza</h4><p>Antes de iniciar acciones concretas, identifica qué pieza participa menos y busca una casilla más útil.</p></div>
+2036:     <div class="motif"><h4>Casilla débil</h4><p>Una casilla que ya no puede ser protegida por peones puede convertirse en un puesto estable para una pieza.</p></div>
+2037:     <div class="motif"><h4>Ruptura de peones</h4><p>Un avance o cambio de peones transforma la estructura, abre líneas o crea nuevas debilidades.</p></div>
+2038:     <div class="motif"><h4>Peón pasado</h4><p>Un peón sin peones enemigos delante ni en columnas vecinas obliga al rival a dedicar recursos para detenerlo.</p></div>
+2039:     <div class="motif"><h4>Mayoría de peones</h4><p>Una superioridad numérica en un sector puede producir un peón pasado mediante avances y cambios precisos.</p></div>
+2037:     <div class="motif"><h4>Ruptura de peones</h4><p>Un avance o cambio de peones transforma la estructura, abre líneas o crea nuevas debilidades.</p></div>
+2038:     <div class="motif"><h4>Peón pasado</h4><p>Un peón sin peones enemigos delante ni en columnas vecinas obliga al rival a dedicar recursos para detenerlo.</p></div>
+2039:     <div class="motif"><h4>Mayoría de peones</h4><p>Una superioridad numérica en un sector puede producir un peón pasado mediante avances y cambios precisos.</p></div>
+2040:     <div class="motif"><h4>Columna abierta</h4><p>Las torres aumentan su actividad en columnas sin peones, especialmente cuando pueden penetrar en la séptima fila.</p></div>
+2041:     <div class="motif"><h4>Profilaxis</h4><p>Comprender el plan del rival y limitarlo antes de ejecutar el propio evita contrajuego innecesario.</p></div>
+5704:     if(esPeonPasado(after,to,color))structural.push('Después de la jugada es un peón pasado: no quedan peones enemigos por delante en su columna ni en las adyacentes.');
+5705:     if(apoyoPeon(after,to,color))structural.push('Forma parte de una cadena porque otro peón propio lo sostiene.');
+5706:     if(esPeonAislado(after,to,color))structural.push('Queda aislado, de modo que su avance debe justificarse por espacio, ruptura o apertura de líneas.');
+5707:     const doubled=peonesEnArchivo(after,to[0],color)>1;if(doubled)structural.push('La columna '+to[0]+' queda con peones doblados; la compensación debe venir de líneas abiertas o tiempos ganados.');
+5708:     structural.push('La columna '+to[0]+' queda '+estadoColumna(after,to[0],color)+'.');
+5750:   if(facts.gained.length)exact.push('La diferencia verificable es que ahora controla '+listaCasillas(facts.gained)+'.');
+5751:   if(facts.targets.length)exact.push('Desde '+to+' presiona '+listaPiezasObjetivo(after,facts.targets)+'.');
+5752:   if(move.piece==='p')exact.push('El avance cambia las casillas '+listaCasillas(controlesPieza(after,to),2)+' y la estructura del '+nombreFlanco(to)+'.');
+5753:   if(check)exact.push('La jugada se realiza con jaque, por lo que el rival no puede ignorarla.');
+5754:   const summary=exact.join(' ');
+### TERM 'progress' (4 line hits; showing 4)
+4416: 
+4417:   setStatus('done','¡Resuelto! Ahora puedes mover libremente para analizar. Pulsa Reiniciar para volver al ejercicio.');
+4418:   renderProgress();
+4419: }
+4420: 
+4530: }
+4531: 
+4532: function renderProgress(){
+4533: 
+4534:   const n=solved.size, pct=Math.round(n/PUZZLES.length*100);
+5344:   arr.forEach(n=>solved.add(n));
+5345:   saveSolved();
+5346:   renderProgress();
+5347: 
+5348:   setStatus('ok','Progreso importado correctamente.');
+5997: load(curr());
+5998: 
+5999: renderProgress();
+6000: 
+6001: if (typeof window !== 'undefined') { window.Chess = Chess; }
+### TERM 'theme' (22 line hits; showing 12)
+4: <meta charset="UTF-8">
+5: <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+6: <meta name="theme-color" content="#0F1411">
+7: <title>PC de L2</title>
+8: <link rel="icon" type="image/png" href="torre.png">
+306: .explanation-topbar{align-items:center}
+307: .explanation-topbar-actions{display:flex;align-items:center;gap:.65rem;flex:0 0 auto}
+308: .explain-theme-switch{display:flex;gap:3px;padding:3px;border:1px solid var(--line)}
+309: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+310: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+307: .explanation-topbar-actions{display:flex;align-items:center;gap:.65rem;flex:0 0 auto}
+308: .explain-theme-switch{display:flex;gap:3px;padding:3px;border:1px solid var(--line)}
+309: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+310: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+311: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+309: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+310: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+311: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+312: .explanation-bg .explanation-shell{background:var(--ex-shell);color:var(--ex-ink)}
+313: .explanation-bg .explanation-topbar{background:var(--ex-topbar)}
+345: .explanation-topbar-actions{flex-direction:column-reverse;align-items:flex-end}
+346: }
+347: @media(max-width:540px){.explain-theme-switch button{padding:.45rem .48rem;font-size:.64rem}
+348: .explanation-topbar-actions{gap:.45rem}
+349: .snapshot-board-wrap{padding:7px}
+993: .pc-tema[aria-pressed="true"] b{color:var(--gold)}
+994: 
+995: .explanation-bg,.explanation-bg[data-resolved-theme="dark"],.explanation-bg[data-resolved-theme="light"]{
+996:   --ex-shell:var(--panel);
+997:   --ex-topbar:var(--barra);
+1007:   --ex-board-frame:var(--panel2);
+1008: }
+1009: .explain-theme-switch{display:none}
+1010: .workspace-shell{
+1011:   background:var(--panel);color:var(--ink);
+2170: </div>
+2171: 
+2172: <div id="explain-modal" class="workspace-bg explanation-bg" aria-hidden="true" data-theme-mode="system" data-resolved-theme="light">
+2173:   <article class="workspace-shell explanation-shell" role="dialog" aria-modal="true" aria-labelledby="explain-title">
+2174:     <header class="workspace-topbar explanation-topbar">
+2180:       <div class="explanation-topbar-actions">
+2181:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2182:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2183:           <button type="button" data-explain-theme="light">Claro</button>
+2184:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2181:         <div class="pc-modo pc-modo-mini" role="group" aria-label="Apariencia"><button type="button" data-modo="claro" aria-pressed="false" title="Claro" aria-label="Apariencia: Claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 3.2v2.1M12 18.7v2.1M3.2 12h2.1M18.7 12h2.1M5.9 5.9l1.5 1.5M16.6 16.6l1.5 1.5M18.1 5.9l-1.5 1.5M7.4 16.6l-1.5 1.5"/></svg></button><button type="button" data-modo="oscuro" aria-pressed="false" title="Oscuro" aria-label="Apariencia: Oscuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 13.1A8.3 8.3 0 1 1 11 3.2a6.6 6.6 0 0 0 9.8 9.9z"/></svg></button><button type="button" data-modo="sistema" aria-pressed="false" title="Como el sistema" aria-label="Apariencia: Como el sistema"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.2" y="4.8" width="17.6" height="11.6" rx="1.7"/><path d="M8.6 19.6h6.8"/></svg></button></div>
+2182:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2183:           <button type="button" data-explain-theme="light">Claro</button>
+2184:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2185:           <button type="button" data-explain-theme="system">Sistema</button>
+2182:         <div class="explain-theme-switch" id="explain-theme-switch" role="group" aria-label="Apariencia de la explicación">
+2183:           <button type="button" data-explain-theme="light">Claro</button>
+2184:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2185:           <button type="button" data-explain-theme="system">Sistema</button>
+2186:         </div>
+2183:           <button type="button" data-explain-theme="light">Claro</button>
+2184:           <button type="button" data-explain-theme="dark">Oscuro</button>
+2185:           <button type="button" data-explain-theme="system">Sistema</button>
+2186:         </div>
+2187:         <button class="workspace-close" id="b-explain-close" type="button" aria-label="Cerrar explicación">✕</button>
+### TERM 'dark' (243 line hits; showing 12)
+93: .sq{position:relative;display:flex;align-items:center;justify-content:center;user-select:none;min-width: 0;min-height: 0;overflow: hidden}
+94: .sq.l{background:var(--light)}
+95: .sq.d{background:var(--dark)}
+96: .sq .pc{width:92%;height:92%;display:flex;align-items:center;justify-content:center;cursor:grab;transition:transform .07s;will-change:transform}
+97: .sq .pc svg{width:100%;height:100%;display:block;pointer-events:none}
+309: .explain-theme-switch button{border:0;background:transparent;padding:.48rem .62rem;font-size:.7rem;font-weight:700;line-height:1;white-space:nowrap}
+310: .explanation-bg{--ex-shell:linear-gradient(180deg,rgba(249,249,247,.99),rgba(239,241,237,.99));--ex-topbar:rgba(249,249,247,.86);--ex-ink:#171b18;--ex-muted:#626b65;--ex-card:rgba(255,255,255,.82);--ex-card-border:rgba(25,31,27,.08);--ex-card-muted:#68716b;--ex-soft:#edf0ec;--ex-soft-ink:#313833;--ex-button:#e5e8e4;--ex-button-ink:#303632;--ex-board-frame:#dfe4de}
+311: .explanation-bg[data-resolved-theme="dark"]{--ex-shell:linear-gradient(180deg,rgba(27,32,29,.99),rgba(17,21,19,.99));--ex-topbar:rgba(27,32,29,.9);--ex-ink:#f1f4f1;--ex-muted:#aab3ac;--ex-card:rgba(39,46,42,.88);--ex-card-border:rgba(255,255,255,.085);--ex-card-muted:#c0c8c2;--ex-soft:#303833;--ex-soft-ink:#e5eae6;--ex-button:#353d38;--ex-button-ink:#f1f4f1;--ex-board-frame:#303833}
+312: .explanation-bg .explanation-shell{background:var(--ex-shell);color:var(--ex-ink)}
+313: .explanation-bg .explanation-topbar{background:var(--ex-topbar)}
+324: .explain-board .ex-sq{position:relative;display:grid;place-items:center;min-width:0;min-height:0;overflow:hidden}
+325: .explain-board .ex-sq.l{background:var(--light)}
+326: .explain-board .ex-sq.d{background:var(--dark)}
+327: .explain-board .ex-pc{width:92%;height:92%;display:grid;place-items:center}
+328: .explain-board .ex-pc svg{width:100%;height:100%;display:block}
+350: }
+351: 
+352: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+353: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+354: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+351: 
+352: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+353: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+354: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+355: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+352: html[data-tablero="cielo"]{--light:#E9F1F6;--dark:#7AA4BB;--coord-l:#557383;--coord-d:#2F3031;--hl:rgba(255,206,61,.46);--acento-tema:#53707F;--acento-ink:#E9F1F6;--acento-txt-cla:#557383;--acento-txt-osc:#7AA4BB;--marco-tema:#D9E6EE}
+353: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+354: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+355: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+356: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+353: html[data-tablero="nogal"]{--light:#EFE1C6;--dark:#7A6248;--coord-l:#554532;--coord-d:#F5ECDA;--hl:rgba(58,96,208,.32);--acento-tema:#705A42;--acento-ink:#EFE1C6;--acento-txt-cla:#7A6248;--acento-txt-osc:#A2917F;--marco-tema:#DFCFB4}
+354: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+355: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+356: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+357: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+354: html[data-tablero="bosque"]{--light:#EEEED2;--dark:#769656;--coord-l:#53693C;--coord-d:#FBFBF4;--hl:rgba(255,206,61,.46);--acento-tema:#50663A;--acento-ink:#EEEED2;--acento-txt-cla:#5E7845;--acento-txt-osc:#84A067;--marco-tema:#DDE2C1}
+355: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+356: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+357: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+358: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+355: html[data-tablero="marmol"]{--light:#EFF1EF;--dark:#7F8C86;--coord-l:#59625E;--coord-d:#F5F6F5;--hl:rgba(255,206,61,.46);--acento-tema:#616A66;--acento-ink:#EFF1EF;--acento-txt-cla:#66706B;--acento-txt-osc:#8C9892;--marco-tema:#DFE3E0}
+356: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+357: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+358: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+359: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+356: html[data-tablero="torneo"]{--light:#E7ECF4;--dark:#6A85AC;--coord-l:#4A5D78;--coord-d:#EFF3F8;--hl:rgba(255,206,61,.46);--acento-tema:#516583;--acento-ink:#E7ECF4;--acento-txt-cla:#5F789B;--acento-txt-osc:#7991B4;--marco-tema:#D6DEEA}
+357: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+358: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+359: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+360: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+357: html[data-tablero="cafe"]{--light:#F2E3CE;--dark:#966742;--coord-l:#69482E;--coord-d:#F7EDDF;--hl:rgba(58,96,208,.32);--acento-tema:#7E5737;--acento-ink:#F2E3CE;--acento-txt-cla:#966742;--acento-txt-osc:#B6957B;--marco-tema:#E5D2BA}
+358: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+359: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+360: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+361: html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46);--acento-tema:#8A4B4E;--acento-ink:#F1E3E1;--acento-txt-cla:#8A4B4E;--acento-txt-osc:#B99395;--marco-tema:#E3CECC}
+358: html[data-tablero="pizarra"]{--light:#E5E8E5;--dark:#68766E;--coord-l:#49534D;--coord-d:#EEF0EE;--hl:rgba(255,206,61,.46);--acento-tema:#57635C;--acento-ink:#E5E8E5;--acento-txt-cla:#68766E;--acento-txt-osc:#959F9A;--marco-tema:#D4D8D4}
+359: html[data-tablero="trigo"]{--light:#F6EAD0;--dark:#BE9C5E;--coord-l:#856D42;--coord-d:#312F2A;--hl:rgba(58,96,208,.32);--acento-tema:#725E38;--acento-ink:#F6EAD0;--acento-txt-cla:#856D42;--acento-txt-osc:#BE9C5E;--marco-tema:#EEDFC0}
+360: html[data-tablero="ebano"]{--light:#E2DFD7;--dark:#474642;--coord-l:#32312E;--coord-d:#9E9C96;--hl:rgba(58,96,208,.32);--acento-tema:#474642;--acento-ink:#E2DFD7;--acento-txt-cla:#474642;--acento-txt-osc:#91908E;--marco-tema:#CCCAC2}
+361: html[data-tablero="vino"]{--light:#F1E3E1;--dark:#8A4B4E;--coord-l:#613437;--coord-d:#F6EDEC;--hl:rgba(255,206,61,.46);--acento-tema:#8A4B4E;--acento-ink:#F1E3E1;--acento-txt-cla:#8A4B4E;--acento-txt-osc:#B99395;--marco-tema:#E3CECC}
+362: html[data-tablero="musgo"]{--light:#E9EFDF;--dark:#6C8757;--coord-l:#4C5E3D;--coord-d:#F1F5EA;--hl:rgba(255,206,61,.46);--acento-tema:#526742;--acento-ink:#E9EFDF;--acento-txt-cla:#617A4E;--acento-txt-osc:#899F79;--marco-tema:#D8E0CC}
+### TERM 'sound' (14 line hits; showing 12)
+1923:     <div class="actions" style="justify-content:center">
+1924:       <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+1925:       <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+1926:       <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+1927:     </div>
+4483:     "Obviously not": "Obviamente no",
+4484:     "White has a perpetual on f6 and f7.": "Las blancas tienen jaque perpetuo en f6 y f7.",
+4485:     "A win by an unsound combination, however showy, fills me with artistic horror.": "Una victoria por una combinación incorrecta, por muy vistosa que sea, me llena de horror artístico.",
+4486:     "wins a piece": "gana una pieza",
+4487:     "traps the queen": "atrapa la dama",
+5913: });
+5914: 
+5915: let soundOn = localStorage.getItem('wp2_sound')!=='0';
+5916: let audioCtx=null;
+5917: function beep(freq,dur,vol,tipo){
+5916: let audioCtx=null;
+5917: function beep(freq,dur,vol,tipo){
+5918:   if(!soundOn) return;
+5919:   try{
+5920:     if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+5934: };
+5935: function play(nombre){
+5936:   if(!soundOn) return;
+5937:   try{
+5938:     const a=AUDIOS[nombre];
+5962: }
+5963: 
+5964: $('b-sound').onclick=()=>{
+5965:   soundOn=!soundOn;
+5966:   localStorage.setItem('wp2_sound', soundOn?'1':'0');
+5963: 
+5964: $('b-sound').onclick=()=>{
+5965:   soundOn=!soundOn;
+5966:   localStorage.setItem('wp2_sound', soundOn?'1':'0');
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5964: $('b-sound').onclick=()=>{
+5965:   soundOn=!soundOn;
+5966:   localStorage.setItem('wp2_sound', soundOn?'1':'0');
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5968:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5965:   soundOn=!soundOn;
+5966:   localStorage.setItem('wp2_sound', soundOn?'1':'0');
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5968:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5969:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5966:   localStorage.setItem('wp2_sound', soundOn?'1':'0');
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5968:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5969:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5970: };
+5967:   $('ico-sound-on').style.display = soundOn?'block':'none';
+5968:   $('ico-sound-off').style.display = soundOn?'none':'block';
+5969:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5970: };
+5971: $('ico-sound-on').style.display = soundOn?'block':'none';
+5969:   $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+5970: };
+5971: $('ico-sound-on').style.display = soundOn?'block':'none';
+5972: $('ico-sound-off').style.display = soundOn?'none':'block';
+5973: $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+### TERM 'mute' (96 line hits; showing 12)
+14: button{font-family:inherit;cursor:pointer;color:inherit}
+15: ::selection{background:var(--crest)}
+16: .texto-amigo{font-size: var(--txt-amigo-size);color: var(--muted);display: block;margin-top: 2px;font-weight: 400}
+17: .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem clamp(.8rem,3vw,1.6rem);border-bottom:1px solid var(--line);position:static;top:0;backdrop-filter:blur(8px);z-index:30;max-width:1180px;margin-left:auto;margin-right:auto}
+18: .gift-btn{border:1px solid var(--gold);width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;font-size:1.25rem;line-height:1;flex:0 0 auto;transition:.2s;animation:giftPulse 2.4s ease-in-out infinite}
+44: .home-icon:hover .crest{transform:scale(1.08)}
+45: .home-icon .crest{transition:transform .15s ease}
+46: .wordmark small{display:block;font-family:var(--sans);font-weight:400;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+47: .tabs{display:flex;gap:.15rem;background:var(--panel);border:1px solid var(--line);padding:3px}
+48: .tab{border:0;background:transparent;color:var(--muted);padding:.4rem .8rem;font-size:.85rem;font-weight:500;transition:.15s}
+46: .wordmark small{display:block;font-family:var(--sans);font-weight:400;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+47: .tabs{display:flex;gap:.15rem;background:var(--panel);border:1px solid var(--line);padding:3px}
+48: .tab{border:0;background:transparent;color:var(--muted);padding:.4rem .8rem;font-size:.85rem;font-weight:500;transition:.15s}
+49: .tab:hover{color:var(--ink)}
+50: .tab.active{background:var(--panel2);color:var(--ink)}
+49: .tab:hover{color:var(--ink)}
+50: .tab.active{background:var(--panel2);color:var(--ink)}
+51: .gtab{border:0;background:transparent;color:var(--muted);padding:.28rem .6rem;font-size:.76rem;font-weight:500;transition:.15s}
+52: .gtab.active{background:var(--panel2);color:var(--ink)}
+53: .view{display:none;animation:fade .25s ease}
+70: .exno{font-family:var(--serif);font-size:1.5rem;font-weight:600}
+71: .exno span{color:var(--crest)}
+72: .chip{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:.2rem .55rem;border:1px solid var(--line);color:var(--muted)}
+73: .chip.I{color:var(--gold)}
+74: .chip.A{color:var(--crest)}
+73: .chip.I{color:var(--gold)}
+74: .chip.A{color:var(--crest)}
+75: .toplay{font-size:.92rem;color:var(--muted)}
+76: .toplay b{color:var(--ink)}
+77: @media(max-width:600px){.boardhead{column-gap:.35rem}
+122: .moves .ply{padding:.05rem .3rem}
+123: .moves .ply.u{color:var(--ink)}
+124: .moves .ply.o{color:var(--muted)}
+125: .moves .ply.now{background:var(--gold);font-weight:700}
+126: .moves .num{color:var(--muted2);margin-right:.15rem}
+124: .moves .ply.o{color:var(--muted)}
+125: .moves .ply.now{background:var(--gold);font-weight:700}
+126: .moves .num{color:var(--muted2);margin-right:.15rem}
+127: .moves .hidden{color:var(--muted2);opacity:.45}
+128: .fig{display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.18em}
+125: .moves .ply.now{background:var(--gold);font-weight:700}
+126: .moves .num{color:var(--muted2);margin-right:.15rem}
+127: .moves .hidden{color:var(--muted2);opacity:.45}
+128: .fig{display:inline-block;width:1.05em;height:1.05em;vertical-align:-0.18em}
+129: .fig svg{width:100%;height:100%;display:block}
+137: .jump input:focus{outline:none}
+138: .filters{display:flex;gap:.4rem;margin-top:.7rem;flex-wrap:wrap}
+139: .fbtn{flex:1;min-width:72px;border:1px solid var(--line);background:var(--bg);padding:.5rem .3rem;font-size:.78rem;font-weight:600;color:var(--muted);transition:.15s;text-align:center}
+140: .fbtn.active{color:var(--ink)}
+141: .fbtn small{display:block;font-weight:400;font-size:.68rem;color:var(--muted2);margin-top:1px}
+139: .fbtn{flex:1;min-width:72px;border:1px solid var(--line);background:var(--bg);padding:.5rem .3rem;font-size:.78rem;font-weight:600;color:var(--muted);transition:.15s;text-align:center}
+140: .fbtn.active{color:var(--ink)}
+141: .fbtn small{display:block;font-weight:400;font-size:.68rem;color:var(--muted2);margin-top:1px}
+142: .prog{display:flex;gap:.5rem;text-align:center}
+143: .prog .cell{flex:1;background:var(--bg);border:1px solid var(--line);padding:.55rem .2rem}
+143: .prog .cell{flex:1;background:var(--bg);border:1px solid var(--line);padding:.55rem .2rem}
+144: .prog .big{font-family:var(--serif);font-size:1.25rem;font-weight:600}
+145: .prog .lbl{font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted2);margin-top:1px}
+146: .bar{height:6px;background:var(--bg);overflow:hidden;margin-top:.7rem;border:1px solid var(--line)}
+147: .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--crest));width:0;transition:width .4s}
+### TERM 'ejercicio' (43 line hits; showing 12)
+1846:   <div class="hdr-marca">
+1847:     <button class="home-icon" id="b-home" type="button" aria-label="Ir al inicio"> <img class="crest" src="torre.png" alt="Pieza de ajedrez" > </button>
+1848:     <span class="titulo"><b>El Método PC 2</b><small>1000 ejercicios posicionales</small></span>
+1849:   </div>
+1850:   <div class="hdr-centro">
+1873:   <div class="boardhead">
+1874:       <div class="boardhead-left">
+1875:         <div class="exno">Ejercicio <span id="exno">1</span></div>
+1876:         <div style="display:flex;gap:.5rem;align-items:center;white-space:nowrap;">
+1877:           <span class="chip" id="chip">Fácil</span>
+1934:    <div class="panel-card">
+1935:       <h3>Navegación</h3>
+1936:       <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+1937: 
+1938:       <div class="jump">
+1984:  <div class="reading">
+1985:   <h1>Cómo usar este entrenador</h1>
+1986:   <p class="lead">Mil ejercicios posicionales de <em>The WPMethod 2</em>, listos para resolver sobre un tablero interactivo y con la notación visible adaptada al español.</p>
+1987: 
+1988:   <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+1987: 
+1988:   <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+1989:   <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para jugar. Si tu jugada coincide con la línea principal del libro, la posición avanza y el rival responde solo. Si fallas, la pieza vuelve a su sitio y te avisa.</p>
+1990: 
+1991:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1990: 
+1991:   <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+1992:   <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Explicación</strong> abre una lectura posicional construida localmente desde el FEN y la línea del ejercicio, sin perder el estado del tablero. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial y <strong>Girar</strong> cambia la orientación.</p>
+1993: 
+1994:   <h2><span class="k">03</span> Navega y filtra</h2>
+1993: 
+1994:   <h2><span class="k">03</span> Navega y filtra</h2>
+1995:   <p>Avanza con <span class="kbd">◂</span> y <span class="kbd">▸</span>, salta a cualquier número, o filtra por nivel: <strong>Fácil</strong> (1–339), <strong>Intermedio</strong> (340–739) y <strong>Avanzado</strong> (740–1000). También puedes usar el teclado: flechas <span class="kbd">←</span> <span class="kbd">→</span> para cambiar de ejercicio, <span class="kbd">H</span> para pista, <span class="kbd">S</span> solución, <span class="kbd">R</span> reiniciar, <span class="kbd">F</span> girar.</p>
+1996: 
+1997:   <h2><span class="k">04</span> Tu progreso se guarda</h2>
+1996: 
+1997:   <h2><span class="k">04</span> Tu progreso se guarda</h2>
+1998:   <p>Cada ejercicio resuelto queda marcado en tu navegador. Puedes <strong>exportar</strong> tu progreso a un archivo y volver a <strong>importarlo</strong> en otro equipo. Lo ideal del método es repetir el mismo bloque varias veces: el progreso te ayuda a llevar la cuenta, pero el verdadero objetivo es la velocidad y la automatización (lee la pestaña <strong>Método</strong>).</p>
+1999: 
+2000:   <div class="callout">Consejo: no muevas las piezas para «tantear». Calcula primero en tu cabeza la secuencia completa y solo entonces ejecútala. Así entrenas el cálculo, la comparación de planes y la comprensión posicional.</div>
+2005:  <div class="reading">
+2006:   <h1>El Método PC 2</h1>
+2007:   <p class="lead">La idea es sencilla y exigente: resolver un mismo conjunto de ejercicios una y otra vez, cada vez más rápido, hasta que el reconocimiento de patrones se vuelva automático.</p>
+2008: 
+2009:   <p>El nombre viene del PC (<em>wp</em>): golpe tras golpe sobre el mismo punto. En esta versión, ese «mismo punto» son los patrones posicionales que se repiten —estructuras de peones, casillas débiles, piezas mal ubicadas, rupturas y cambios favorables— y la repetición deliberada es lo que los graba en la memoria.</p>
+2011:   <h2><span class="k">›</span> El ciclo de repetición</h2>
+2012:   <ol class="steps">
+2013:     <li><strong>Elige un bloque.</strong> Por ejemplo todo el nivel Fácil, o un tramo de 100–200 ejercicios. Debe ser un conjunto fijo que repetirás entero.</li>
+2014:     <li><strong>Primera vuelta.</strong> Resuélvelos todos con calma, calculando de verdad. Anota cuánto tardas y cuántos aciertas. No importa si es lento.</li>
+2015:     <li><strong>Repite el mismo bloque.</strong> En la segunda vuelta reconocerás posiciones; irás más rápido y fallarás menos.</li>
+2022: 
+2023:   <h2><span class="k">›</span> Recomendaciones prácticas</h2>
+2024:   <p>Resuelve en tu cabeza la línea completa antes de mover. Sé honesto: solo cuenta como acertado si viste la idea principal, no solo el primer golpe. Repite el bloque con días de descanso entre ciclos. La constancia —pocos ejercicios al día, pero todos los días— rinde más que sesiones largas y esporádicas.</p>
+2025: 
+2026:   <div class="callout">Los autores diseñaron el libro precisamente para esto: un conjunto cerrado de ejercicios pensado para repetirse. Este entrenador te da el mismo material con validación interactiva; el método lo pones tú.</div>
+2024:   <p>Resuelve en tu cabeza la línea completa antes de mover. Sé honesto: solo cuenta como acertado si viste la idea principal, no solo el primer golpe. Repite el bloque con días de descanso entre ciclos. La constancia —pocos ejercicios al día, pero todos los días— rinde más que sesiones largas y esporádicas.</p>
+2025: 
+2026:   <div class="callout">Los autores diseñaron el libro precisamente para esto: un conjunto cerrado de ejercicios pensado para repetirse. Este entrenador te da el mismo material con validación interactiva; el método lo pones tú.</div>
+2027:  </div>
+2028: </section>
+### TERM 'exercise' (3 line hits; showing 3)
+7435: 
+7436:     if(mq.matches){
+7437:       var fila=document.getElementById('pc-mobile-exercise-nav');
+7438:       if(!fila){
+7439:         fila=document.createElement('div');
+7438:       if(!fila){
+7439:         fila=document.createElement('div');
+7440:         fila.id='pc-mobile-exercise-nav';
+7441:         fila.style.cssText='display:flex;align-items:center;justify-content:flex-end;gap:.55rem;width:100%;max-width:620px;margin:.7rem auto 0;';
+7442:         filaInferior.parentNode.insertBefore(fila,filaInferior);
+7462:       });
+7463:     }else{
+7464:       var fila=document.getElementById('pc-mobile-exercise-nav');
+7465:       var destino=document.querySelector('.boardhead-right');
+7466:       if(destino){
+-- RAW AROUND 'Ver solución' --
+eight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Editar</button>
+      <button class="btn" id="b-ana-prev" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M16 4L6 12l10 8z"/></svg></button>
+      <button class="btn" id="b-ana-next" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M8 4l10 8-10 8z"/></svg></button>    </div>    
+
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1000)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1000</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>339</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>400</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>261</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro 1.1.2</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="reading">
+  <h1>Cómo usar este entrenador</h1>
+  <p class="lead">Mil ejercicios posicionales de <em>The WPMethod 2</em>, listos para resolver sobre un tablero interactivo y con la notación visible adaptada al español.</p>
+
+  <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+  <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para j
+-- RAW AROUND 'Silencio' --
+urn;
+
+  const k=e.key.toLowerCase();
+
+  if(e.key==='ArrowRight'){
+    if(state.freemode){
+      e.preventDefault();
+      if(state.anaMoves) irAJugada(state.anaPtr+1);
+    }else{
+      go(1);
+    }
+  }
+
+  else if(e.key==='ArrowLeft'){
+    if(state.freemode){
+      e.preventDefault();
+      if(state.anaMoves) irAJugada(state.anaPtr-1);
+    }else{
+      go(-1);
+    }
+  }
+
+  else if(k==='h'){$('b-hint').click();}
+  else if(k==='s'){$('b-sol').click();}
+  else if(k==='r'){$('b-reset').click();}
+  else if(k==='f'){$('b-flip').click();}
+  else if(k==='e'){$('b-explain').click();}
+});
+
+let soundOn = localStorage.getItem('wp2_sound')!=='0';
+let audioCtx=null;
+function beep(freq,dur,vol,tipo){
+  if(!soundOn) return;
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=tipo||'sine'; o.frequency.value=freq;
+    g.gain.setValueAtTime(vol,audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+
+const AUDIOS={
+  move:    new Audio('Move.mp3'),
+  capture: new Audio('Capture.mp3'),
+  error:   new Audio('Error.mp3')
+};
+function play(nombre){
+  if(!soundOn) return;
+  try{
+    const a=AUDIOS[nombre];
+    a.currentTime=0;
+    a.play();
+  }catch(e){}
+}
+function sndMove(){ play('move'); }
+function sndCapture(){ play('capture'); }
+function sndError(){ play('error'); }
+function sndSolved(){ play('move'); setTimeout(()=>play('capture'),140); }
+
+function lanzarConfeti(cantidad){
+  const colores=['#cf4d2e','#d9a441','#77a268','#efe1c6','#a9713f'];
+  for(let i=0;i<cantidad;i++){
+    const c=document.createElement('div');
+    c.className='confeti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colores[Math.floor(Math.random()*colores.length)];
+    c.style.animationDuration=(1.6+Math.random()*1.4)+'s';
+    c.style.animationDelay=(Math.random()*.4)+'s';
+    c.style.transform='rotate('+Math.random()*360+'deg)';
+    if(Math.random()<.4)c.style.borderRadius='50%';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3600);
+  }
+}
+
+$('b-sound').onclick=()=>{
+  soundOn=!soundOn;
+  localStorage.setItem('wp2_sound', soundOn?'1':'0');
+  $('ico-sound-on').style.display = soundOn?'block':'none';
+  $('ico-sound-off').style.display = soundOn?'none':'block';
+  $('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+};
+$('ico-sound-on').style.display = soundOn?'block':'none';
+$('ico-sound-off').style.display = soundOn?'none':'block';
+$('txt-sound').textContent = soundOn?'Sonido':'Silencio';
+
+$('b-random').onclick=()=>{ $('random-modal').classList.add('open'); };
+$('random-modal').addEventListener('click',e=>{
+  if(e.target.id==='random-modal' || e.target.id==='b-random-close'){
+    $('random-modal').classList.remove('open'); return;
+  }
+  const b=e.target.closest('button[data-rl]');
+  if(!b) return;
+  const nivel=b.dataset.rl;
+  $('random-modal').classList.remove('open');
+  const grupo = nivel==='all' ? PUZZLES : PUZZLES.filter(p=>p.lv===nivel);
+  const elegido = grupo[Math.floor(Math.random()*grupo.length)];
+  jumpToNumber(elegido.n);
+});
+
+buildList();
+if(navigator.storage && navigator.storage.persist){ navigator.storage.persist(); }
+document.addEventListener('gesturestart', e=>e.preventDefault());
+document.addEventListener('dblclick', e=>e.preventDefault());
+$('c-all').textContent = PUZZLES.length;
+const ultimo=parseInt(localStorage.getItem('wp2_ultimo'),10);
+const idxU=ultimo?state.list.findIndex(p=>p.n===ultimo):-1;
+if(idxU>=0){ state.i=idxU; }
+load(curr());
+
+renderProgress();
+
+if (typeof window !== 'undefined') { window.Chess = Chess; }
+
+function limpiarPremoveVisual() {
+  boardEl.querySelectorAll('.sq').forEach(el => {
+    el.style.outline = '';
+    el.style.outlineOffset = '';
+    el.style.boxShadow = '';
+  });
+}
+
+function mostrarBarraAnalisis(visible){
+  $('b-ana-prev').style.display = visible ? 'flex' : 'none';
+  $('b-ana-next').style.display = visible ? 'flex' : 'none';
+  $('engine-box').style.display=visible?'block':'none';
+}
+
+var motor=null, motorOn=false, motorPausado=false, fenAnalizado='';
+var motorFallbackUsado=false, motorJsBlobUrl='', motorWasmBlobUrl='';
+
+function baseRecursoLocal(){
+  return location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/,'');
+}
+function configurarWorkerStockfish(w){
+  motor=w;var recibioUci=false;
+  motor.onmessage=function(e){var txt=String(e.data);if(txt.indexOf('uciok')!==-1){recibioUci=true;if(motorOn){$('eng-line').textContent='Analizando posición…';analizarPosicion();}}leerMotor(txt);};
+  motor.onerror=function(){
+    if(!recibioUci&&!motorFallbackUsado){motorFallbackUsado=true;try{motor.terminate();}catch(e){}motor=null;$('eng-line').textContent='Preparando Stockfish para Android…';iniciarMotorDesdeBlob();return;}
+    motorOn=false;motor=null;actualizarBotonEditar(false);actualizarBotonMotor(false);$('eng-eval').textContent='—';$('eng-line').textContent='No se pudo cargar Stockfish. Revisa que Android System WebView esté actualizado.';
+  };
+  motor.postMessage('uci');return true;
+}
+function cargarRecursoMotor(url,tipo){
+  return new Promise(function(resolve,reject){try{var x=new XMLHttpRequest();x.open('GET',url,true);x.responseType=tipo;x.onload=function(){if(x.status===0||(x.status>=200&&x.status<300))resolve(x.response);else reject(new Error('HTTP '+x.status));};x.onerror=function(){reject(new Error('No se pudo leer '+url));};x.send(null);}catch(e){reject(e);}});
+}
+function iniciarMotorDesdeBlob(){
+  var base=baseRecursoLocal();
+  Promise.all([cargarRecursoMotor(base+'stockfish-18-lite-single.js','text'),cargarRecursoMotor(base+'stockfish-18-lite-single.wasm','arraybuffer')]).then(function(rec){
+    motorWasmBlobUrl=URL.createObjectURL(new Blob([rec[1]],{type:'application/wasm'}));motorJsBlobUrl=URL.createObjectURL(new Blob([rec[0]],{type:'text/javascript'}));configurarWorkerSto
+-- RAW AROUND 'Explicación' --
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1000)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1000</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>339</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>400</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>261</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro 1.1.2</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="reading">
+  <h1>Cómo usar este entrenador</h1>
+  <p class="lead">Mil ejercicios posicionales de <em>The WPMethod 2</em>, listos para resolver sobre un tablero interactivo y con la notación visible adaptada al español.</p>
+
+  <h2><span class="k">01</span> Resuelve sobre el tablero</h2>
+  <p>En cada ejercicio te indicamos quién mueve (<b>Juegan: Blancas</b> o <b>Negras</b>). Toca una de tus piezas: se iluminan sus casillas legales. Arrástrala o toca la casilla de destino para jugar. Si tu jugada coincide con la línea principal del libro, la posición avanza y el rival responde solo. Si fallas, la pieza vuelve a su sitio y te avisa.</p>
+
+  <h2><span class="k">02</span> Pista, solución y reinicio</h2>
+  <p><strong>Pista</strong> resalta la casilla de la pieza que debe mover. <strong>Ver solución</strong> reproduce la línea completa. <strong>Explicación</strong> abre una lectura posicional construida localmente desde el FEN y la línea del ejercicio, sin perder el estado del tablero. <strong>Reiniciar</strong> devuelve el ejercicio a la posición inicial y <strong>Girar</strong> cambia la orientación.</p>
+
+  <h2><span class="k">03</span> Navega y filtra</h2>
+  <p>Avanza con <span class="kbd">◂</span> y <span class="kbd">▸</span>, salta a cualquier número, o fil
+-- RAW AROUND 'Girar tablero' --
+>Reiniciar</button>
+      <button class="btn" id="b-edit" style="flex:1; justify-content:center; padding:.6rem .4rem; font-size:0.95rem; font-weight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>Stockfish</button>
+      <button class="btn" id="b-anotar" type="button" aria-pressed="false" style="flex:1; justify-content:center; padding:.6rem .4rem; font-size:0.95rem; font-weight:600;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Editar</button>
+      <button class="btn" id="b-ana-prev" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M16 4L6 12l10 8z"/></svg></button>
+      <button class="btn" id="b-ana-next" style="flex:1; justify-content:center; align-items:center; padding:0 .4rem; height:2.55rem; display:none;"><svg viewBox="0 0 24 24" style="width:1.9rem;height:1.9rem" fill="currentColor"><path d="M8 4l10 8-10 8z"/></svg></button>    </div>    
+
+    <div id="engine-box" style="display:none;max-width:620px;margin:.7rem auto 0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem">
+        <b id="eng-eval" style="font-family:var(--mono);font-size:1rem">—</b>
+
+        <button class="btn" id="b-engine" style="padding:.35rem .6rem;font-size:.78rem">
+
+  Analizar
+</button>
+
+      </div>
+      <div id="eng-line" style="margin-top:.35rem;color:var(--muted);font-family:var(--mono);font-size:.8rem;line-height:1.8">Stockfish apagado.</div>
+    </div>
+
+    <div class="status" id="status"><span class="ico">♟</span><span id="statustext">Encuentra la mejor jugada.</span></div>
+
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10c.7.7 1 1.5 1 2h6c0-.5.3-1.3 1-2a6 6 0 0 0-4-10z"/></svg>Pista</button>
+      <button class="btn" id="b-flip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16M7 4l-3 4M7 4l3 4M17 20V4M17 20l3-4M17 20l-3-4"/></svg>Girar tablero</button>
+      <button class="btn" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/></svg>Compartir</button>
+    </div>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="b-sol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>Ver solución</button>
+      <button class="btn" id="b-sound"><svg id="ico-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><svg id="ico-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg><span id="txt-sound">Sonido</span></button>
+      <button class="btn" id="b-explain" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/><path d="M7 7h2M15 7h2M7 11h2M15 11h2"/></svg><span>Explicación</span></button>
+    </div>
+
+    <div class="moves" id="movelist"><span style="color:var(--muted2)">La línea principal aparecerá aquí conforme aciertes.</span></div>
+  </div>
+
+  <aside class="sidecol">
+
+   <div class="panel-card">
+      <h3>Navegación</h3>
+      <button class="btn" id="b-random" style="width:100%;justify-content:center;margin-bottom:.6rem">🎲 Ejercicio aleatorio</button>
+
+      <div class="jump">
+        <input id="jump" inputmode="numeric" placeholder="N.º (1–1000)…">
+        <button class="btn primary" id="b-go">Ir</button>
+      </div>
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-f="all">Todos<small id="c-all">1000</small></button>
+        <button class="fbtn" data-f="F">Fácil<small>339</small></button>
+        <button class="fbtn" data-f="I">Intermedio<small>400</small></button>
+        <button class="fbtn" data-f="A">Avanzado<small>261</small></button>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <h3>Progreso</h3>
+      <div class="prog">
+        <div class="cell"><div class="big" id="p-num">0</div><div class="lbl">resueltos</div></div>
+        <div class="cell"><div class="big" id="p-pct">0%</div><div class="lbl">del total</div></div>
+        <div class="cell"><div class="big" id="p-streak">0</div><div class="lbl">racha</div></div>
+      </div>
+      <div class="bar"><i id="p-bar"></i></div>
+
+  <div class="prog-actions">
+  <button class="btn" id="b-export">Exportar PGN</button>
+  <button class="btn" id="b-export-fen">Exportar FEN</button>
+  <button class="btn" id="b-import">Importar PGN/FEN</button>
+  <button class="btn" id="b-hist-open">Historial</button>
+</div>
+    </div>
+
+    <div class="panel-card">
+      <h3>La partida</h3>
+      <div class="ref">
+        <div class="vs" id="ref-vs">—</div>
+        <div class="ev" id="ref-ev"></div>
+        <div class="tags" id="ref-tags"></div>
+        <div class="note" id="ref-note" style="display:none"></div>
+        <details class="expl" id="expl"><summary>Explicación del libro 1.1.2</summary>
+          <div class="body" id="ref-full"></div>
+        </details>
+      </div>
+    </div>
+  </aside>
+ </div>
+</section>
+
+<section class="view" id="v-guide">
+ <div class="read
