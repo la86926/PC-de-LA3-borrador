@@ -27,21 +27,16 @@ jobs:
           code=$?
           echo "patch_exit_code=$code" >> backup-v3-run.log
           cat backup-v3-run.log
-          echo "$code" > /tmp/backup-v3-patch-exit
-          exit 0
+          exit "$code"
       - name: Install Chromium test tools
-        if: always()
         shell: bash
         run: |
-          if [ "$(cat /tmp/backup-v3-patch-exit)" != "0" ]; then exit 0; fi
           npm init -y >/dev/null 2>&1
           npm install --silent playwright@1.55.0
           npx playwright install --with-deps chromium
       - name: Reproduce reported backup scenario
-        if: always()
         shell: bash
         run: |
-          if [ "$(cat /tmp/backup-v3-patch-exit)" != "0" ]; then echo "browser skipped: patch failed" > backup-v3-browser.log; echo 1 > /tmp/backup-v3-browser-exit; exit 0; fi
           python3 -m http.server 8000 >/tmp/pc-http.log 2>&1 &
           server=$!
           sleep 2
@@ -51,8 +46,7 @@ jobs:
           echo "browser_exit_code=$code" >> backup-v3-browser.log
           kill "$server" 2>/dev/null || true
           cat backup-v3-browser.log
-          echo "$code" > /tmp/backup-v3-browser-exit
-          exit 0
+          exit "$code"
       - name: Commit verification outputs
         if: always()
         shell: bash
@@ -63,7 +57,6 @@ jobs:
             [ -e "$f" ] && git add "$f"
           done
           git diff --cached --quiet || git commit -m "Verify staged backup restore v3"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
-          p=$(cat /tmp/backup-v3-patch-exit)
-          b=$(cat /tmp/backup-v3-browser-exit 2>/dev/null || echo 1)
-          if [ "$p" != "0" ] || [ "$b" != "0" ]; then exit 1; fi
+          git pull --rebase origin ${{ github.event.pull_request.head.ref }} || true
+          git push origin HEAD:${{ github.event.pull_request.head.ref }} || true
+          exit 0
