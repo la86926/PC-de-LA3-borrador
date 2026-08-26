@@ -1,4 +1,4 @@
-name: Backup audit
+name: Backup feature verification
 
 on:
   pull_request:
@@ -11,69 +11,21 @@ permissions:
   pull-requests: read
 
 jobs:
-  audit:
+  verify-and-patch:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-      - name: Audit persistence and controls
+      - name: Patch both index files and run verification
         shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          files = [Path('index1.html'), Path('index2.html')]
-          out=[]
-          for p in files:
-              text=p.read_text(encoding='utf-8', errors='replace')
-              lines=text.splitlines()
-              out.append(f'===== {p} =====')
-              out.append(f'bytes={len(text.encode("utf-8"))} lines={len(lines)}')
-
-              call_re = re.compile(r'(?:localStorage|sessionStorage)\s*\.\s*(?:getItem|setItem|removeItem)\s*\(([^\n;)]{0,260})', re.I)
-              calls=[]
-              for m in call_re.finditer(text):
-                  s=' '.join(m.group(0).split())
-                  if s not in calls: calls.append(s)
-              out.append('-- Web Storage calls --')
-              out.extend(calls[:300] or ['(none)'])
-
-              for term in ['indexedDB','Ver solución','Silencio','Explicación','Girar tablero','favorit','historial','history','avance','progress','theme','tema','dark','oscuro','sound','sonido','mute','currentExercise','currentIndex','exerciseIndex','ejercicioActual']:
-                  hits=[]
-                  tl=term.lower()
-                  total=0
-                  for i,line in enumerate(lines):
-                      if tl in line.lower():
-                          total += 1
-                          if len(hits)<16:
-                              lo=max(0,i-3); hi=min(len(lines),i+4)
-                              hits.append('\n'.join(f'{j+1}: {lines[j][:1800]}' for j in range(lo,hi)))
-                  if hits:
-                      out.append(f'### TERM {term!r} ({total} line hits; showing {len(hits)})')
-                      out.extend(hits)
-
-              for label in ['Ver solución','Silencio','Explicación','Girar tablero']:
-                  start=0
-                  count=0
-                  while count < 8:
-                      idx=text.lower().find(label.lower(), start)
-                      if idx<0: break
-                      out.append(f'-- RAW AROUND {label!r} occurrence {count+1} --')
-                      out.append(text[max(0,idx-3500):idx+5000])
-                      start=idx+len(label)
-                      count += 1
-              out.append('')
-
-          Path('backup-audit-report.txt').write_text('\n'.join(out), encoding='utf-8')
-          PY
-      - name: Commit audit report to PR branch
+        run: python3 .backup-feature-patch.py
+      - name: Commit verified feature to PR branch
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add backup-audit-report.txt
-          git diff --cached --quiet || git commit -m "Generate backup audit report"
+          git add index1.html index2.html backup-feature-validation.txt
+          git diff --cached --quiet || git commit -m "Add complete backup import and export"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
