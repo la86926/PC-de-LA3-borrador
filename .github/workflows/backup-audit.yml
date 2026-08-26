@@ -22,8 +22,14 @@ jobs:
         shell: bash
         run: |
           set +e
-          python3 .backup-feature-patch.py > backup-feature-run.log 2>&1
-          code=$?
+          python3 .backup-feature-fix.py > backup-feature-run.log 2>&1
+          fixcode=$?
+          if [ "$fixcode" -eq 0 ]; then
+            python3 .backup-feature-patch.py >> backup-feature-run.log 2>&1
+            code=$?
+          else
+            code=$fixcode
+          fi
           echo "exit_code=$code" >> backup-feature-run.log
           if [ "$code" -ne 0 ]; then
             git checkout -- index1.html index2.html
