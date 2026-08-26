@@ -1,2 +1,2 @@
-index2.html: unexpected storage key namespace: ['wp2_daily_goal', 'wp2_error_book', 'wp2_explain_theme', 'wp2_hist_log', 'wp2_hist_log_backup', 'wp2_solved', 'wp2_solved_at', 'wp2_solved_at_backup', 'wp2_sound', 'wp2_ultimo']
+Expected exactly one patch target, got 0: sample='{\"storage\":{\"local\":{\"wp_ultimo\":\"17\",\"pc_modo\":\"oscuro\"},\"session\":
 exit_code=1
