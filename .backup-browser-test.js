@@ -12,19 +12,36 @@ const assert = require('assert');
     await page.goto(base + path, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !!window.PCBackupTools, null, { timeout: 15000 });
   }
+  async function exerciseNumber() {
+    return page.evaluate(() => Number((document.querySelector('.exno')?.textContent.match(/\d+/) || ['0'])[0]));
+  }
+  async function ensureSilent() {
+    const t = await page.locator('#txt-sound').textContent();
+    if (t !== 'Silencio') await page.locator('#b-sound').click();
+    assert.equal(await page.locator('#txt-sound').textContent(), 'Silencio');
+  }
 
-  await open('index1.html');
-
+  // Establish index2 through the app itself so its displayed exercise and saved state agree.
+  await open('index2.html');
+  await ensureSilent();
   await page.evaluate(() => {
-    localStorage.clear();
-    sessionStorage.clear();
-    localStorage.setItem('wp_ultimo', '7');
-    localStorage.setItem('wp2_ultimo', '9');
-    localStorage.setItem('wp_sound', '0');
-    localStorage.setItem('wp2_sound', '0');
+    localStorage.setItem('pc_modo', 'oscuro');
+    localStorage.setItem('pc_tablero_2', 'menta');
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => !!window.PCBackupTools, null, { timeout: 15000 });
+  const index2Exercise = await exerciseNumber();
+  assert(index2Exercise > 0, 'index2 has no visible exercise');
+  assert.equal(await page.locator('#txt-sound').textContent(), 'Silencio');
+  assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-modo')), 'oscuro');
+  assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-tablero')), 'menta');
+
+  // Establish index1 and shared customization state.
+  await open('index1.html');
+  await ensureSilent();
+  await page.evaluate(() => {
     localStorage.setItem('pc_modo', 'oscuro');
     localStorage.setItem('pc_tablero_1', 'lavanda');
-    localStorage.setItem('pc_tablero_2', 'menta');
     localStorage.setItem('pc_favs', JSON.stringify(['lavanda', 'menta']));
     localStorage.setItem('wp_probe', 'alpha');
     localStorage.setItem('wp2_probe', 'beta');
@@ -36,25 +53,16 @@ const assert = require('assert');
     document.cookie = 'wp2_cookie_probe=B; path=/';
     document.cookie = 'pc_cookie_probe=C; path=/';
   });
-
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!window.PCBackupTools, null, { timeout: 15000 });
-
-  const initial = await page.evaluate(() => ({
-    exercise: Number((document.querySelector('.exno')?.textContent.match(/\d+/) || ['0'])[0]),
-    sound: document.getElementById('txt-sound')?.textContent,
-    mode: document.documentElement.getAttribute('data-modo'),
-    board: document.documentElement.getAttribute('data-tablero')
-  }));
-  assert.equal(initial.exercise, 7, 'index1 did not resume wp_ultimo=7');
-  assert.equal(initial.sound, 'Silencio', 'index1 did not restore silence');
-  assert.equal(initial.mode, 'oscuro', 'dark mode not applied');
-  assert.equal(initial.board, 'lavanda', 'index1 board theme not applied');
+  const index1Exercise = await exerciseNumber();
+  assert(index1Exercise > 0, 'index1 has no visible exercise');
+  assert.equal(await page.locator('#txt-sound').textContent(), 'Silencio');
+  assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-modo')), 'oscuro');
+  assert.equal(await page.evaluate(() => document.documentElement.getAttribute('data-tablero')), 'lavanda');
 
   const backup = await page.evaluate(() => window.PCBackupTools.buildBackup());
   assert.equal(backup.magic, 'PC-de-LuisA3-backup');
-  assert.equal(backup.payload.storage.local.wp_ultimo, '7');
-  assert.equal(backup.payload.storage.local.wp2_ultimo, '9');
   assert.equal(backup.payload.storage.local.pc_modo, 'oscuro');
   assert.equal(backup.payload.storage.local.pc_favs, '["lavanda","menta"]');
   assert.equal(backup.payload.storage.local.wp_probe, 'alpha');
@@ -66,7 +74,12 @@ const assert = require('assert');
   assert.equal(backup.payload.cookies.wp_cookie_probe, 'A');
   assert.equal(backup.payload.cookies.wp2_cookie_probe, 'B');
   assert.equal(backup.payload.cookies.pc_cookie_probe, 'C');
-  assert.equal(backup.payload.currentPageState.lastExercise, 7);
+  assert.equal(backup.payload.currentPageState.lastExercise, index1Exercise);
+
+  const index1Snap = JSON.parse(backup.payload.storage.local['pc_backup_page_state_v2:index1.html']);
+  const index2Snap = JSON.parse(backup.payload.storage.local['pc_backup_page_state_v2:index2.html']);
+  assert.equal(index1Snap.lastExercise, index1Exercise, 'index1 snapshot mismatch');
+  assert.equal(index2Snap.lastExercise, index2Exercise, 'index2 snapshot mismatch');
 
   const namespaceChecks = await page.evaluate(() => ({
     wp: window.PCBackupTools.isAppKey('wp_hist_log'),
@@ -86,9 +99,10 @@ const assert = require('assert');
 
   fs.writeFileSync('/tmp/pc-backup.json', JSON.stringify(backup));
 
+  // Deliberately damage/replace the same kinds of state before importing.
   await page.evaluate(() => {
-    localStorage.setItem('wp_ultimo', '1');
-    localStorage.setItem('wp2_ultimo', '1');
+    localStorage.setItem('wp_ultimo', '999999');
+    localStorage.setItem('wp2_ultimo', '999999');
     localStorage.setItem('wp_sound', '1');
     localStorage.setItem('wp2_sound', '1');
     localStorage.setItem('pc_modo', 'claro');
@@ -98,6 +112,8 @@ const assert = require('assert');
     localStorage.setItem('wp_probe', 'x');
     localStorage.setItem('wp2_probe', 'y');
     localStorage.setItem('pc_probe', 'z');
+    localStorage.setItem('pc_backup_page_state_v2:index1.html', JSON.stringify({file:'index1.html',lastExercise:999999,runtime:{}}));
+    localStorage.setItem('pc_backup_page_state_v2:index2.html', JSON.stringify({file:'index2.html',lastExercise:999999,runtime:{}}));
     sessionStorage.setItem('wp_session_probe', 'x');
     sessionStorage.setItem('wp2_session_probe', 'y');
     sessionStorage.setItem('pc_session_probe', 'z');
@@ -113,8 +129,6 @@ const assert = require('assert');
   await page.waitForFunction(() => !!window.PCBackupTools, null, { timeout: 15000 });
 
   const restored = await page.evaluate(() => ({
-    wpUltimo: localStorage.getItem('wp_ultimo'),
-    wp2Ultimo: localStorage.getItem('wp2_ultimo'),
     wpSound: localStorage.getItem('wp_sound'),
     wp2Sound: localStorage.getItem('wp2_sound'),
     modeStored: localStorage.getItem('pc_modo'),
@@ -134,8 +148,6 @@ const assert = require('assert');
     board: document.documentElement.getAttribute('data-tablero')
   }));
 
-  assert.equal(restored.wpUltimo, '7');
-  assert.equal(restored.wp2Ultimo, '9');
   assert.equal(restored.wpSound, '0');
   assert.equal(restored.wp2Sound, '0');
   assert.equal(restored.modeStored, 'oscuro');
@@ -151,7 +163,7 @@ const assert = require('assert');
   assert(restored.cookies.includes('wp_cookie_probe=A'));
   assert(restored.cookies.includes('wp2_cookie_probe=B'));
   assert(restored.cookies.includes('pc_cookie_probe=C'));
-  assert.equal(restored.exercise, 7);
+  assert.equal(restored.exercise, index1Exercise, 'index1 exact exercise not restored');
   assert.equal(restored.sound, 'Silencio');
   assert.equal(restored.mode, 'oscuro');
   assert.equal(restored.board, 'lavanda');
@@ -161,18 +173,16 @@ const assert = require('assert');
     exercise: Number((document.querySelector('.exno')?.textContent.match(/\d+/) || ['0'])[0]),
     sound: document.getElementById('txt-sound')?.textContent,
     mode: document.documentElement.getAttribute('data-modo'),
-    board: document.documentElement.getAttribute('data-tablero'),
-    wp2: localStorage.getItem('wp2_ultimo')
+    board: document.documentElement.getAttribute('data-tablero')
   }));
-  assert.equal(second.exercise, 9, 'index2 did not resume wp2_ultimo=9 after import');
-  assert.equal(second.wp2, '9');
+  assert.equal(second.exercise, index2Exercise, 'index2 exact exercise not restored');
   assert.equal(second.sound, 'Silencio');
   assert.equal(second.mode, 'oscuro');
   assert.equal(second.board, 'menta');
 
   await browser.close();
-  console.log('BROWSER_BACKUP_INTEGRATION: OK');
-})().catch(async (err) => {
+  console.log(`BROWSER_BACKUP_INTEGRATION: OK index1=${index1Exercise} index2=${index2Exercise}`);
+})().catch((err) => {
   console.error(err && err.stack ? err.stack : err);
   process.exit(1);
 });
