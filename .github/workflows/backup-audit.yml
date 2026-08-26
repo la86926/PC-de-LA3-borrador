@@ -1,4 +1,4 @@
-name: Backup feature verification
+name: Backup browser integration
 
 on:
   pull_request:
@@ -11,40 +11,34 @@ permissions:
   pull-requests: read
 
 jobs:
-  verify-and-patch:
+  browser-test:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-      - name: Patch both index files and capture verification
+      - name: Install browser test tools
         shell: bash
         run: |
+          npm init -y >/dev/null 2>&1
+          npm install --silent playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Run cross-index backup integration test
+        shell: bash
+        run: |
+          python3 -m http.server 8000 >/tmp/pc-http.log 2>&1 &
+          server=$!
+          sleep 2
           set +e
-          python3 .backup-feature-fix.py > backup-feature-run.log 2>&1
-          fixcode=$?
-          if [ "$fixcode" -eq 0 ]; then
-            python3 .backup-feature-patch.py >> backup-feature-run.log 2>&1
-            code=$?
-          else
-            code=$fixcode
-          fi
-          echo "exit_code=$code" >> backup-feature-run.log
-          if [ "$code" -ne 0 ]; then
-            git checkout -- index1.html index2.html
-            rm -f backup-feature-validation.txt
-          fi
-          cat backup-feature-run.log
-          exit 0
-      - name: Commit patch or diagnostic to PR branch
-        shell: bash
-        run: |
+          node .backup-browser-test.js > backup-browser-test.log 2>&1
+          code=$?
+          echo "exit_code=$code" >> backup-browser-test.log
+          kill "$server" 2>/dev/null || true
+          cat backup-browser-test.log
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add backup-feature-run.log
-          if [ -f backup-feature-validation.txt ]; then
-            git add index1.html index2.html backup-feature-validation.txt
-          fi
-          git diff --cached --quiet || git commit -m "Verify backup import and export"
+          git add backup-browser-test.log
+          git diff --cached --quiet || git commit -m "Record browser backup integration test"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          exit "$code"
