@@ -28,6 +28,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index1.html index2.html backup-v3-report.txt backup-v3-validation.txt backup-v3-run.log 2>/dev/null || true
+          for f in index1.html index2.html backup-v3-report.txt backup-v3-validation.txt backup-v3-run.log; do
+            [ -e "$f" ] && git add "$f"
+          done
           git diff --cached --quiet || git commit -m "Run backup v3 verification"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
