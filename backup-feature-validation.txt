@@ -1,4 +1,3 @@
-index2 namespace fix applied
 index1.html: OK
   export_button_once: OK
   import_button_once: OK
@@ -32,4 +31,3 @@ index2.html: OK
   page_specific_resume: OK
   literal_storage_keys_checked: 11
 checksum_mutation_test: OK
-exit_code=0
