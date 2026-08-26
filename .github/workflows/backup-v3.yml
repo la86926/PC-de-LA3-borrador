@@ -21,8 +21,14 @@ jobs:
       - name: Run backup v3 audit or patch
         shell: bash
         run: |
-          python3 .backup-v3-run.py > backup-v3-run.log 2>&1
+          set +e
+          if [ -f .backup-v3-hotfix.py ]; then python3 .backup-v3-hotfix.py > backup-v3-run.log 2>&1; fi
+          python3 .backup-v3-run.py >> backup-v3-run.log 2>&1
+          code=$?
+          echo "exit_code=$code" >> backup-v3-run.log
           cat backup-v3-run.log
+          echo "$code" > /tmp/backup-v3-exit
+          exit 0
       - name: Commit generated files
         shell: bash
         run: |
@@ -33,3 +39,4 @@ jobs:
           done
           git diff --cached --quiet || git commit -m "Run backup v3 verification"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          exit "$(cat /tmp/backup-v3-exit)"
