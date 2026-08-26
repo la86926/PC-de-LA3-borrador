@@ -36,6 +36,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index1.html index2.html backup-feature-validation.txt backup-feature-run.log 2>/dev/null || true
+          git add backup-feature-run.log
+          if [ -f backup-feature-validation.txt ]; then
+            git add index1.html index2.html backup-feature-validation.txt
+          fi
           git diff --cached --quiet || git commit -m "Verify backup import and export"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
